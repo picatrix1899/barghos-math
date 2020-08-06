@@ -1,0 +1,9 @@
+org.barghos.math
+org.barghos.math.api
+org.barghos.math.api.point
+org.barghos.math.api.vector
+org.barghos.math.matrix
+org.barghos.math.point
+org.barghos.math.pool
+org.barghos.math.vector
+org.barghos.math.vector.utils

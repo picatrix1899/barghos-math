@@ -1,0 +1,20 @@
+https://forums.adobe.com/thread/991495
+
+	public static double getCos(Vec3f a, Vec3f b)
+	{
+		double combinedLength = a.length() * b.length();
+		Vec3f cross = Vec3f.cross(a, b, null);
+
+		double sin = cross.length() / combinedLength;
+		double cos = a.dot(b) / combinedLength;
+		
+		Vec3f n = cross.normal(null);
+		
+		double sign = n.dot(cross);
+	
+		double out = Math.atan2(sin, cos);
+		
+		if(sign < 0) out = -out;
+		
+		return out;
+	}
