@@ -34,9 +34,9 @@
   		<scope>test</scope>
   	</dependency>
   	<dependency>
-  		<groupId>barghos</groupId>
+  		<groupId>org.barghos</groupId>
   		<artifactId>barghos-core</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>1.0.0</version>
   	</dependency>
   </dependencies>
   <properties>
