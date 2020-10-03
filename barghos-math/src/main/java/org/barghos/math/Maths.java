@@ -27,76 +27,13 @@ package org.barghos.math;
 /**
  * This class contains mathematical methods and precalculated constants.
  */
-public class Maths
+public class Maths implements MathConstants
 {
 	/**
 	 * Contains the implementations for unsafe math operations like sqrt, sin, cos etc.
 	 */
 	public static UnsafeMath UNSAFE_MATH_IMPLEMENTATION = JavaUnsafeMath.getInstance();
-	
-	/**
-	 * The number PI with 11 digits after point.
-	 */
-	public static final double PI = 3.14159265359;
-	
-	/**
-	 * The inverse of PI (1 / PI).
-	 */
-	public static final double INV_PI = 0.31830988618;
-	
-	/** 
-	 * This is the precalculated Half-PI (PI / 2). It's used in some trigonomic calculations.
-	 */
-	public static final double HALF_PI = 1.570796326795;
-	
-	/**
-	 * This value is a precalculated scalar for conversation from degrees to radians.
-	 * Just multiply it with an angle messured in degree and you get the angle in radians.
-	 */
-	public static final double DEG_TO_RAD = 0.017453292519944444;
-	/**
-	 * This value is a precalculated scalar for conversation from radians to degrees.
-	 * Just multiply it with an angle messured in radians and you get the angle in degrees.
-	 */
-	public static final double RAD_TO_DEG = 57.29577951307855;
-	
-	/**
-	 * This is a precalculated inversed square-root of the number 2 (1 / sqrt(2)).
-	 * It's commonly used for precalculated diagonal normal vectors i.e. vec3(1,1,0).
-	 */
-	public static final double INV_SQRT2 = 0.7071067811865475;
-	
-	/**
-	 * This is a precalculated inversed square-root of the number 2 (1 / sqrt(2)).
-	 * It's commonly used for precalculated diagonal normal vectors i.e. vec3(1,1,0).
-	 */
-	public static final float INV_SQRT2f = 0.7071067811865475f;
 
-	/**
-	 * This is a precalculated inversed square-root of the number 3 (1 / sqrt(3)).
-	 * It's commonly used for precalculated diagonal normal vectors i.e. vec3(1,1,1).
-	 */
-	public static final double INV_SQRT3 = 0.5773502691896258;
-	
-	/**
-	 * This is a precalculated inversed square-root of the number 3 (1 / sqrt(3)).
-	 * It's commonly used for precalculated diagonal normal vectors i.e. vec3(1,1,1).
-	 */
-	public static final float INV_SQRT3f = 0.5773502691896258f;
-	
-	public static final double SQRT2 = 1.4142135623730951;
-	
-	public static final double SQRT3 = 1.7320508075688772;
-	
-	/** A very small number used for determining if a floating point number is technically zero. */
-	public static final double SMALL_NUMBER = 1.e-8;
-
-	/**
-	 * A very small number used for determining if two floating point numbers
-	 * are close enough together to count as equal.
-	 */
-	public static final double KINDA_SMALL_NUMBER = 1.e-4;
-	
 	/**
 	 * Checks if the value is zero with given tolerance.
 	 * @param value the value to check for 0.
@@ -115,7 +52,7 @@ public class Maths
 	 */
 	public static boolean isZero(double value)
 	{
-		return isZero(value, Maths.SMALL_NUMBER);
+		return isZero(value, Maths.SMALL_NUMBER_E8);
 	}
 	
 	public static boolean isExactNaN(double value)
@@ -317,5 +254,20 @@ public class Maths
 	public static double sqrt(double a)
 	{
 		return Maths.UNSAFE_MATH_IMPLEMENTATION.sqrt(a);
+	}
+	
+	public static float sin(float a)
+	{
+		return (float)Maths.UNSAFE_MATH_IMPLEMENTATION.sin(a);
+	}
+	
+	public static float cos(float a)
+	{
+		return (float)Maths.UNSAFE_MATH_IMPLEMENTATION.cos(a);
+	}
+	
+	public static float sqrt(float a)
+	{
+		return (float)Maths.UNSAFE_MATH_IMPLEMENTATION.sqrt(a);
 	}
 }
