@@ -32,10 +32,10 @@ import org.barghos.math.BarghosMath;
 import org.barghos.math.Maths;
 
 /**
- * @author picatrix1899
- *
  * Represents a 2-dimensional mathematical float vector in euclidean space.
  * This is a full featured version with common operations.
+ * 
+ *  @author picatrix1899
  */
 public class Vec2f implements Vec2fR, Tup2fW
 {
