@@ -31,7 +31,7 @@ import org.barghos.core.tuple2.api.Tup2fR;
  * 
  * This interface grants readonly access to a 2-dimensional mathematical vector.
  */
-public interface Vec2R extends Tup2fR
+public interface Vec2fR extends Tup2fR
 {
 	float getX();
 	float getY();

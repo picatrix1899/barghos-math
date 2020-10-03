@@ -26,7 +26,7 @@ package org.barghos.math.vector.vec2;
 
 import org.barghos.math.Maths;
 
-public enum Vec2Axis implements Vec2R
+public enum Vec2fAxis implements Vec2fR
 {
 	/** The Zero Vector as constant. */
 	ZERO {
