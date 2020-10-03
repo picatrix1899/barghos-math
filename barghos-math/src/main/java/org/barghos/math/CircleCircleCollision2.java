@@ -27,8 +27,8 @@ package org.barghos.math;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.barghos.math.geometry.Circle2;
-import org.barghos.math.vector.vec2.Vec2;
+import org.barghos.math.geometry.Circle2f;
+import org.barghos.math.vector.vec2.Vec2f;
 
 /**
  * @author picatrix1899
@@ -37,9 +37,9 @@ import org.barghos.math.vector.vec2.Vec2;
 public class CircleCircleCollision2
 {
 	
-	public List<Vec2> getContactPoints(Circle2 c1, Circle2 c2)
+	public List<Vec2f> getContactPoints(Circle2f c1, Circle2f c2)
 	{
-		List<Vec2> out = new ArrayList<>();
+		List<Vec2f> out = new ArrayList<>();
 		
 		float r0 = 5.0f;
 		float a0 = 0.0f;
