@@ -388,6 +388,16 @@ public class Vec2f implements Vec2fR, Tup2fW
 		
 		public boolean isFinite() { return Float.isFinite(this.x) && Float.isFinite(this.y); }
 		
+		@Override
+		public int hashCode()
+		{
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + Float.floatToIntBits(getX());
+			result = prime * result + Float.floatToIntBits(getY());
+			return result;
+		}
+		
 		public String toString()
 		{
 			return "vec2(" + this.x + ", " + this.y + ")";
