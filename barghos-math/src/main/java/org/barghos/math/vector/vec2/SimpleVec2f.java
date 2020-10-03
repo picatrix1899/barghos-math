@@ -36,90 +36,90 @@ import org.barghos.math.vector.vec2.api.Vec2fR;
  */
 public class SimpleVec2f implements Vec2fR, Tup2fW
 {
-		protected float x;
-		protected float y;
-		
-		public SimpleVec2f() { set(0.0f, 0.0f); }
-		
-		public SimpleVec2f(Tup2fR t)
+	protected float x;
+	protected float y;
+	
+	public SimpleVec2f() { set(0.0f, 0.0f); }
+	
+	public SimpleVec2f(Tup2fR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
-			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-			{
-				if(t == null) throw new ArgumentNullException("t");
-			}
-			
-			set(t.getX(), t.getY());
+			if(t == null) throw new ArgumentNullException("t");
 		}
+		
+		set(t.getX(), t.getY());
+	}
 
-		public SimpleVec2f(float x, float y) { set(x, y); }
-		
-		@Override
-		public float getX() { return this.x; }
-		
-		@Override
-		public float getY() { return this.y; }
-		
-		@Override
-		public SimpleVec2f setX(float x) { this.x = x; return this; }
-		
-		@Override
-		public SimpleVec2f setY(float y) { this.y = y; return this; }
-		
-		@Override
-		public SimpleVec2f set(Tup2fR t)
+	public SimpleVec2f(float x, float y) { set(x, y); }
+	
+	@Override
+	public float getX() { return this.x; }
+	
+	@Override
+	public float getY() { return this.y; }
+	
+	@Override
+	public SimpleVec2f setX(float x) { this.x = x; return this; }
+	
+	@Override
+	public SimpleVec2f setY(float y) { this.y = y; return this; }
+	
+	@Override
+	public SimpleVec2f set(Tup2fR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
-			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-			{
-				if(t == null) throw new ArgumentNullException("t");
-			}
-			
-			return set(t.getX(), t.getY());
+			if(t == null) throw new ArgumentNullException("t");
 		}
 		
-		@Override
-		public SimpleVec2f set(float value) { return setX(value).setY(value); }
-		
-		@Override
-		public SimpleVec2f set(float x, float y) { return setX(x).setY(y); }
-		
-		public boolean isZero() { return this.x == 0.0f && this.y == 0.0f; }
-		public boolean isZero(float tolerance) { return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance); }
-		
-		public boolean isFinite() { return Float.isFinite(this.x) && Float.isFinite(this.y); }
-		
-		@Override
-		public int hashCode()
-		{
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + Float.floatToIntBits(getX());
-			result = prime * result + Float.floatToIntBits(getY());
-			return result;
-		}
+		return set(t.getX(), t.getY());
+	}
+	
+	@Override
+	public SimpleVec2f set(float value) { return setX(value).setY(value); }
+	
+	@Override
+	public SimpleVec2f set(float x, float y) { return setX(x).setY(y); }
+	
+	public boolean isZero() { return this.x == 0.0f && this.y == 0.0f; }
+	public boolean isZero(float tolerance) { return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance); }
+	
+	public boolean isFinite() { return Float.isFinite(this.x) && Float.isFinite(this.y); }
+	
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Float.floatToIntBits(getX());
+		result = prime * result + Float.floatToIntBits(getY());
+		return result;
+	}
 
-		@Override
-		public boolean equals(Object obj)
-		{
-			if(this == obj) return true;
-			if(obj == null) return false;
-			if(!(obj instanceof Tup2fR)) return false;
-			
-			Tup2fR other = (Tup2fR) obj;
-			if(Float.floatToIntBits(getX()) != Float.floatToIntBits(other.getX())) return false;
-			if(Float.floatToIntBits(getY()) != Float.floatToIntBits(other.getY())) return false;
-			
-			return true;
-		}
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(this == obj) return true;
+		if(obj == null) return false;
+		if(!(obj instanceof Tup2fR)) return false;
 		
-		@Override
-		public String toString()
-		{
-			return "simpleVec2f(x=" + this.x + ", y=" + this.y + ")";
-		}
+		Tup2fR other = (Tup2fR) obj;
+		if(Float.floatToIntBits(getX()) != Float.floatToIntBits(other.getX())) return false;
+		if(Float.floatToIntBits(getY()) != Float.floatToIntBits(other.getY())) return false;
 		
-		@Override
-		public SimpleVec2f clone()
-		{
-			return new SimpleVec2f(this);
-		}
+		return true;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "simpleVec2f(x=" + this.x + ", y=" + this.y + ")";
+	}
+	
+	@Override
+	public SimpleVec2f clone()
+	{
+		return new SimpleVec2f(this);
+	}
 }

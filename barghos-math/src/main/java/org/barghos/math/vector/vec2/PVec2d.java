@@ -25,13 +25,13 @@ SOFTWARE.
 package org.barghos.math.vector.vec2;
 
 import org.barghos.core.exception.ArgumentNullException;
-import org.barghos.core.tuple2.api.Tup2fR;
+import org.barghos.core.tuple2.api.Tup2dR;
 import org.barghos.math.BarghosMath;
-import org.barghos.math.vector.vec2.api.Vec2fR;
+import org.barghos.math.vector.vec2.api.Vec2dR;
 
 /**
- * Represents a persistent 2-dimensional mathematical float vector.
- * This is a readonly version of a 2-dimensional mathematical float vector with extended protection against modification.
+ * Represents a persistent 2-dimensional mathematical double vector.
+ * This is a readonly version of a 2-dimensional mathematical double vector with extended protection against modification.
  * It can be used as a more flexible way to create constants.
  * 
  * <p>
@@ -44,19 +44,19 @@ import org.barghos.math.vector.vec2.api.Vec2fR;
  * 
  * @since 1.0
  */
-public abstract class PVec2f implements Vec2fR
+public abstract class PVec2d implements Vec2dR
 {
 	
 	/**
-	 * Generates a new readonly {@link PVec2f} from an existing instance of {@link Tup2fR} and adopts the values.
+	 * Generates a new readonly {@link PVec2d} from an existing instance of {@link Tup2dR} and adopts the values.
 	 * 
-	 * @param t An existing implementation of {@link Tup2fR} to adopt the values from.
+	 * @param t An existing implementation of {@link Tup2dR} to adopt the values from.
 	 * 
-	 * @return A new readonly {@link PVec2f}.
+	 * @return A new readonly {@link PVec2d}.
 	 * 
 	 * @since 1.0
 	 */
-	public static PVec2f gen(Tup2fR t)
+	public static PVec2d gen(Tup2dR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -67,21 +67,21 @@ public abstract class PVec2f implements Vec2fR
 	}
 	
 	/**
-	 * Generates a new readonly {@link PVec2f} with the values set to the corresponding parameters.
+	 * Generates a new readonly {@link PVec2d} with the values set to the corresponding parameters.
 	 * 
 	 * @param x The x value.
 	 * @param y The y value.
 	 * 
-	 * @return A new readonly {@link PVec2f}.
+	 * @return A new readonly {@link PVec2d}.
 	 * 
 	 * @since 1.0
 	 */
-	public static PVec2f gen(float x, float y)
+	public static PVec2d gen(double x, double y)
 	{
-		return new PVec2f()
+		return new PVec2d()
 		{
-			public float getX() { return x; }
-			public float getY() { return y; }
+			public double getX() { return x; }
+			public double getY() { return y; }
 		};
 	}
 	
@@ -90,8 +90,10 @@ public abstract class PVec2f implements Vec2fR
 	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + Float.floatToIntBits(getX());
-		result = prime * result + Float.floatToIntBits(getY());
+		long temp = Double.doubleToLongBits(getX());
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(getY());
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -100,17 +102,18 @@ public abstract class PVec2f implements Vec2fR
 	{
 		if(this == obj) return true;
 		if(obj == null) return false;
-		if(!(obj instanceof Tup2fR)) return false;
+		if(!(obj instanceof Tup2dR)) return false;
 		
-		Tup2fR other = (Tup2fR) obj;
-		if(Float.floatToIntBits(getX()) != Float.floatToIntBits(other.getX())) return false;
-		if(Float.floatToIntBits(getY()) != Float.floatToIntBits(other.getY())) return false;
+		Tup2dR other = (Tup2dR) obj;
+		if(Double.doubleToLongBits(getX()) != Double.doubleToLongBits(other.getX())) return false;
+		if(Double.doubleToLongBits(getY()) != Double.doubleToLongBits(other.getY())) return false;
+		
 		return true;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return "pvec2f(x=" + getX() + ", y=" + getY() + ")";
+		return "pvec2d(x=" + getX() + ", y=" + getY() + ")";
 	}
 }

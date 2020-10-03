@@ -25,64 +25,66 @@ SOFTWARE.
 package org.barghos.math.vector.vec2;
 
 import org.barghos.core.exception.ArgumentNullException;
+import org.barghos.core.tuple2.api.Tup2dR;
 import org.barghos.core.tuple2.api.Tup2iR;
-import org.barghos.core.tuple2.api.Tup2iW;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.vector.vec2.api.Vec2iR;
 
 /**
+ * Represents a persistent 2-dimensional mathematical int vector.
+ * This is a readonly version of a 2-dimensional mathematical int vector with extended protection against modification.
+ * It can be used as a more flexible way to create constants.
+ * 
+ * <p>
+ * This class should not be inherited, not direct by extending nor anonymous,
+ * as this would render the protection mechanism used as useless.
+ * To get an instance you call one of the static generator methods.
+ * </p>
+ * 
  * @author picatrix1899
- *
+ * 
+ * @since 1.0
  */
-public class SimpleVec2i implements Vec2iR, Tup2iW
+public abstract class PVec2i implements Vec2iR
 {
-	protected int x;
-	protected int y;
 	
-	public SimpleVec2i() { set(0, 0); }
-	
-	public SimpleVec2i(Tup2iR t)
+	/**
+	 * Generates a new readonly {@link PVec2i} from an existing instance of {@link Tup2iR} and adopts the values.
+	 * 
+	 * @param t An existing implementation of {@link Tup2iR} to adopt the values from.
+	 * 
+	 * @return A new readonly {@link PVec2i}.
+	 * 
+	 * @since 1.0
+	 */
+	public static PVec2i gen(Tup2iR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(t == null) throw new ArgumentNullException("t");
 		}
 		
-		set(t.getX(), t.getY());
+		return gen(t.getX(), t.getY());
 	}
-
-	public SimpleVec2i(int x, int y) { set(x, y); }
 	
-	@Override
-	public int getX() { return this.x; }
-	
-	@Override
-	public int getY() { return this.y; }
-	
-	@Override
-	public SimpleVec2i setX(int x) { this.x = x; return this; }
-	
-	@Override
-	public SimpleVec2i setY(int y) { this.y = y; return this; }
-	
-	@Override
-	public SimpleVec2i set(Tup2iR t)
+	/**
+	 * Generates a new readonly {@link PVec2i} with the values set to the corresponding parameters.
+	 * 
+	 * @param x The x value.
+	 * @param y The y value.
+	 * 
+	 * @return A new readonly {@link PVec2i}.
+	 * 
+	 * @since 1.0
+	 */
+	public static PVec2i gen(int x, int y)
 	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		return new PVec2i()
 		{
-			if(t == null) throw new ArgumentNullException("t");
-		}
-		
-		return set(t.getX(), t.getY());
+			public int getX() { return x; }
+			public int getY() { return y; }
+		};
 	}
-	
-	@Override
-	public SimpleVec2i set(int value) { return setX(value).setY(value); }
-	
-	@Override
-	public SimpleVec2i set(int x, int y) { return setX(x).setY(y); }
-	
-	public boolean isZero() { return this.x == 0.0f && this.y == 0.0f; }
 	
 	@Override
 	public int hashCode()
@@ -99,9 +101,9 @@ public class SimpleVec2i implements Vec2iR, Tup2iW
 	{
 		if(this == obj) return true;
 		if(obj == null) return false;
-		if(!(obj instanceof Tup2iR)) return false;
+		if(!(obj instanceof Tup2dR)) return false;
 		
-		Tup2iR other = (Tup2iR) obj;
+		Tup2dR other = (Tup2dR) obj;
 		if(getX() != other.getX()) return false;
 		if(getY() != other.getY()) return false;
 		
@@ -111,12 +113,6 @@ public class SimpleVec2i implements Vec2iR, Tup2iW
 	@Override
 	public String toString()
 	{
-		return "simpleVec2i(x=" + this.x + ", y=" + this.y + ")";
-	}
-	
-	@Override
-	public SimpleVec2i clone()
-	{
-		return new SimpleVec2i(this);
+		return "pvec2i(x=" + getX() + ", y=" + getY() + ")";
 	}
 }

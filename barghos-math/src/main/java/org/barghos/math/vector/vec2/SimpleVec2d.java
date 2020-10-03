@@ -36,58 +36,58 @@ import org.barghos.math.vector.vec2.api.Vec2dR;
  */
 public class SimpleVec2d implements Vec2dR, Tup2dW
 {
-		protected double x;
-		protected double y;
-		
-		public SimpleVec2d() { set(0.0, 0.0); }
-		
-		public SimpleVec2d(Tup2dR t)
+	protected double x;
+	protected double y;
+	
+	public SimpleVec2d() { set(0.0, 0.0); }
+	
+	public SimpleVec2d(Tup2dR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
-			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-			{
-				if(t == null) throw new ArgumentNullException("t");
-			}
-			
-			set(t.getX(), t.getY());
+			if(t == null) throw new ArgumentNullException("t");
 		}
+		
+		set(t.getX(), t.getY());
+	}
 
-		public SimpleVec2d(double x, double y) { set(x, y); }
-		
-		@Override
-		public double getX() { return this.x; }
-		
-		@Override
-		public double getY() { return this.y; }
-		
-		@Override
-		public SimpleVec2d setX(double x) { this.x = x; return this; }
-		
-		@Override
-		public SimpleVec2d setY(double y) { this.y = y; return this; }
-		
-		@Override
-		public SimpleVec2d set(Tup2dR t)
+	public SimpleVec2d(double x, double y) { set(x, y); }
+	
+	@Override
+	public double getX() { return this.x; }
+	
+	@Override
+	public double getY() { return this.y; }
+	
+	@Override
+	public SimpleVec2d setX(double x) { this.x = x; return this; }
+	
+	@Override
+	public SimpleVec2d setY(double y) { this.y = y; return this; }
+	
+	@Override
+	public SimpleVec2d set(Tup2dR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
-			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-			{
-				if(t == null) throw new ArgumentNullException("t");
-			}
-			
-			return set(t.getX(), t.getY());
+			if(t == null) throw new ArgumentNullException("t");
 		}
 		
-		@Override
-		public SimpleVec2d set(double value) { return setX(value).setY(value); }
+		return set(t.getX(), t.getY());
+	}
+	
+	@Override
+	public SimpleVec2d set(double value) { return setX(value).setY(value); }
+	
+	@Override
+	public SimpleVec2d set(double x, double y) { return setX(x).setY(y); }
+	
+	public boolean isZero() { return this.x == 0.0 && this.y == 0.0; }
+	public boolean isZero(double tolerance) { return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance); }
+	
+	public boolean isFinite() { return Double.isFinite(this.x) && Double.isFinite(this.y); }
 		
-		@Override
-		public SimpleVec2d set(double x, double y) { return setX(x).setY(y); }
-		
-		public boolean isZero() { return this.x == 0.0 && this.y == 0.0; }
-		public boolean isZero(double tolerance) { return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance); }
-		
-		public boolean isFinite() { return Double.isFinite(this.x) && Double.isFinite(this.y); }
-		
-		@Override
+	@Override
 	public int hashCode()
 	{
 		final int prime = 31;
@@ -99,29 +99,29 @@ public class SimpleVec2d implements Vec2dR, Tup2dW
 		return result;
 	}
 
-		@Override
-		public boolean equals(Object obj)
-		{
-			if(this == obj) return true;
-			if(obj == null) return false;
-			if(!(obj instanceof Tup2dR)) return false;
-			
-			Tup2dR other = (Tup2dR) obj;
-			if(Double.doubleToLongBits(getX()) != Double.doubleToLongBits(other.getX())) return false;
-			if(Double.doubleToLongBits(getY()) != Double.doubleToLongBits(other.getY())) return false;
-			
-			return true;
-		}
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(this == obj) return true;
+		if(obj == null) return false;
+		if(!(obj instanceof Tup2dR)) return false;
 		
-		@Override
-		public String toString()
-		{
-			return "simpleVec2d(x=" + this.x + ", y=" + this.y + ")";
-		}
+		Tup2dR other = (Tup2dR) obj;
+		if(Double.doubleToLongBits(getX()) != Double.doubleToLongBits(other.getX())) return false;
+		if(Double.doubleToLongBits(getY()) != Double.doubleToLongBits(other.getY())) return false;
 		
-		@Override
-		public SimpleVec2d clone()
-		{
-			return new SimpleVec2d(this);
-		}
+		return true;
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "simpleVec2d(x=" + this.x + ", y=" + this.y + ")";
+	}
+	
+	@Override
+	public SimpleVec2d clone()
+	{
+		return new SimpleVec2d(this);
+	}
 }
