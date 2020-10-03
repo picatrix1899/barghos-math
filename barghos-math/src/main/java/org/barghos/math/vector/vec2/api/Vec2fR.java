@@ -22,17 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.vec2;
+package org.barghos.math.vector.vec2.api;
 
-import org.barghos.core.tuple2.api.Tup2dR;
+import org.barghos.core.tuple2.api.Tup2fR;
 
 /**
  * @author picatrix1899
  * 
  * This interface grants readonly access to a 2-dimensional mathematical vector.
  */
-public interface Vec2dR extends Tup2dR
+public interface Vec2fR extends Tup2fR
 {
-	double getX();
-	double getY();
+	float getX();
+	float getY();
 }

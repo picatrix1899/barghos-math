@@ -22,30 +22,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.vec2;
+package org.barghos.math.vector.vec2.api;
 
-import org.barghos.core.exception.ArgumentNullException;
-import org.barghos.core.tuple2.api.Tup2fR;
-import org.barghos.math.vector.vec2.api.Vec2fR;
+import org.barghos.core.tuple2.api.Tup2dR;
 
 /**
  * @author picatrix1899
- *
- * Represents a persistent 2-dimensional mathematical vector in euclidean space.
- * This is a readonly version of a 2-dimensional vector with extended protection against modification.
- * It can be used as a more flexible way to create constants.
+ * 
+ * This interface grants readonly access to a 2-dimensional mathematical vector.
  */
-public abstract class PVec2f implements Vec2fR
+public interface Vec2dR extends Tup2dR
 {
-	
-	public static PVec2f gen(Tup2fR t) { if(t == null) throw new ArgumentNullException("t"); return gen(t.getX(), t.getY()); }
-	public static PVec2f gen(float x, float y)
-	{
-		return new PVec2f()
-		{
-			public float getX() { return x; }
-			public float getY() { return y; }
-		};
-	}
-	
+	double getX();
+	double getY();
 }

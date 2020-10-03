@@ -25,6 +25,7 @@ SOFTWARE.
 package org.barghos.math.vector.vec2;
 
 import org.barghos.math.Maths;
+import org.barghos.math.vector.vec2.api.Vec2dR;
 
 public enum Vec2dAxis implements Vec2dR
 {

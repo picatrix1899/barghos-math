@@ -28,6 +28,7 @@ import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple2.api.Tup2dR;
 import org.barghos.core.tuple2.api.Tup2dW;
 import org.barghos.math.BarghosMath;
+import org.barghos.math.vector.vec2.api.Vec2dR;
 
 /**
  * @author picatrix1899

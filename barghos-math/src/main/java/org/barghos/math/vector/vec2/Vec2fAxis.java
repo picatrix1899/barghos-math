@@ -25,6 +25,7 @@ SOFTWARE.
 package org.barghos.math.vector.vec2;
 
 import org.barghos.math.Maths;
+import org.barghos.math.vector.vec2.api.Vec2fR;
 
 public enum Vec2fAxis implements Vec2fR
 {
