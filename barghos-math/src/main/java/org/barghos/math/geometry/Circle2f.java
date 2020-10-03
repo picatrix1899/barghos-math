@@ -34,7 +34,7 @@ import org.barghos.math.Maths;
 import org.barghos.math.matrix.Mat3f;
 import org.barghos.math.point.Point2f;
 import org.barghos.math.vector.vec2.Vec2f;
-import org.barghos.math.vector.vec2.Vec2fPool;
+import org.barghos.math.vector.vec2.pool.Vec2fPool;
 
 /**
  * @author picatrix1899

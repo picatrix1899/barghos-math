@@ -22,28 +22,29 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.vec2;
+package org.barghos.math.vector.vec2.pool;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.pool.DequePool;
 import org.barghos.core.pool.api.IPool;
-import org.barghos.core.tuple2.api.Tup2dR;
+import org.barghos.core.tuple2.api.Tup2iR;
+import org.barghos.math.vector.vec2.Vec2i;
 
 
-public final class Vec2dPool
+public final class Vec2iPool
 {
-	private static IPool<Vec2d> pool = new DequePool<>(Vec2d.class);
+	private static IPool<Vec2i> pool = new DequePool<>(Vec2i.class);
 	
-	private Vec2dPool() { }
+	private Vec2iPool() { }
 	
-	public static Vec2d get() { return pool.get().set(0.0, 0.0); }
-	public static Vec2d get(Tup2dR v) { if(v == null) throw new ArgumentNullException("v"); return pool.get().set(v); }
-	public static Vec2d get(float x, float y) { return pool.get().set(x, y); }
+	public static Vec2i get() { return pool.get().set(0, 0); }
+	public static Vec2i get(Tup2iR v) { if(v == null) throw new ArgumentNullException("v"); return pool.get().set(v); }
+	public static Vec2i get(int x, int y) { return pool.get().set(x, y); }
 	
 	public static void ensure(int count) { if(count < 0) throw new IllegalArgumentException(); pool.ensure(count); }
 	
-	public static void store(Vec2d... instances) { pool.store(instances); }
+	public static void store(Vec2i... instances) { pool.store(instances); }
 	
-	public static void setInternalPool(IPool<Vec2d> pool) { if(pool == null) throw new ArgumentNullException("pool"); Vec2dPool.pool = pool; }
-	public static IPool<Vec2d> getInternalPool() { return pool; }
+	public static void setInternalPool(IPool<Vec2i> pool) { if(pool == null) throw new ArgumentNullException("pool"); Vec2iPool.pool = pool; }
+	public static IPool<Vec2i> getInternalPool() { return pool; }
 }
