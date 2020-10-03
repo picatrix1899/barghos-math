@@ -24,7 +24,7 @@ SOFTWARE.
 
 package org.barghos.math;
 
-import org.barghos.math.vector.vec3.Vec3;
+import org.barghos.math.vector.vec2.Vec2f;
 
 /**
  * @author picatrix1899
@@ -38,12 +38,7 @@ public class Main
 	 */
 	public static void main(String[] args)
 	{
-		Vec3 v1 = new Vec3(0,1,0);
-		Vec3 v2 = new Vec3(0.5f,1,0);
-		Vec3 v3 = new Vec3(0.5f,-1,0);
-		
-		System.out.println(v2.dot(v1));
-		System.out.println(v3.dot(v1));
+		Vec2f v = new Vec2f(null);
 	}
 
 }
