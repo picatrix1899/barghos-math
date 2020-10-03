@@ -37,11 +37,8 @@ import org.barghos.math.Maths;
  * 
  *  @author picatrix1899
  */
-public class Vec2f implements Vec2fR, Tup2fW
+public class Vec2f extends SimpleVec2f
 {
-		protected float x;
-		protected float y;
-		
 		public Vec2f() { set(0.0f, 0.0f); }
 		
 		public Vec2f(Tup2fR t)
@@ -57,16 +54,10 @@ public class Vec2f implements Vec2fR, Tup2fW
 		public Vec2f(float x, float y) { set(x, y); }
 		
 		@Override
-		public float getX() { return this.x; }
+		public Vec2f setX(float x) { super.setX(x); return this; }
 		
 		@Override
-		public float getY() { return this.y; }
-		
-		@Override
-		public Vec2f setX(float x) { this.x = x; return this; }
-		
-		@Override
-		public Vec2f setY(float y) { this.y = y; return this; }
+		public Vec2f setY(float y) { super.setY(y); return this; }
 		
 		@Override
 		public Vec2f set(Tup2fR t)
@@ -76,14 +67,16 @@ public class Vec2f implements Vec2fR, Tup2fW
 				if(t == null) throw new ArgumentNullException("t");
 			}
 			
-			return set(t.getX(), t.getY());
+			super.set(t);
+			
+			return this;
 		}
 		
 		@Override
 		public Vec2f set(float value) { return setX(value).setY(value); }
 		
 		@Override
-		public Vec2f set(float x, float y) { return setX(x).setY(y); }
+		public Vec2f set(float x, float y) { super.set(x, y); return this; }
 
 		public Vec2f add(Tup2fR t)
 		{
@@ -389,35 +382,6 @@ public class Vec2f implements Vec2fR, Tup2fW
 				if(res == null) throw new ArgumentNullException("res");
 			}
 			return (T)res.set(-this.x, -this.y);
-		}
-		
-		public boolean isZero() { return this.x == 0.0f && this.y == 0.0f; }
-		public boolean isZero(float tolerance) { return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance); }
-		
-		public boolean isFinite() { return Float.isFinite(this.x) && Float.isFinite(this.y); }
-		
-		@Override
-		public int hashCode()
-		{
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + Float.floatToIntBits(getX());
-			result = prime * result + Float.floatToIntBits(getY());
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj)
-		{
-			if(this == obj) return true;
-			if(obj == null) return false;
-			if(!(obj instanceof Tup2fR)) return false;
-			
-			Tup2fR other = (Tup2fR) obj;
-			if(Float.floatToIntBits(getX()) != Float.floatToIntBits(other.getX())) return false;
-			if(Float.floatToIntBits(getY()) != Float.floatToIntBits(other.getY())) return false;
-			
-			return true;
 		}
 		
 		@Override

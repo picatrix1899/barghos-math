@@ -26,25 +26,52 @@ package org.barghos.math.point;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple2.api.Tup2fR;
+import org.barghos.math.BarghosMath;
 import org.barghos.math.vector.vec2.Vec2f;
 
 public class Point2f extends Vec2f
 {
 	public Point2f() { super(); }
-	public Point2f(Tup2fR t) { super(t); }
+	
+	public Point2f(Tup2fR t)
+		{
+			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+			{
+				if(t == null) throw new ArgumentNullException("t");
+			}
+			
+			set(t.getX(), t.getY());
+		}
+	
 	public Point2f(float x, float y) { super(x, y); }
 	
+	@Override
 	public Point2f setX(float x) { super.setX(x); return this; }
+	
+	@Override
 	public Point2f setY(float y) { super.setY(y); return this; }
 	
-	public Point2f set(Tup2fR t) { if(t == null) throw new ArgumentNullException("t"); return set(t.getX(), t.getY()); }
-	public Point2f set(float x, float y) { return setX(x).setY(y); }
-	
-	public String toString()
+	@Override
+	public Point2f set(Tup2fR t)
 	{
-		return "point2f(" + this.x + "f, " + this.y + "f)";
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		return set(t.getX(), t.getY());
 	}
 	
+	@Override
+	public Point2f set(float x, float y) { return setX(x).setY(y); }
+	
+	@Override
+	public String toString()
+	{
+		return "point2f(x=" + this.x + "f, x=" + this.y + "f)";
+	}
+	
+	@Override
 	public Point2f clone()
 	{
 		return new Point2f(this);
