@@ -226,6 +226,11 @@ public class Maths implements MathConstants
 		return (float) (Math.floor((value + 0.5f * gridSize) / gridSize) * gridSize);
 	}
 	
+	public static int gridSnap(int value, int gridSize)
+	{
+		return (int) (Math.floor((value + 0.5f * gridSize) / gridSize) * gridSize);
+	}
+	
 	public static double reciprocal(double value)
 	{
 		return 1.0 / value;
