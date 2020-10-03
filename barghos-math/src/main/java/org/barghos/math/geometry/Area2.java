@@ -25,9 +25,9 @@ SOFTWARE.
 package org.barghos.math.geometry;
 
 import org.barghos.core.tuple2.Tup2fHelper;
-import org.barghos.math.point.Point2;
-import org.barghos.math.vector.vec2.Vec2;
-import org.barghos.math.vector.vec2.Vec2Pool;
+import org.barghos.math.point.Point2f;
+import org.barghos.math.vector.vec2.Vec2f;
+import org.barghos.math.vector.vec2.Vec2fPool;
 
 /**
  * @author picatrix1899
@@ -35,33 +35,33 @@ import org.barghos.math.vector.vec2.Vec2Pool;
  */
 public class Area2
 {
-	protected final Point2 center = new Point2();
-	protected final Vec2 halfExtend = new Vec2();
+	protected final Point2f center = new Point2f();
+	protected final Vec2f halfExtend = new Vec2f();
 	
-	public Area2(Point2 min, Point2 max)
+	public Area2(Point2f min, Point2f max)
 	{
 		set(min, max);
 	}
 	
-	public Area2(Point2 center, Vec2 halfExtend)
+	public Area2(Point2f center, Vec2f halfExtend)
 	{
 		set(center, halfExtend);
 	}
 	
-	public Area2 set(Point2 min, Point2 max)
+	public Area2 set(Point2f min, Point2f max)
 	{
-		Vec2 extend = Vec2Pool.get();
+		Vec2f extend = Vec2fPool.get();
 		max.sub(min, extend);
 		
 		this.halfExtend.set(extend.mul(0.5f, extend));
 		this.center.set(min.add(this.halfExtend, extend));
 		
-		Vec2Pool.store(extend);
+		Vec2fPool.store(extend);
 		
 		return this;
 	}
 	
-	public Area2 set(Point2 center, Vec2 halfExtend)
+	public Area2 set(Point2f center, Vec2f halfExtend)
 	{
 		this.center.set(center);
 		this.halfExtend.set(halfExtend);
@@ -69,50 +69,50 @@ public class Area2
 		return this;
 	}
 	
-	public Point2 getCenter(Point2 res)
+	public Point2f getCenter(Point2f res)
 	{
-		if(res == null) res = new Point2();
+		if(res == null) res = new Point2f();
 		
 		res.set(this.center);
 		
 		return res;
 	}
 	
-	public Vec2 getHalfExtend(Vec2 res)
+	public Vec2f getHalfExtend(Vec2f res)
 	{
-		if(res == null) res = new Vec2();
+		if(res == null) res = new Vec2f();
 		
 		res.set(this.halfExtend);
 		
 		return res;
 	}
 	
-	public Point2 getMin(Point2 res)
+	public Point2f getMin(Point2f res)
 	{
-		if(res == null) res = new Point2();
+		if(res == null) res = new Point2f();
 		
 		this.center.sub(this.halfExtend, res);
 		
 		return res;
 	}
 	
-	public Point2 getMax(Point2 res)
+	public Point2f getMax(Point2f res)
 	{
-		if(res == null) res = new Point2();
+		if(res == null) res = new Point2f();
 		
 		this.center.add(this.halfExtend, res);
 		
 		return res;
 	}
 	
-	public boolean isPointInside(Vec2 point)
+	public boolean isPointInside(Vec2f point)
 	{
-		Vec2 d = Vec2Pool.get();
+		Vec2f d = Vec2fPool.get();
 		Tup2fHelper.abs(point.sub(this.center, d), d);
 		
 		boolean r = d.getX() <= this.halfExtend.getX() && d.getY() <= this.halfExtend.getY();
 		
-		Vec2Pool.store(d);
+		Vec2fPool.store(d);
 		
 		return r;
 	}
