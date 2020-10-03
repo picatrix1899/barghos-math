@@ -56,13 +56,19 @@ public class Vec2f implements Vec2fR, Tup2fW
 
 		public Vec2f(float x, float y) { set(x, y); }
 		
+		@Override
 		public float getX() { return this.x; }
+		
+		@Override
 		public float getY() { return this.y; }
 		
+		@Override
 		public Vec2f setX(float x) { this.x = x; return this; }
 		
+		@Override
 		public Vec2f setY(float y) { this.y = y; return this; }
 		
+		@Override
 		public Vec2f set(Tup2fR t)
 		{
 			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -73,8 +79,10 @@ public class Vec2f implements Vec2fR, Tup2fW
 			return set(t.getX(), t.getY());
 		}
 		
+		@Override
 		public Vec2f set(float value) { return setX(value).setY(value); }
 		
+		@Override
 		public Vec2f set(float x, float y) { return setX(x).setY(y); }
 
 		public Vec2f add(Tup2fR t)
@@ -398,6 +406,7 @@ public class Vec2f implements Vec2fR, Tup2fW
 			return result;
 		}
 
+		@Override
 		public boolean equals(Object obj)
 		{
 			if(this == obj) return true;
@@ -411,11 +420,13 @@ public class Vec2f implements Vec2fR, Tup2fW
 			return true;
 		}
 		
+		@Override
 		public String toString()
 		{
 			return "vec2f(x=" + this.x + ", y=" + this.y + ")";
 		}
 		
+		@Override
 		public Vec2f clone()
 		{
 			return new Vec2f(this);
