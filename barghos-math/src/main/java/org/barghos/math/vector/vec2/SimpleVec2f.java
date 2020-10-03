@@ -39,7 +39,10 @@ public class SimpleVec2f implements Vec2fR, Tup2fW
 	protected float x;
 	protected float y;
 	
-	public SimpleVec2f() { set(0.0f, 0.0f); }
+	public SimpleVec2f()
+	{
+		set(0.0f, 0.0f);
+	}
 	
 	public SimpleVec2f(Tup2fR t)
 	{
@@ -51,19 +54,38 @@ public class SimpleVec2f implements Vec2fR, Tup2fW
 		set(t.getX(), t.getY());
 	}
 
-	public SimpleVec2f(float x, float y) { set(x, y); }
+	public SimpleVec2f(float x, float y)
+	{
+		set(x, y);
+	}
 	
 	@Override
-	public float getX() { return this.x; }
+	public float getX()
+	{
+		return this.x;
+	}
 	
 	@Override
-	public float getY() { return this.y; }
+	public float getY()
+	{
+		return this.y;
+	}
 	
 	@Override
-	public SimpleVec2f setX(float x) { this.x = x; return this; }
+	public SimpleVec2f setX(float x)
+	{
+		this.x = x;
+		
+		return this;
+	}
 	
 	@Override
-	public SimpleVec2f setY(float y) { this.y = y; return this; }
+	public SimpleVec2f setY(float y)
+	{
+		this.y = y;
+		
+		return this;
+	}
 	
 	@Override
 	public SimpleVec2f set(Tup2fR t)
@@ -77,15 +99,31 @@ public class SimpleVec2f implements Vec2fR, Tup2fW
 	}
 	
 	@Override
-	public SimpleVec2f set(float value) { return setX(value).setY(value); }
+	public SimpleVec2f set(float value)
+	{
+		return setX(value).setY(value);
+	}
 	
 	@Override
-	public SimpleVec2f set(float x, float y) { return setX(x).setY(y); }
+	public SimpleVec2f set(float x, float y)
+	{
+		return setX(x).setY(y);
+	}
 	
-	public boolean isZero() { return this.x == 0.0f && this.y == 0.0f; }
-	public boolean isZero(float tolerance) { return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance); }
+	public boolean isZero()
+	{
+		return this.x == 0.0f && this.y == 0.0f;
+	}
 	
-	public boolean isFinite() { return Float.isFinite(this.x) && Float.isFinite(this.y); }
+	public boolean isZero(float tolerance)
+	{
+		return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance);
+	}
+	
+	public boolean isFinite()
+	{
+		return Float.isFinite(this.x) && Float.isFinite(this.y);
+	}
 	
 	@Override
 	public int hashCode()
@@ -114,7 +152,7 @@ public class SimpleVec2f implements Vec2fR, Tup2fW
 	@Override
 	public String toString()
 	{
-		return "simpleVec2f(x=" + this.x + ", y=" + this.y + ")";
+		return "simplevec2f(x=" + this.x + ", y=" + this.y + ")";
 	}
 	
 	@Override

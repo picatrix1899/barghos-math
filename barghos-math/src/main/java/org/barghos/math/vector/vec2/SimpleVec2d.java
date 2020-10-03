@@ -39,7 +39,10 @@ public class SimpleVec2d implements Vec2dR, Tup2dW
 	protected double x;
 	protected double y;
 	
-	public SimpleVec2d() { set(0.0, 0.0); }
+	public SimpleVec2d()
+	{
+		set(0.0, 0.0);
+	}
 	
 	public SimpleVec2d(Tup2dR t)
 	{
@@ -51,19 +54,38 @@ public class SimpleVec2d implements Vec2dR, Tup2dW
 		set(t.getX(), t.getY());
 	}
 
-	public SimpleVec2d(double x, double y) { set(x, y); }
+	public SimpleVec2d(double x, double y)
+	{
+		set(x, y);
+	}
 	
 	@Override
-	public double getX() { return this.x; }
+	public double getX()
+	{
+		return this.x;
+	}
 	
 	@Override
-	public double getY() { return this.y; }
+	public double getY()
+	{
+		return this.y;
+	}
 	
 	@Override
-	public SimpleVec2d setX(double x) { this.x = x; return this; }
+	public SimpleVec2d setX(double x)
+	{
+		this.x = x;
+		
+		return this;
+	}
 	
 	@Override
-	public SimpleVec2d setY(double y) { this.y = y; return this; }
+	public SimpleVec2d setY(double y)
+	{
+		this.y = y;
+		
+		return this;
+	}
 	
 	@Override
 	public SimpleVec2d set(Tup2dR t)
@@ -77,15 +99,31 @@ public class SimpleVec2d implements Vec2dR, Tup2dW
 	}
 	
 	@Override
-	public SimpleVec2d set(double value) { return setX(value).setY(value); }
+	public SimpleVec2d set(double value)
+	{
+		return setX(value).setY(value);
+	}
 	
 	@Override
-	public SimpleVec2d set(double x, double y) { return setX(x).setY(y); }
+	public SimpleVec2d set(double x, double y)
+	{
+		return setX(x).setY(y);
+	}
 	
-	public boolean isZero() { return this.x == 0.0 && this.y == 0.0; }
-	public boolean isZero(double tolerance) { return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance); }
+	public boolean isZero()
+	{
+		return this.x == 0.0 && this.y == 0.0;
+	}
 	
-	public boolean isFinite() { return Double.isFinite(this.x) && Double.isFinite(this.y); }
+	public boolean isZero(double tolerance)
+	{
+		return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance);
+	}
+	
+	public boolean isFinite()
+	{
+		return Double.isFinite(this.x) && Double.isFinite(this.y);
+	}
 		
 	@Override
 	public int hashCode()
@@ -116,7 +154,7 @@ public class SimpleVec2d implements Vec2dR, Tup2dW
 	@Override
 	public String toString()
 	{
-		return "simpleVec2d(x=" + this.x + ", y=" + this.y + ")";
+		return "simplevec2d(x=" + this.x + ", y=" + this.y + ")";
 	}
 	
 	@Override

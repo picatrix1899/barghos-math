@@ -38,7 +38,10 @@ import org.barghos.math.Maths;
  */
 public class Vec2f extends SimpleVec2f
 {
-		public Vec2f() { set(0.0f, 0.0f); }
+		public Vec2f()
+		{
+			set(0.0f);
+		}
 		
 		public Vec2f(Tup2fR t)
 		{
@@ -50,13 +53,26 @@ public class Vec2f extends SimpleVec2f
 			set(t.getX(), t.getY());
 		}
 
-		public Vec2f(float x, float y) { set(x, y); }
+		public Vec2f(float x, float y)
+		{
+			set(x, y);
+		}
 		
 		@Override
-		public Vec2f setX(float x) { super.setX(x); return this; }
+		public Vec2f setX(float x)
+		{
+			super.setX(x);
+			
+			return this;
+		}
 		
 		@Override
-		public Vec2f setY(float y) { super.setY(y); return this; }
+		public Vec2f setY(float y)
+		{
+			super.setY(y);
+			
+			return this;
+		}
 		
 		@Override
 		public Vec2f set(Tup2fR t)
@@ -72,10 +88,20 @@ public class Vec2f extends SimpleVec2f
 		}
 		
 		@Override
-		public Vec2f set(float value) { return setX(value).setY(value); }
+		public Vec2f set(float value)
+		{
+			super.set(value);
+			
+			return this;
+		}
 		
 		@Override
-		public Vec2f set(float x, float y) { super.set(x, y); return this; }
+		public Vec2f set(float x, float y)
+		{
+			super.set(x, y);
+			
+			return this;
+		}
 
 		public Vec2f add(Tup2fR t)
 		{
@@ -86,8 +112,16 @@ public class Vec2f extends SimpleVec2f
 			
 			return add(t.getX(), t.getY());
 		}
-		public Vec2f add(float scalar) { return add(scalar, scalar); }
-		public Vec2f add(float x, float y) { return set(this.x + x, this.y + y); }
+		
+		public Vec2f add(float scalar)
+		{
+			return add(scalar, scalar);
+		}
+		
+		public Vec2f add(float x, float y)
+		{
+			return set(this.x + x, this.y + y);
+		}
 		
 		public <T extends Tup2fW> T add(Tup2fR t, T res)
 		{
@@ -121,6 +155,26 @@ public class Vec2f extends SimpleVec2f
 			return (T)res.set(this.x + x, this.y + y);
 		}
 		
+		public Vec2f addN(Tup2fR t)
+		{
+			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+			{
+				if(t == null) throw new ArgumentNullException("t");
+			}
+			
+			return clone().add(t.getX(), t.getY());
+		}
+		
+		public Vec2f addN(float scalar)
+		{
+			return clone().add(scalar, scalar);
+		}
+		
+		public Vec2f addN(float x, float y)
+		{
+			return clone().add(x, y);
+		}
+		
 		public Vec2f sub(Tup2fR t)
 		{
 			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -130,8 +184,16 @@ public class Vec2f extends SimpleVec2f
 			
 			return sub(t.getX(), t.getY());
 		}
-		public Vec2f sub(float scalar) { return sub(scalar, scalar); }
-		public Vec2f sub(float x, float y) { return set(this.x - x, this.y - y); }
+		
+		public Vec2f sub(float scalar)
+		{
+			return sub(scalar, scalar);
+		}
+		
+		public Vec2f sub(float x, float y)
+		{
+			return set(this.x - x, this.y - y);
+		}
 		
 		public <T extends Tup2fW> T sub(Tup2fR t, T res)
 		{
@@ -165,6 +227,26 @@ public class Vec2f extends SimpleVec2f
 			return (T)res.set(this.x - x, this.y - y);
 		}
 
+		public Vec2f subN(Tup2fR t)
+		{
+			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+			{
+				if(t == null) throw new ArgumentNullException("t");
+			}
+			
+			return clone().sub(t.getX(), t.getY());
+		}
+		
+		public Vec2f subN(float scalar)
+		{
+			return clone().sub(scalar, scalar);
+		}
+		
+		public Vec2f subN(float x, float y)
+		{
+			return clone().sub(x, y);
+		}
+		
 		public Vec2f mul(Tup2fR t)
 		{
 			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -175,8 +257,15 @@ public class Vec2f extends SimpleVec2f
 			return mul(t.getX(), t.getY());
 		}
 		
-		public Vec2f mul(float scalar) { return mul(scalar, scalar); }
-		public Vec2f mul(float x, float y) { return set(this.x * x, this.y * y); }
+		public Vec2f mul(float scalar)
+		{
+			return mul(scalar, scalar);
+		}
+		
+		public Vec2f mul(float x, float y)
+		{
+			return set(this.x * x, this.y * y);
+		}
 		
 		public <T extends Tup2fW> T mul(Tup2fR t, T res)
 		{
@@ -210,6 +299,26 @@ public class Vec2f extends SimpleVec2f
 			return (T)res.set(this.x * x, this.y * y);
 		}
 
+		public Vec2f mulN(Tup2fR t)
+		{
+			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+			{
+				if(t == null) throw new ArgumentNullException("t");
+			}
+			
+			return clone().mul(t.getX(), t.getY());
+		}
+		
+		public Vec2f mulN(float scalar)
+		{
+			return clone().mul(scalar, scalar);
+		}
+		
+		public Vec2f mulN(float x, float y)
+		{
+			return clone().mul(x, y);
+		}
+		
 		public Vec2f div(Tup2fR t)
 		{
 			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -219,8 +328,16 @@ public class Vec2f extends SimpleVec2f
 			
 			return div(t.getX(), t.getY());
 		}
-		public Vec2f div(float scalar) { return div(scalar, scalar); }
-		public Vec2f div(float x, float y) { return set(this.x / x, this.y / y); }
+		
+		public Vec2f div(float scalar)
+		{
+			return div(scalar, scalar);
+		}
+		
+		public Vec2f div(float x, float y)
+		{
+			return set(this.x / x, this.y / y);
+		}
 		
 		public <T extends Tup2fW> T div(Tup2fR t, T res)
 		{
@@ -254,9 +371,36 @@ public class Vec2f extends SimpleVec2f
 			return (T)res.set(this.x / x, this.y / y);
 		}
 
-		public float length() { return (float)Maths.sqrt(squaredLength()); }
+		public Vec2f divN(Tup2fR t)
+		{
+			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+			{
+				if(t == null) throw new ArgumentNullException("t");
+			}
+			
+			return clone().div(t.getX(), t.getY());
+		}
+		
+		public Vec2f divN(float scalar)
+		{
+			return clone().div(scalar, scalar);
+		}
+		
+		public Vec2f divN(float x, float y)
+		{
+			return clone().div(x, y);
+		}
+		
+		public float length()
+		{
+			return (float)Maths.sqrt(squaredLength());
+		}
 
-		public float lengthSafe() { return isZero() ? 0.0f : length(); }
+		public float lengthSafe()
+		{
+			return isZero() ? 0.0f : length();
+		}
+		
 		public float lengthSafe(float tolerance)
 		{
 			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -267,9 +411,16 @@ public class Vec2f extends SimpleVec2f
 			return isZero(tolerance) ? 0.0f : length();
 		}
 
-		public float reciprocalLength() { return 1.0f / length(); }
+		public float reciprocalLength()
+		{
+			return 1.0f / length();
+		}
 
-		public float reciprocalLengthSafe() { return isZero() ? 0.0f : reciprocalLength();  }
+		public float reciprocalLengthSafe()
+		{
+			return isZero() ? 0.0f : reciprocalLength();
+		}
+		
 		public float reciprocalLengthSafe(float tolerance)
 		{
 			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -280,9 +431,16 @@ public class Vec2f extends SimpleVec2f
 			return isZero(tolerance) ? 0.0f : reciprocalLength();
 		}
 
-		public float squaredLength() { return this.x * this.x + this.y * this.y; }
+		public float squaredLength()
+		{
+			return this.x * this.x + this.y * this.y;
+		}
 
-		public Vec2f normal() { return div(length()); }
+		public Vec2f normal()
+		{
+			return div(length());
+		}
+		
 		public <T extends Tup2fW> T normal(T res)
 		{
 			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -293,7 +451,16 @@ public class Vec2f extends SimpleVec2f
 			return div(length(), res);
 		}
 
-		public Vec2f normalSafe() { return isZero() ? set(0.0f, 0.0f) : normal(); }
+		public Vec2f normalN()
+		{
+			return clone().div(length());
+		}
+		
+		public Vec2f normalSafe()
+		{
+			return isZero() ? set(0.0f, 0.0f) : normal();
+		}
+		
 		public Vec2f normalSafe(float tolerance)
 		{
 			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -327,6 +494,21 @@ public class Vec2f extends SimpleVec2f
 			return isZero(tolerance) ? (T)res.set(0.0f, 0.0f) : normal(res);
 		}
 
+		public Vec2f normalSafeN()
+		{
+			return isZero() ? clone().set(0.0f, 0.0f) : clone().normal();
+		}
+		
+		public Vec2f normalSafeN(float tolerance)
+		{
+			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+			{
+				if(tolerance < 0) throw new IllegalArgumentException();
+			}
+			
+			return isZero(tolerance) ? clone().set(0.0f, 0.0f) : clone().normal();
+		}
+		
 		public float dot(Tup2fR t)
 		{
 			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -336,7 +518,10 @@ public class Vec2f extends SimpleVec2f
 			
 			return dot(t.getX(), t.getY());
 		}
-		public float dot(float x, float y) { return this.x * x + this.y * y; }
+		public float dot(float x, float y)
+		{
+			return this.x * x + this.y * y;
+		}
 
 		public Vec2f snapToGrid(Tup2fR grid)
 		{
@@ -348,7 +533,11 @@ public class Vec2f extends SimpleVec2f
 			return snapToGrid(grid.getX(), grid.getY());
 		}
 		
-		public Vec2f snapToGrid(float gx, float gy) { return set(Maths.gridSnap(this.x, gx), Maths.gridSnap(this.y, gy)); }
+		public Vec2f snapToGrid(float gx, float gy)
+		{
+			return set(Maths.gridSnap(this.x, gx), Maths.gridSnap(this.y, gy));
+		}
+		
 		public <T extends Tup2fW> T snapToGrid(Tup2fR grid, T res)
 		{
 			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -371,7 +560,25 @@ public class Vec2f extends SimpleVec2f
 			return (T)res.set(Maths.gridSnap(this.x, gx), Maths.gridSnap(this.y, gy));
 		}
 
-		public Vec2f invert() { return set(-this.x, -this.y); }
+		public Vec2f snapToGridN(Tup2fR grid)
+		{
+			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+			{
+				if(grid == null) throw new ArgumentNullException("grid");
+			}
+			
+			return clone().snapToGrid(grid.getX(), grid.getY());
+		}
+		
+		public Vec2f snapToGridN(float gx, float gy)
+		{
+			return clone().snapToGrid(gx, gy);
+		}
+		
+		public Vec2f invert()
+		{
+			return set(-this.x, -this.y);
+		}
 		
 		@SuppressWarnings("unchecked")
 		public <T extends Tup2fW> T invert(T res)
@@ -381,6 +588,11 @@ public class Vec2f extends SimpleVec2f
 				if(res == null) throw new ArgumentNullException("res");
 			}
 			return (T)res.set(-this.x, -this.y);
+		}
+		
+		public Vec2f invertN()
+		{
+			return clone().invert();
 		}
 		
 		@Override

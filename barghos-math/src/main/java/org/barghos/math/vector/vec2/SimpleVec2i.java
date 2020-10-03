@@ -39,7 +39,10 @@ public class SimpleVec2i implements Vec2iR, Tup2iW
 	protected int x;
 	protected int y;
 	
-	public SimpleVec2i() { set(0, 0); }
+	public SimpleVec2i()
+	{
+		set(0, 0);
+	}
 	
 	public SimpleVec2i(Tup2iR t)
 	{
@@ -51,19 +54,34 @@ public class SimpleVec2i implements Vec2iR, Tup2iW
 		set(t.getX(), t.getY());
 	}
 
-	public SimpleVec2i(int x, int y) { set(x, y); }
+	public SimpleVec2i(int x, int y)
+	{
+		set(x, y);
+	}
 	
 	@Override
-	public int getX() { return this.x; }
+	public int getX()
+	{
+		return this.x;
+	}
 	
 	@Override
-	public int getY() { return this.y; }
+	public int getY()
+	{
+		return this.y;
+	}
 	
 	@Override
-	public SimpleVec2i setX(int x) { this.x = x; return this; }
+	public SimpleVec2i setX(int x)
+	{
+		this.x = x; return this;
+	}
 	
 	@Override
-	public SimpleVec2i setY(int y) { this.y = y; return this; }
+	public SimpleVec2i setY(int y)
+	{
+		this.y = y; return this;
+	}
 	
 	@Override
 	public SimpleVec2i set(Tup2iR t)
@@ -77,12 +95,21 @@ public class SimpleVec2i implements Vec2iR, Tup2iW
 	}
 	
 	@Override
-	public SimpleVec2i set(int value) { return setX(value).setY(value); }
+	public SimpleVec2i set(int value)
+	{
+		return setX(value).setY(value);
+	}
 	
 	@Override
-	public SimpleVec2i set(int x, int y) { return setX(x).setY(y); }
+	public SimpleVec2i set(int x, int y)
+	{
+		return setX(x).setY(y);
+	}
 	
-	public boolean isZero() { return this.x == 0.0f && this.y == 0.0f; }
+	public boolean isZero()
+	{
+		return this.x == 0.0f && this.y == 0.0f;
+	}
 	
 	@Override
 	public int hashCode()
@@ -111,7 +138,7 @@ public class SimpleVec2i implements Vec2iR, Tup2iW
 	@Override
 	public String toString()
 	{
-		return "simpleVec2i(x=" + this.x + ", y=" + this.y + ")";
+		return "simplevec2i(x=" + this.x + ", y=" + this.y + ")";
 	}
 	
 	@Override
