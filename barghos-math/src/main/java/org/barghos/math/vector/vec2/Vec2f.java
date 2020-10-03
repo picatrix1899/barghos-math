@@ -398,10 +398,7 @@ public class Vec2f implements Vec2fR, Tup2fW
 			return result;
 		}
 		
-		public String toString()
-		{
-			return "vec2(" + this.x + ", " + this.y + ")";
-		}
+		
 		
 		public boolean equals(Object obj)
 		{
@@ -413,6 +410,11 @@ public class Vec2f implements Vec2fR, Tup2fW
 			if(this.y != v.y) return false;
 			
 			return true;
+		}
+		
+		public String toString()
+		{
+			return "vec2f(x=" + this.x + ", y=" + this.y + ")";
 		}
 		
 		public Vec2f clone()
