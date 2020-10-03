@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2019 picatrix1899
+Copyright (c) 2020 picatrix1899
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,10 +26,11 @@ package org.barghos.math;
 
 
 /**
+ * This interface contains constants and precalculated values of mathematical importance.
+ * 
  * @author picatrix1899
- *
  */
-public interface MathConstants
+interface MathConstants
 {
 		/**
 	 * The number PI with 11 digits after point.
@@ -104,18 +105,34 @@ public interface MathConstants
 	 */
 	public static final float INV_SQRT3f = 0.5773502691896258f;
 	
+	/**
+	 * This is a precalculated square-root of the number 2 (sqrt(2));
+	 */
 	public static final double SQRT2 = 1.4142135623730951;
 	
+	/**
+	 * This is a precalculated square-root of the number 2 (sqrt(2));
+	 */
 	public static final float SQRT2f = 1.4142135623730951f;
 	
+	/**
+	 * This is a precalculated square-root of the number 2 (sqrt(3));
+	 */
 	public static final double SQRT3 = 1.7320508075688772;
 	
+	/**
+	 * This is a precalculated square-root of the number 2 (sqrt(3));
+	 */
 	public static final float SQRT3f = 1.7320508075688772f;
 	
-	/** A very small number used for determining if a floating point number is technically zero. */
+	/**
+	 * A very small number used for determining if a floating point number is technically zero.
+	 */
 	public static final double SMALL_NUMBER_E8 = 1.e-8;
 
-	/** A very small number used for determining if a floating point number is technically zero. */
+	/**
+	 * A very small number used for determining if a floating point number is technically zero.
+	 */
 	public static final float SMALL_NUMBER_E8f = 1.e-8f;
 	
 	/**
