@@ -27,7 +27,6 @@ package org.barghos.math.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.barghos.math.Transform3;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3;
 import org.barghos.math.vector.vec3.Vec3;
@@ -107,7 +106,7 @@ public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 		return result;
 	}
 
-	public AABB3 getAABBf()
+	public AABB3f getAABBf()
 	{
 		PointSet3 set = getPointSet(null);
 		
@@ -117,7 +116,7 @@ public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 		Vec3 halfExtend = max.sub(min).mul(0.5f);
 		Point3 center = new Point3(min.add(halfExtend, min));
 
-		AABB3 r = new AABB3(center, halfExtend);
+		AABB3f r = new AABB3f(center, halfExtend);
 		
 		Vec3Pool.store(min, max);
 		
