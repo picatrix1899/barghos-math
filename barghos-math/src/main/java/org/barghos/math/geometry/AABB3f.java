@@ -30,22 +30,22 @@ import org.barghos.math.point.Point3;
 import org.barghos.math.vector.vec3.Vec3;
 import org.barghos.math.vector.vec3.Vec3Pool;
 
-public class AABB3 implements FiniteGeometricObject3
+public class AABB3f implements FiniteGeometricObject3
 {
-	private final Point3 center = new Point3();
-	private final Vec3 halfExtend = new Vec3();
+	protected final Point3 center = new Point3();
+	protected final Vec3 halfExtend = new Vec3();
 	private boolean dirty;
 	private final Point3[] points = new Point3[8];
 	
-	public AABB3() { }
+	public AABB3f() { }
 	
-	public AABB3(AABB3 aabb) { set(aabb); }
+	public AABB3f(AABB3f aabb) { set(aabb); }
 	
-	public AABB3(Tup3fR center, Tup3fR halfExtend) { set(center, halfExtend); }
+	public AABB3f(Tup3fR center, Tup3fR halfExtend) { set(center, halfExtend); }
 	
-	public AABB3(float cX, float cY, float cZ, float heX, float heY, float heZ) { set(cX, cY, cZ, heX, heY, heZ); }
+	public AABB3f(float cX, float cY, float cZ, float heX, float heY, float heZ) { set(cX, cY, cZ, heX, heY, heZ); }
 	
-	public AABB3 set(AABB3 aabb)
+	public AABB3f set(AABB3f aabb)
 	{
 		aabb.getCenter(this.center);
 		aabb.getHalfExtend(this.halfExtend);
@@ -53,29 +53,29 @@ public class AABB3 implements FiniteGeometricObject3
 		return this;
 	}
 	
-	public AABB3 set(Tup3fR center, Tup3fR halfExtend) { return setCenter(center).setHalfExtend(halfExtend); }
+	public AABB3f set(Tup3fR center, Tup3fR halfExtend) { return setCenter(center).setHalfExtend(halfExtend); }
 	
-	public AABB3 set(float cX, float cY, float cZ, float heX, float heY, float heZ) { return setCenter(cX, cY, cZ).setHalfExtend(heX, heY, heZ); }
+	public AABB3f set(float cX, float cY, float cZ, float heX, float heY, float heZ) { return setCenter(cX, cY, cZ).setHalfExtend(heX, heY, heZ); }
 	
-	public AABB3 setHalfExtend(Tup3fR t) { return setHalfExtend(t.getX(), t.getY(), t.getZ()); }
+	public AABB3f setHalfExtend(Tup3fR t) { return setHalfExtend(t.getX(), t.getY(), t.getZ()); }
 	
-	public AABB3 setHalfExtend(float x, float y, float z) { return setHalfExtendX(x).setHalfExtendY(y).setHalfExtendZ(z); }
+	public AABB3f setHalfExtend(float x, float y, float z) { return setHalfExtendX(x).setHalfExtendY(y).setHalfExtendZ(z); }
 	
-	public AABB3 setHalfExtendX(float x) { this.halfExtend.setX(x); this.dirty = true; return this; }
+	public AABB3f setHalfExtendX(float x) { this.halfExtend.setX(x); this.dirty = true; return this; }
 	
-	public AABB3 setHalfExtendY(float y) { this.halfExtend.setY(y); this.dirty = true; return this; }
+	public AABB3f setHalfExtendY(float y) { this.halfExtend.setY(y); this.dirty = true; return this; }
 	
-	public AABB3 setHalfExtendZ(float z) { this.halfExtend.setZ(z); this.dirty = true; return this; }
+	public AABB3f setHalfExtendZ(float z) { this.halfExtend.setZ(z); this.dirty = true; return this; }
 	
-	public AABB3 setCenter(Tup3fR t) { return setCenter(t.getX(), t.getY(), t.getZ()); }
+	public AABB3f setCenter(Tup3fR t) { return setCenter(t.getX(), t.getY(), t.getZ()); }
 	
-	public AABB3 setCenter(float x, float y, float z) { return setCenterX(x).setCenterY(y).setCenterZ(z); }
+	public AABB3f setCenter(float x, float y, float z) { return setCenterX(x).setCenterY(y).setCenterZ(z); }
 	
-	public AABB3 setCenterX(float x) { this.center.setX(x); this.dirty = true; return this; }
+	public AABB3f setCenterX(float x) { this.center.setX(x); this.dirty = true; return this; }
 	
-	public AABB3 setCenterY(float y) { this.center.setY(y); this.dirty = true; return this; }
+	public AABB3f setCenterY(float y) { this.center.setY(y); this.dirty = true; return this; }
 	
-	public AABB3 setCenterZ(float z) { this.center.setZ(z); this.dirty = true; return this; }
+	public AABB3f setCenterZ(float z) { this.center.setZ(z); this.dirty = true; return this; }
 	
 	public Point3 getCenter(Point3 res)
 	{
@@ -188,9 +188,9 @@ public class AABB3 implements FiniteGeometricObject3
 		return this.points;
 	}
 
-	public AABB3 transform(Mat4 t, AABB3 res)
+	public AABB3f transform(Mat4 t, AABB3f res)
 	{
-		if(res == null) res = new AABB3();
+		if(res == null) res = new AABB3f();
 
 		Vec3 min = Vec3Pool.get();
 		Vec3 max = Vec3Pool.get();

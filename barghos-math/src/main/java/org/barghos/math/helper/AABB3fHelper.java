@@ -25,7 +25,7 @@ SOFTWARE.
 package org.barghos.math.helper;
 
 import org.barghos.core.tuple3.Tup3fHelper;
-import org.barghos.math.geometry.AABB3;
+import org.barghos.math.geometry.AABB3f;
 import org.barghos.math.vector.vec3.Vec3;
 import org.barghos.math.vector.vec3.Vec3Pool;
 
@@ -33,9 +33,9 @@ import org.barghos.math.vector.vec3.Vec3Pool;
  * @author picatrix1899
  *
  */
-public class AABB3Helper
+public class AABB3fHelper
 {
-	public static AABB3 merge(AABB3 a, AABB3 b)
+	public static AABB3f merge(AABB3f a, AABB3f b)
 	{
 		Vec3 minA = a.getMin(Vec3Pool.get());
 		Vec3 maxA = a.getMax(Vec3Pool.get());
@@ -51,14 +51,14 @@ public class AABB3Helper
 		Vec3 center = Vec3Pool.get();
 		min.add(he, center);
 		
-		AABB3 out = new AABB3(center, he);
+		AABB3f out = new AABB3f(center, he);
 		
 		Vec3Pool.store(minA, maxA, minB, maxB, he, center);
 		
 		return out;
 	}
 	
-	public static AABB3 merge(AABB3 a, AABB3 b, AABB3 res)
+	public static AABB3f merge(AABB3f a, AABB3f b, AABB3f res)
 	{
 		Vec3 minA = a.getMin(Vec3Pool.get());
 		Vec3 maxA = a.getMax(Vec3Pool.get());

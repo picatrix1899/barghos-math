@@ -29,48 +29,76 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.barghos.math.matrix.Mat4;
-import org.barghos.math.point.Point2;
-import org.barghos.math.point.Point3;
-import org.barghos.math.vector.vec2.Vec2;
+import org.barghos.core.exception.ArgumentNullException;
 
-public class PointSet2 implements Iterable<Point2>
+import org.barghos.math.BarghosMath;
+import org.barghos.math.ITransform2f;
+import org.barghos.math.matrix.Mat3f;
+import org.barghos.math.point.Point2f;
+
+public class PointSet2f implements FiniteGeometricObject2f, Iterable<Point2f>
 {
-	protected final List<Point2> points = new ArrayList<>();
-	protected final Vec2 min = new Vec2();
-	protected final Vec2 max = new Vec2();
+	protected final List<Point2f> points = new ArrayList<>();
+	
+	protected final Point2f min = new Point2f();
+	protected final Point2f max = new Point2f();
 	
 	private boolean isDirty;
 	
-	public PointSet2() {}
+	public PointSet2f() { }
 	
-	public PointSet2(PointSet2 set)
+	public PointSet2f(PointSet2f set)
 	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(set == null) throw new ArgumentNullException("set");
+		}
+		
 		set(set);
 	}
 	
-	public PointSet2(Point2... points)
+	public PointSet2f(Point2f... points)
 	{
 		set(points);
 	}
 	
-	public PointSet2(Collection<Point2> c)
+	public PointSet2f(Collection<Point2f> c)
 	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(c == null) throw new ArgumentNullException("c");
+		}
+		
 		set(c);
 	}
 	
-	public PointSet2 set() { this.points.clear(); this.isDirty = true; return this; }
-	
-	public PointSet2 set(PointSet2 set)
+	public PointSet2f set()
 	{
 		this.points.clear();
+		
+		this.isDirty = true;
+		
+		return this;
+	}
+	
+	public PointSet2f set(PointSet2f set)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(set == null) throw new ArgumentNullException("set");
+		}
+		
+		this.points.clear();
+		
 		for(int i = 0; i < set.points.size(); i++)
 			this.points.add(set.points.get(i));
+		
 		this.isDirty = true;
+		
 		return this;
 	}
 	
-	public PointSet2 set(Point2... points)
+	public PointSet2f set(Point2f... points)
 	{
 		this.points.clear();
 		
@@ -82,16 +110,23 @@ public class PointSet2 implements Iterable<Point2>
 		return this;
 	}
 
-	public PointSet2 set(Collection<Point2> c)
+	public PointSet2f set(Collection<Point2f> c)
 	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(c == null) throw new ArgumentNullException("c");
+		}
+		
 		this.points.clear();
+		
 		this.points.addAll(c);
 		
 		this.isDirty = true;
+		
 		return this;
 	}
 	
-	public PointSet2 add(Point2... points)
+	public PointSet2f add(Point2f... points)
 	{
 		for(int i = 0; i < points.length; i++)
 			this.points.add(points[i]);
@@ -101,21 +136,28 @@ public class PointSet2 implements Iterable<Point2>
 		return this;
 	}
 	
-	public PointSet2 add(Collection<Point2> c)
+	public PointSet2f add(Collection<Point2f> c)
 	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(c == null) throw new ArgumentNullException("c");
+		}
+		
 		this.points.addAll(c);
+		
 		this.isDirty = true;
+		
 		return this;
 	}
 
-	public PointSet2 getPointSet()
+	public PointSet2f getPointSet()
 	{
-		return new PointSet2(this);
+		return new PointSet2f(this);
 	}
 	
-	public Point3[] getPoints()
+	public Point2f[] getPoints()
 	{
-		return this.points.toArray(new Point3[this.points.size()]);
+		return this.points.toArray(new Point2f[this.points.size()]);
 	}
 	
 	private void calculateExtremes()
@@ -129,11 +171,9 @@ public class PointSet2 implements Iterable<Point2>
 		float maxX = Float.NEGATIVE_INFINITY;
 		float maxY = Float.NEGATIVE_INFINITY;
 		
-		Point2 current;
-		
 		for(int i = 0; i < this.points.size(); i++)
 		{
-			current = this.points.get(i);
+			Point2f current = this.points.get(i);
 			
 			if(current.getX() < minX)
 				minX = current.getX();
@@ -166,6 +206,16 @@ public class PointSet2 implements Iterable<Point2>
 		return this.min.getY();
 	}
 	
+	public Point2f getMin(Point2f res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		return res.set(this.min);
+	}
+	
 	public float getMaxX()
 	{
 		if(this.isDirty) calculateExtremes();
@@ -180,29 +230,45 @@ public class PointSet2 implements Iterable<Point2>
 		return this.max.getY();
 	}
 
-	public PointSet2 transform(Mat4 t)
+	public Point2f getMax(Point2f res)
 	{
-		Point2[] p = new Point2[this.points.size()];
-
-		for(int i = 0; i < this.points.size(); i++)
-			p[i] = t.transform(this.points.get(i), new Point2());
-
-		return set(p);
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		return res.set(this.max);
 	}
-
-	public PointSet2 transform(Mat4 t, PointSet2 res)
+	
+	public PointSet2f transform(ITransform2f t)
 	{
-		res = res != null ? res : new PointSet2();
-
-		Point2[] p = new Point2[this.points.size()];
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		return transform(t, this);
+	}
+	
+	public PointSet2f transform(ITransform2f t, PointSet2f res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		Mat3f m = Mat3f.transform2D(t);
+		
+		Point2f[] p = new Point2f[this.points.size()];
 
 		for(int i = 0; i < this.points.size(); i++)
-			p[i] = t.transform(this.points.get(i), new Point2());
+			p[i] = m.transform(this.points.get(i), new Point2f());
 
 		return res.set(p);
 	}
 	
-	public Iterator<Point2> iterator()
+	public Iterator<Point2f> iterator()
 	{
 		return this.points.iterator();
 	}

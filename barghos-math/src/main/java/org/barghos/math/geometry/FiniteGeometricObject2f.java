@@ -24,54 +24,68 @@ SOFTWARE.
 
 package org.barghos.math.geometry;
 
-import org.barghos.math.matrix.Mat4;
-import org.barghos.math.point.Point2;
+import org.barghos.core.exception.ArgumentNullException;
+import org.barghos.core.util.Nullable;
+import org.barghos.math.BarghosMath;
+import org.barghos.math.ITransform2f;
+import org.barghos.math.matrix.Mat3f;
+import org.barghos.math.point.Point2f;
 
 /**
  * @author picatrix1899
  *
  */
-public interface FiniteGeometricObject2
+public interface FiniteGeometricObject2f
 {
-	Point2[] getPoints();
+	Point2f[] getPoints();
 
-	default Point2[] getTransformedPoints(Mat4 t)
+	default Point2f[] getTransformedPoints(ITransform2f t)
 	{
-		Point2[] p = getPoints();
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		Point2f[] p = getPoints();
 
-		int i = 0;
-		for(; i < p.length; i++)
-			t.transform(p[i], p[i]);
+		Mat3f m = Mat3f.transform2D(t);
+		
+		for(int i = 0; i < p.length; i++)
+			m.transform(p[i]);
 
 		return p;
 	}
 
-	default PointSet2 getPointSet()
+	default PointSet2f getPointSet()
 	{
-		return new PointSet2(getPoints());
+		return new PointSet2f(getPoints());
 	}
 
-	default PointSet2 getPointSet(PointSet2 res)
+	default PointSet2f getPointSet(@Nullable PointSet2f res)
 	{
-		res = res != null ? res : new PointSet2();
+		res = res != null ? res : new PointSet2f();
 
 		return res.set(getPoints());
 	}
 
-	default PointSet2 getTransformedPointSet(Mat4 t)
+	default PointSet2f getTransformedPointSet(ITransform2f t)
 	{
-		PointSet2 res = new PointSet2();
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+		}
 
-		PointSet2 s = getPointSet();
-
-		s.transform(t, s);
-
-		return res.set(s);
+		return getTransformedPointSet(t, new PointSet2f());
 	}
 
-	default PointSet2 getTransformedPointSet(Mat4 t, PointSet2 res)
+	default PointSet2f getTransformedPointSet(ITransform2f t, @Nullable PointSet2f res)
 	{
-		if(res == null) res = new PointSet2();
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		if(res == null) res = new PointSet2f();
 
 		getPointSet(res);
 
