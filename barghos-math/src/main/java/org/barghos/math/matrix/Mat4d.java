@@ -64,15 +64,15 @@ public class Mat4d
 		set(m);
 	}
 	
-	public Mat4d set(Mat3 m)
+	public Mat4d set(Mat3f m)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(m == null) throw new ArgumentNullException("m");
 		}
 
-		for(int r = 0; r < Mat3.ROWS; r++)
-			for(int c = 0; c < Mat3.COLUMNS; c++)
+		for(int r = 0; r < Mat3f.ROWS; r++)
+			for(int c = 0; c < Mat3f.COLUMNS; c++)
 				this.m[r][c] = m.m[r][c];
 
 		this.m[0][3] = 0;
