@@ -397,17 +397,16 @@ public class Vec2f implements Vec2fR, Tup2fW
 			result = prime * result + Float.floatToIntBits(getY());
 			return result;
 		}
-		
-		
-		
+
 		public boolean equals(Object obj)
 		{
+			if(this == obj) return true;
 			if(obj == null) return false;
-			if(!(obj instanceof Vec2f)) return false;
-			Vec2f v = (Vec2f)obj;
+			if(!(obj instanceof Tup2fR)) return false;
 			
-			if(this.x != v.x) return false;
-			if(this.y != v.y) return false;
+			Tup2fR other = (Tup2fR) obj;
+			if(Float.floatToIntBits(getX()) != Float.floatToIntBits(other.getX())) return false;
+			if(Float.floatToIntBits(getY()) != Float.floatToIntBits(other.getY())) return false;
 			
 			return true;
 		}
