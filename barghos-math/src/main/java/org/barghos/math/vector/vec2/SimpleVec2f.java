@@ -31,19 +31,46 @@ import org.barghos.math.BarghosMath;
 import org.barghos.math.vector.vec2.api.Vec2fR;
 
 /**
- * @author picatrix1899
- *
+ * Represents a simplified 2-dimensional mathematical float vector in euclidean space.
+ * This is a bare minimum version without most operations.
+ * 
+ *  @author picatrix1899
+ *  
+ *  @since 1.0
  */
 public class SimpleVec2f implements Vec2fR, Tup2fW
 {
+	/**
+	 * The x component of the vector.
+	 * 
+	 * @since 1.0
+	 */
 	protected float x;
+	
+	/**
+	 * The y component of the vector.
+	 * 
+	 * @since 1.0
+	 */
 	protected float y;
 	
+	/**
+	 * Creates a new instance of {@link SimpleVec2f} with the components set to 0.0f.
+	 * 
+	 * @since 1.0
+	 */
 	public SimpleVec2f()
 	{
 		set(0.0f, 0.0f);
 	}
 	
+	/**
+	 * Creates a new instance of {@link SimpleVec2f} with the components adopted from t.
+	 * 
+	 * @param t An instance of {@link Tup2fR} to adopt the components from.
+	 * 
+	 * @since 1.0
+	 */
 	public SimpleVec2f(Tup2fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -54,6 +81,14 @@ public class SimpleVec2f implements Vec2fR, Tup2fW
 		set(t.getX(), t.getY());
 	}
 
+	/**
+	 * Creates a new instance of {@link SimpleVec2f} with the components set to the corresponding parameters.
+	 * 
+	 * @param x The value for the x component.
+	 * @param y The value for the y component.
+	 * 
+	 * @since 1.0
+	 */
 	public SimpleVec2f(float x, float y)
 	{
 		set(x, y);
@@ -110,16 +145,40 @@ public class SimpleVec2f implements Vec2fR, Tup2fW
 		return setX(x).setY(y);
 	}
 	
+	/**
+	 * Checks if the components are exactly positive zero and returns the result.
+	 * 
+	 * @return True if both components are exactly positive zero. False otherwise.
+	 * 
+	 * @since 1.0
+	 */
 	public boolean isZero()
 	{
 		return this.x == 0.0f && this.y == 0.0f;
 	}
 	
+	/**
+	 * Checks if the components are within the tolerance around zero and
+	 * are therefore considered as zero and returns the result.
+	 * 
+	 * @param tolerance Defines the range before and after zero that should still be considered as zero.
+	 * 
+	 * @return True if both components are within tolerance around zero. False otherwise.
+	 * 
+	 * @since 1.0
+	 */
 	public boolean isZero(float tolerance)
 	{
 		return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance);
 	}
 	
+	/**
+	 * Checks if the components are finite values and returns the result.
+	 * 
+	 * @return True if both components are finite numbers. False otherwise.
+	 * 
+	 * @since 1.0
+	 */
 	public boolean isFinite()
 	{
 		return Float.isFinite(this.x) && Float.isFinite(this.y);

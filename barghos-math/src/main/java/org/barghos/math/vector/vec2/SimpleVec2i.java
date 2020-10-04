@@ -31,19 +31,46 @@ import org.barghos.math.BarghosMath;
 import org.barghos.math.vector.vec2.api.Vec2iR;
 
 /**
- * @author picatrix1899
- *
+ * Represents a simplified 2-dimensional mathematical int vector in euclidean space.
+ * This is a bare minimum version without most operations.
+ * 
+ *  @author picatrix1899
+ *  
+ *  @since 1.0
  */
 public class SimpleVec2i implements Vec2iR, Tup2iW
 {
+	/**
+	 * The x component of the vector.
+	 * 
+	 * @since 1.0
+	 */
 	protected int x;
+	
+	/**
+	 * The y component of the vector.
+	 * 
+	 * @since 1.0
+	 */
 	protected int y;
 	
+	/**
+	 * Creates a new instance of {@link SimpleVec2i} with the components set to 0.
+	 * 
+	 * @since 1.0
+	 */
 	public SimpleVec2i()
 	{
 		set(0, 0);
 	}
 	
+	/**
+	 * Creates a new instance of {@link SimpleVec2i} with the components adopted from t.
+	 * 
+	 * @param t An instance of {@link Tup2iR} to adopt the components from.
+	 * 
+	 * @since 1.0
+	 */
 	public SimpleVec2i(Tup2iR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -54,6 +81,14 @@ public class SimpleVec2i implements Vec2iR, Tup2iW
 		set(t.getX(), t.getY());
 	}
 
+	/**
+	 * Creates a new instance of {@link SimpleVec2i} with the components set to the corresponding parameters.
+	 * 
+	 * @param x The value for the x component.
+	 * @param y The value for the y component.
+	 * 
+	 * @since 1.0
+	 */
 	public SimpleVec2i(int x, int y)
 	{
 		set(x, y);
@@ -74,13 +109,17 @@ public class SimpleVec2i implements Vec2iR, Tup2iW
 	@Override
 	public SimpleVec2i setX(int x)
 	{
-		this.x = x; return this;
+		this.x = x;
+	
+		return this;
 	}
 	
 	@Override
 	public SimpleVec2i setY(int y)
 	{
-		this.y = y; return this;
+		this.y = y;
+		
+		return this;
 	}
 	
 	@Override
@@ -106,9 +145,16 @@ public class SimpleVec2i implements Vec2iR, Tup2iW
 		return setX(x).setY(y);
 	}
 	
+	/**
+	 * Checks if the components are exactly positive zero and returns the result.
+	 * 
+	 * @return True if both components are exactly positive zero. False otherwise.
+	 * 
+	 * @since 1.0
+	 */
 	public boolean isZero()
 	{
-		return this.x == 0.0f && this.y == 0.0f;
+		return this.x == 0 && this.y == 0;
 	}
 	
 	@Override
