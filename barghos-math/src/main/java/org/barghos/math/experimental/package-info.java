@@ -22,40 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math;
-
-import org.barghos.math.experimental.Integral;
-import org.barghos.math.vector.vec2.Vec2f;
-
 /**
  * @author picatrix1899
  *
  */
-public class Main
-{
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		float a = -1.0f;
-		float b = 1.0f;
-		
-		float d = (b-a) / 3.0f;
-		
-		Math.abs(1.0f);
-		
-		float result = (d / 3.0f) * (f(a) + 4.0f*f(a+1.0f*d) + 2*f(a+2.0f*d) + f(b));
-		System.out.println(result);
-		
-		System.out.println(Integral.intSimpsonf(-1.0f, 1.0f, 9, (x) -> { return f(x);}));
-		
-		
-	}
-
-	public static float f(float x)
-	{
-		return -1.0f * (float)Math.pow(x, 2) + 1.0f;
-	}
-}
+package org.barghos.math.experimental;

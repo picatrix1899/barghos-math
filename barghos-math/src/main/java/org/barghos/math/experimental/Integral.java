@@ -22,40 +22,57 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math;
+package org.barghos.math.experimental;
 
-import org.barghos.math.experimental.Integral;
-import org.barghos.math.vector.vec2.Vec2f;
+import java.util.function.Function;
 
 /**
  * @author picatrix1899
  *
  */
-public class Main
+public class Integral
 {
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
+	public static float intSimpsonf(float min, float max, int iterations, Function<Float,Float> f)
 	{
-		float a = -1.0f;
-		float b = 1.0f;
+		int steps = iterations + 1;
 		
-		float d = (b-a) / 3.0f;
+		float deltaX = (max - min) / steps;
 		
-		Math.abs(1.0f);
+		float res = f.apply(min) + f.apply(max);
 		
-		float result = (d / 3.0f) * (f(a) + 4.0f*f(a+1.0f*d) + 2*f(a+2.0f*d) + f(b));
-		System.out.println(result);
+		int z = 4;
 		
-		System.out.println(Integral.intSimpsonf(-1.0f, 1.0f, 9, (x) -> { return f(x);}));
+		for(int i = 1; i < steps; i++)
+		{
+			res = res + f.apply(min + i * deltaX);
+			
+			z = 6 - z;
+		}
 		
+		res = (deltaX / 3.0f) * res;
 		
+		return res;
 	}
-
-	public static float f(float x)
+	
+	public static double intSimpson(double min, double max, int iterations, Function<Double,Double> f)
 	{
-		return -1.0f * (float)Math.pow(x, 2) + 1.0f;
+		int steps = iterations + 1;
+		
+		double deltaX = (max - min) / steps;
+		
+		double res = f.apply(min) + f.apply(max);
+		
+		int z = 4;
+		
+		for(int i = 1; i < steps; i++)
+		{
+			res = res + z * f.apply(min + i * deltaX);
+			
+			z = 6 - z;
+		}
+		
+		res = (deltaX / 3.0) * res;
+		
+		return res;
 	}
 }
