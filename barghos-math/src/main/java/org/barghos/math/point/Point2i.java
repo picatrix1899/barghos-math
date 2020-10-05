@@ -29,6 +29,14 @@ import org.barghos.core.tuple2.api.Tup2iR;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.vector.vec2.Vec2i;
 
+/**
+ * Represents a 2-dimensional point with int components in euclidean space.
+ * This is used for an absolute representation of a point in space.
+ * 
+ * @author picatrix1899
+ * 
+ * @since 1.0
+ */
 public class Point2i extends Vec2i
 {
 	/**
@@ -40,7 +48,7 @@ public class Point2i extends Vec2i
 	}
 	
 	/**
-	 * Creates a new instance of {@link Point2i} with the components adopted from t
+	 * Creates a new instance of {@link Point2i} with the components adopted from t.
 	 * 
 	 * @param t An instance of {@link Tup2iR} to adopt the components from.
 	 */

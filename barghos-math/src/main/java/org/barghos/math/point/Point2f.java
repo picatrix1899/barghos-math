@@ -29,27 +29,67 @@ import org.barghos.core.tuple2.api.Tup2fR;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.vector.vec2.Vec2f;
 
+/**
+ * Represents a 2-dimensional point with float components in euclidean space.
+ * This is used for an absolute representation of a point in space.
+ * 
+ * @author picatrix1899
+ * 
+ * @since 1.0
+ */
 public class Point2f extends Vec2f
 {
-	public Point2f() { super(); }
+	/**
+	 * Creates a new instance of {@link Point2f} with both components set to 0.0f.
+	 * 
+	 * @since 1.0
+	 */
+	public Point2f()
+	{
+		super();
+	}
 	
+	/**
+	 * Creates a new instance of {@link Point2f} with the components adopted from t.
+	 * 
+	 * @param t An instance of {@link Tup2fR} to adopt the components from.
+	 * 
+	 * @since 1.0
+	 */
 	public Point2f(Tup2fR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
-			if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-			{
-				if(t == null) throw new ArgumentNullException("t");
-			}
-			
-			set(t.getX(), t.getY());
+			if(t == null) throw new ArgumentNullException("t");
 		}
+		
+		set(t.getX(), t.getY());
+	}
 	
-	public Point2f(float x, float y) { super(x, y); }
+	/**
+	 * Creates a new instance of {@link Point2i} with the components set to the corresponding parameters.
+	 * 
+	 * @param x The value for the x component.
+	 * @param y The value for the y component.
+	 * 
+	 * @since 1.0
+	 */
+	public Point2f(float x, float y)
+	{
+		super(x, y);
+	}
 	
 	@Override
-	public Point2f setX(float x) { super.setX(x); return this; }
+	public Point2f setX(float x)
+	{
+		super.setX(x); return this;
+	}
 	
 	@Override
-	public Point2f setY(float y) { super.setY(y); return this; }
+	public Point2f setY(float y)
+	{
+		super.setY(y); return this;
+	}
 	
 	@Override
 	public Point2f set(Tup2fR t)
@@ -63,7 +103,10 @@ public class Point2f extends Vec2f
 	}
 	
 	@Override
-	public Point2f set(float x, float y) { return setX(x).setY(y); }
+	public Point2f set(float x, float y)
+	{
+		return setX(x).setY(y);
+	}
 	
 	@Override
 	public String toString()
