@@ -40,18 +40,11 @@ import org.barghos.math.point.Point2f;
 import org.barghos.math.vector.quat.Quat;
 import org.barghos.math.vector.vec2.Vec2f;
 
-public class Mat3f
+public class Mat3f extends SimpleMat3f
 {
-	public static final Mat3f IDENTITY = Mat3f.identity();
-	
-	public static final int ROWS = 3;
-	public static final int COLUMNS = 3;
-	
-	public final float[][] m = new float[3][3];
-	
 	public Mat3f() { }
 	
-	public Mat3f(Mat3f m)
+	public Mat3f(Mat3fR m)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -68,14 +61,7 @@ public class Mat3f
 			if(m == null) throw new ArgumentNullException("m");
 		}
 		
-		for(int r = 0; r < ROWS; r++)
-		{
-			this.m[r][0] = m.m[r][0];
-			this.m[r][1] = m.m[r][1];
-			this.m[r][2] = m.m[r][2];
-		}
-
-		return this;
+		super.set(m); return this;
 	}
 	
 	public Mat3f initIdentity()
@@ -228,139 +214,7 @@ public class Mat3f
 		return this;
 	}
 	
-	public Mat3f setRow(int index, Tup2fR t, float z)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(index < 0 || index >= ROWS) throw new IndexOutOfBoundsException();
-			if(t == null) throw new ArgumentNullException("t");
-		}
-		
-		return setRow(index, t.getX(), t.getY(), z);
-	}
-	
-	public Mat3f setRow(int index, float x, Tup2fR t)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(index < 0 || index >= ROWS) throw new IndexOutOfBoundsException();
-			if(t == null) throw new ArgumentNullException("t");
-		}
-		
-		return setRow(index, x, t.getX(), t.getY());
-	}
-	
-	public Mat3f setRow(int index, Tup3fR t)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(index < 0 || index >= ROWS) throw new IndexOutOfBoundsException();
-			if(t == null) throw new ArgumentNullException("t");
-		}
-		
-		return setRow(index, t.getX(), t.getY(), t.getZ());
-	}
-	
-	public Mat3f setRow(int index, float x, float y, float z)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(index < 0 || index >= ROWS) throw new IndexOutOfBoundsException();
-		}
-		
-		this.m[index][0] = x;
-		this.m[index][1] = y;
-		this.m[index][2] = z;
-		return this;
-	}
-	
-	public Mat3f setColumn(int index, Tup2fR t, float z)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(index < 0 || index >= COLUMNS) throw new IndexOutOfBoundsException();
-			if(t == null) throw new ArgumentNullException("t");
-		}
-		
-		return setColumn(index, t.getX(), t.getY(), z);
-	}
-	
-	public Mat3f setColumn(int index, float x, Tup2fR t)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(index < 0 || index >= COLUMNS) throw new IndexOutOfBoundsException();
-			if(t == null) throw new ArgumentNullException("t");
-		}
-		
-		return setColumn(index, x, t.getX(), t.getY());
-	}
-	
-	public Mat3f setColumn(int index, Tup3fR t)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(index < 0 || index >= COLUMNS) throw new IndexOutOfBoundsException();
-			if(t == null) throw new ArgumentNullException("t");
-		}
-		
-		return setColumn(index, t.getX(), t.getY(), t.getZ());
-	}
 
-	public Mat3f setColumn(int index, float x, float y, float z)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(index < 0 || index >= COLUMNS) throw new IndexOutOfBoundsException();
-		}
-		
-		this.m[0][index] = x;
-		this.m[1][index] = y;
-		this.m[2][index] = z;
-		
-		return this;
-	}
-	
-	public Tup3f getRow(int index)
-	{
-		return new Tup3f(this.m[index][0], this.m[index][1], this.m[index][2]);
-	}
-	
-	public Tup3f getColumn(int index)
-	{
-		return new Tup3f(this.m[0][index], this.m[1][index], this.m[2][index]);
-	}
-	
-	public <T extends Tup3fW> T getRow(int index, T res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
-		res.set(this.m[index][0], this.m[index][1], this.m[index][2]);
-		
-		return res;
-	}
-	
-	public <T extends Tup3fW> T getColumn(int index, T res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
-		res.set(this.m[0][index], this.m[1][index], this.m[2][index]);
-		
-		return res;
-	}
-
-	public float determinant()
-	{
-		return (float) MatUtils.det3x3( this.m[0][0], this.m[0][1], this.m[0][2],
-								this.m[1][0], this.m[1][1], this.m[1][2],
-								this.m[2][0], this.m[2][1], this.m[2][2]);
-	}
 	
 	public static Mat3f mul(Mat3f l, Mat3f r, @Nullable Mat3f res)
 	{
@@ -372,43 +226,9 @@ public class Mat3f
 		
 		if(res == null) res = new Mat3f();
 		
-		float[][] m_ = new float[ROWS][COLUMNS];
+		l.mul(r, res);
 		
-		for(int row = 0; row < ROWS; row++)
-		{
-			m_[row][0] = l.m[row][0] * r.m[0][0] + l.m[row][1] * r.m[1][0] + l.m[row][2] * r.m[2][0];
-			m_[row][1] = l.m[row][0] * r.m[0][1] + l.m[row][1] * r.m[1][1] + l.m[row][2] * r.m[2][1];
-			m_[row][2] = l.m[row][0] * r.m[0][2] + l.m[row][1] * r.m[1][2] + l.m[row][2] * r.m[2][2];
-		}
-		
-		for(int row = 0; row < ROWS; row++)
-		{
-			res.m[row][0] = m_[row][0];
-			res.m[row][1] = m_[row][1];
-			res.m[row][2] = m_[row][2];
-		}
-
 		return res;
-	}
-	
-	public Mat3f mul(Mat3f r)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(r == null) throw new ArgumentNullException("r");
-		}
-		
-		return Mat3f.mul(this, r, this);
-	}
-	
-	public Mat3f mul(Mat3f r, @Nullable Mat3f res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(r == null) throw new ArgumentNullException("r");
-		}
-		
-		return Mat3f.mul(this, r, res);
 	}
 	
 	public Mat3f transpose()
@@ -487,25 +307,7 @@ public class Mat3f
 		return Mat3f.transform(l, r, r);
 	}
 	
-	public <T extends Tup3fR & Tup3fW> T transform(T r)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(r == null) throw new ArgumentNullException("r");
-		}
-		
-		return Mat3f.transform(this, r, r);
-	}
-	
-	public <T extends Tup3fW> T transform(Tup3fR r, T res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(r == null) throw new ArgumentNullException("r");
-		}
-		
-		return Mat3f.transform(this, r, res);
-	}
+
 	
 	public Point2f transform(Point2f r)
 	{
@@ -547,8 +349,7 @@ public class Mat3f
 		return Mat3f.transform(this, r, res);
 	}
 	
-	
-	public static Mat3f identity()
+		public static Mat3f identity()
 	{
 		return new Mat3f().initIdentity();
 	}
@@ -730,27 +531,6 @@ public class Mat3f
 	public Mat3f translate2D(float x, float y)
 	{
 		return Mat3f.mul(Mat3f.translation2D(x, y), this, this);
-	}
-	
-	public boolean isZeroMatrix()
-	{
-		return  this.m[0][0] == 0.0f && this.m[0][1] == 0.0f && this.m[0][2] == 0.0f &&
-				this.m[1][0] == 0.0f && this.m[1][1] == 0.0f && this.m[1][2] == 0.0f &&
-				this.m[2][0] == 0.0f && this.m[2][1] == 0.0f && this.m[2][2] == 0.0f;
-	}
-	
-	public boolean isIdentityMatrix()
-	{
-		return  this.m[0][0] == 1.0f && this.m[0][1] == 0.0f && this.m[0][2] == 0.0f &&
-				this.m[1][0] == 0.0f && this.m[1][1] == 1.0f && this.m[1][2] == 0.0f &&
-				this.m[2][0] == 0.0f && this.m[2][1] == 0.0f && this.m[2][2] == 1.0f;
-	}
-	
-	public String toString()
-	{
-		return 	"mat3f(" + this.m[0][0] + ", " + this.m[0][1] + ", " + this.m[0][2] + "\n"
-			  + "      " + this.m[1][0] + ", " + this.m[1][1] + ", " + this.m[1][2] + "\n"
-			  + "      " + this.m[2][0] + ", " + this.m[2][1] + ", " + this.m[2][2] + ")";
 	}
 	
 	public Mat3f clone()
