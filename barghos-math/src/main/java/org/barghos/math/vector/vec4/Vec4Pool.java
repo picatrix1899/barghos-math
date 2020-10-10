@@ -26,12 +26,12 @@ package org.barghos.math.vector.vec4;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.pool.DequePool;
-import org.barghos.core.pool.api.IPool;
+import org.barghos.core.pool.api.Pool;
 import org.barghos.core.tuple4.api.Tup4fR;
 
 public final class Vec4Pool
 {
-	private static IPool<Vec4> pool = new DequePool<>(Vec4.class);
+	private static Pool<Vec4> pool = new DequePool<>(Vec4.class);
 	
 	private Vec4Pool() { }
 	
@@ -43,6 +43,6 @@ public final class Vec4Pool
 	
 	public static void store(Vec4... instances) { pool.store(instances); }
 	
-	public static void setInternalPool(IPool<Vec4> pool) { if(pool == null) throw new ArgumentNullException("pool"); Vec4Pool.pool = pool; }
-	public static IPool<Vec4> getInternalPool() { return pool; }
+	public static void setInternalPool(Pool<Vec4> pool) { if(pool == null) throw new ArgumentNullException("pool"); Vec4Pool.pool = pool; }
+	public static Pool<Vec4> getInternalPool() { return pool; }
 }

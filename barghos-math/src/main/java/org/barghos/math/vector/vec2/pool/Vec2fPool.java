@@ -26,7 +26,7 @@ package org.barghos.math.vector.vec2.pool;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.pool.DequePool;
-import org.barghos.core.pool.api.IPool;
+import org.barghos.core.pool.api.Pool;
 import org.barghos.core.tuple2.api.Tup2fR;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.vector.vec2.Vec2f;
@@ -44,7 +44,7 @@ public final class Vec2fPool
 	/**
 	 * This variable contains the internal pool that is backing this specialized pool.
 	 */
-	private static IPool<Vec2f> pool = new DequePool<>(Vec2f.class);
+	private static Pool<Vec2f> pool = new DequePool<>(Vec2f.class);
 	
 	/**
 	 * This class contains only static methods and therefore it should not be possible to create
@@ -136,7 +136,7 @@ public final class Vec2fPool
 	 * 
 	 * @since 1.0
 	 */
-	public static void setInternalPool(IPool<Vec2f> pool)
+	public static void setInternalPool(Pool<Vec2f> pool)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -153,7 +153,7 @@ public final class Vec2fPool
 	 * 
 	 * @since 1.0
 	 */
-	public static IPool<Vec2f> getInternalPool()
+	public static Pool<Vec2f> getInternalPool()
 	{
 		return pool;
 	}

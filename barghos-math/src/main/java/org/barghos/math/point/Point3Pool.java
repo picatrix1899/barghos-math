@@ -26,7 +26,7 @@ package org.barghos.math.point;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.pool.DequePool;
-import org.barghos.core.pool.api.IPool;
+import org.barghos.core.pool.api.Pool;
 import org.barghos.core.tuple3.api.Tup3fR;
 
 /**
@@ -35,7 +35,7 @@ import org.barghos.core.tuple3.api.Tup3fR;
  */
 public class Point3Pool
 {
-private static IPool<Point3> pool = new DequePool<>(Point3.class);
+private static Pool<Point3> pool = new DequePool<>(Point3.class);
 	
 	private Point3Pool() { }
 	
@@ -47,6 +47,6 @@ private static IPool<Point3> pool = new DequePool<>(Point3.class);
 	
 	public static void store(Point3... instances) { pool.store(instances); }
 	
-	public static void setInternalPool(IPool<Point3> pool) { if(pool == null) throw new ArgumentNullException("pool"); Point3Pool.pool = pool; }
-	public static IPool<Point3> getInternalPool() { return pool; }
+	public static void setInternalPool(Pool<Point3> pool) { if(pool == null) throw new ArgumentNullException("pool"); Point3Pool.pool = pool; }
+	public static Pool<Point3> getInternalPool() { return pool; }
 }

@@ -25,13 +25,13 @@ SOFTWARE.
 package org.barghos.math.vector.quat;
 
 import org.barghos.core.exception.ArgumentNullException;
-import org.barghos.core.pool.api.IPool;
+import org.barghos.core.pool.api.Pool;
 import org.barghos.math.BarghosMath;
 import org.barghos.core.pool.DequePool;
 
 public final class QuatPool
 {
-	private static IPool<Quat> pool = new DequePool<>(Quat.class);
+	private static Pool<Quat> pool = new DequePool<>(Quat.class);
 	
 	private QuatPool() { }
 	
@@ -69,7 +69,7 @@ public final class QuatPool
 		pool.ensure(count);
 	}
 	
-	public static void setInternalPool(IPool<Quat> pool)
+	public static void setInternalPool(Pool<Quat> pool)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -79,7 +79,7 @@ public final class QuatPool
 		QuatPool.pool = pool;
 	}
 	
-	public static IPool<Quat> getInternalPool()
+	public static Pool<Quat> getInternalPool()
 	{
 		return pool;
 	}

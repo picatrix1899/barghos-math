@@ -26,14 +26,14 @@ package org.barghos.math.vector.vec3;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.pool.DequePool;
-import org.barghos.core.pool.api.IPool;
+import org.barghos.core.pool.api.Pool;
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.math.BarghosMath;
 
 
 public final class Vec3Pool
 {
-	private static IPool<Vec3> pool = new DequePool<>(Vec3.class);
+	private static Pool<Vec3> pool = new DequePool<>(Vec3.class);
 	
 	private Vec3Pool() { }
 	
@@ -72,7 +72,7 @@ public final class Vec3Pool
 		pool.store(instances);
 	}
 	
-	public static void setInternalPool(IPool<Vec3> pool)
+	public static void setInternalPool(Pool<Vec3> pool)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -82,7 +82,7 @@ public final class Vec3Pool
 		Vec3Pool.pool = pool; 
 	}
 	
-	public static IPool<Vec3> getInternalPool()
+	public static Pool<Vec3> getInternalPool()
 	{
 		return pool;
 	}
