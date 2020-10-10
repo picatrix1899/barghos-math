@@ -24,6 +24,16 @@ SOFTWARE.
 
 package org.barghos.math.matrix;
 
+import org.barghos.core.tuple2.Tup2f;
+import org.barghos.core.tuple2.api.Tup2fR;
+import org.barghos.core.tuple2.pool.Tup2fPool;
+import org.barghos.core.tuple3.Tup3f;
+import org.barghos.core.tuple3.api.Tup3fR;
+import org.barghos.core.tuple3.helper.Tup3fHelper;
+import org.barghos.core.tuple3.pool.Tup3fPool;
+import org.barghos.core.tuple4.api.Tup4fR;
+import org.barghos.core.tuple4.helper.Tup4fHelper;
+
 public class MatUtils
 {
 	public static double det2x2( double m0x, double m0y,
@@ -31,6 +41,12 @@ public class MatUtils
 	{
 		return	m0x * +m1y +
 				m0y * -m1x;
+	}
+	
+	public static float det2x2f(Tup2fR r0, Tup2fR r1)
+	{
+		return	r0.getX() * +r1.getY() +
+				r0.getY() * -r1.getX();
 	}
 	
 	public static double det3x3( double m0x, double m0y, double m0z,
@@ -42,7 +58,26 @@ public class MatUtils
 				m0z * +det2x2(m1x, m1y, m2x, m2y);
 	}
 	
-	public static double det4x4(	double m0x, double m0y, double m0z, double m0w,
+	public static float det3x3f(Tup3fR r0, Tup3fR r1, Tup3fR r2)
+	{
+		Tup2f t1 = Tup3fHelper.tupleFromYZ(r1, Tup2fPool.get());
+		Tup2f t2 = Tup3fHelper.tupleFromYZ(r2, Tup2fPool.get());
+		float det = r0.getX() * +det2x2f(t1, t2);
+				
+		Tup3fHelper.tupleFromXZ(r1, t1);
+		Tup3fHelper.tupleFromXZ(r1, t2);
+		det += r0.getY() * -det2x2f(t1, t2);
+		
+		Tup3fHelper.tupleFromXY(r2, t1);
+		Tup3fHelper.tupleFromXY(r2, t2);
+		det += r0.getZ() * +det2x2f(t1, t2);
+
+		Tup2fPool.store(t1, t2);
+		
+		return det;
+	}
+	
+	public static double det4x4(double m0x, double m0y, double m0z, double m0w,
 								double m1x, double m1y, double m1z, double m1w,
 								double m2x, double m2y, double m2z, double m2w,
 								double m3x, double m3y, double m3z, double m3w)
@@ -53,7 +88,34 @@ public class MatUtils
 				m0w * -det3x3(m1x, m1y, m1z, m2x, m2y, m2z, m3x, m3y, m3z);
 	}
 	
-	public static double det5x5( double m0x, double m0y, double m0z, double m0w, double m0v,
+	public static float det4x4f(Tup4fR r0, Tup4fR r1, Tup4fR r2, Tup4fR r3)
+	{
+		Tup3f t1 = Tup4fHelper.tupleFromYZW(r1, Tup3fPool.get());
+		Tup3f t2 = Tup4fHelper.tupleFromYZW(r2, Tup3fPool.get());
+		Tup3f t3 = Tup4fHelper.tupleFromYZW(r3, Tup3fPool.get());
+		float det = r0.getX() * +det3x3f(t1, t2, t3);
+		
+		Tup4fHelper.tupleFromXZW(r1, t1);
+		Tup4fHelper.tupleFromXZW(r2, t2);
+		Tup4fHelper.tupleFromXZW(r3, t3);
+		det = r0.getY() * +det3x3f(t1, t2, t3);
+		
+		Tup4fHelper.tupleFromXYW(r1, t1);
+		Tup4fHelper.tupleFromXYW(r2, t2);
+		Tup4fHelper.tupleFromXYW(r3, t3);
+		det = r0.getZ() * +det3x3f(t1, t2, t3);
+		
+		Tup4fHelper.tupleFromXYZ(r1, t1);
+		Tup4fHelper.tupleFromXYZ(r2, t2);
+		Tup4fHelper.tupleFromXYZ(r3, t3);
+		det = r0.getW() * +det3x3f(t1, t2, t3);
+		
+		Tup3fPool.store(t1, t2, t3);
+		
+		return det;
+	}
+	
+	public static double det5x5(double m0x, double m0y, double m0z, double m0w, double m0v,
 								double m1x, double m1y, double m1z, double m1w, double m1v,
 								double m2x, double m2y, double m2z, double m2w, double m2v,
 								double m3x, double m3y, double m3z, double m3w, double m3v,
