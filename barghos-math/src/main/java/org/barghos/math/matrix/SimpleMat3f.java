@@ -36,13 +36,14 @@ import org.barghos.math.vector.vec3.Vec3;
 import org.barghos.math.vector.vec3.Vec3Pool;
 
 /**
+ * This class represents a simplified version of the {@link Mat3f} class.
+ * It can be used as a substitution for {@link Mat3f} but does not have any methods for
+ * initializing the matrix.
+ *   
  * @author picatrix1899
- *
  */
 public class SimpleMat3f implements Mat3fR, Mat3fW
 {
-	public static final Mat3f IDENTITY = Mat3f.identity();
-	
 	public static final int ROWS = 3;
 	public static final int COLUMNS = 3;
 	
@@ -60,7 +61,7 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		set(m);
 	}
 	
-	public Tup3f getRow(int index)
+	public Tup3fR getRow(int index)
 	{
 		return new Tup3f(this.m[index][0], this.m[index][1], this.m[index][2]);
 	}
@@ -77,7 +78,7 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		return res;
 	}
 	
-	public Tup3f getColumn(int index)
+	public Tup3fR getColumn(int index)
 	{
 		return new Tup3f(this.m[0][index], this.m[1][index], this.m[2][index]);
 	}
@@ -107,7 +108,7 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 			if(res == null) throw new ArgumentNullException("res");
 		}
 		
-		float[][] m_ = new float[ROWS][COLUMNS];
+		float[] m_ = new float[ROWS * COLUMNS];
 		
 		Vec3 rw = Vec3Pool.get();
 		Vec3 cl = Vec3Pool.get();
@@ -116,18 +117,22 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		{
 			getRow(row, rw);
 			
-			m_[row][0] = rw.dot(r.getColumn(0, cl));
-			m_[row][1] = rw.dot(r.getColumn(1, cl));
-			m_[row][2] = rw.dot(r.getColumn(2, cl));
+			int index = row * COLUMNS;
+			
+			m_[index + 0] = rw.dot(r.getColumn(0, cl));
+			m_[index + 1] = rw.dot(r.getColumn(1, cl));
+			m_[index + 2] = rw.dot(r.getColumn(2, cl));
 		}
 		
 		Vec3Pool.store(rw, cl);
 		
 		for(int row = 0; row < ROWS; row++)
 		{
-			res.m[row][0] = m_[row][0];
-			res.m[row][1] = m_[row][1];
-			res.m[row][2] = m_[row][2];
+			int index = row * COLUMNS;
+			
+			res.m[row][0] = m_[index + 0];
+			res.m[row][1] = m_[index + 1];
+			res.m[row][2] = m_[index + 2];
 		}
 
 		return res;
@@ -160,7 +165,17 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		return res;
 	}
 
-	public <T extends Tup2fW> T transform(Tup2fR r, T res)
+	public <T extends Tup2fR & Tup2fW> T transform(T r, boolean useLastColumn)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(r == null) throw new ArgumentNullException("r");
+		}
+		
+		return transform(r, useLastColumn, r);
+	}
+	
+	public <T extends Tup2fW> T transform(Tup2fR r, boolean useLastColumn, T res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -168,9 +183,15 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 			if(res == null) throw new ArgumentNullException("res");
 		}
 	
-		float x_ = m[0][0] * r.getX() + m[0][1] * r.getY() + m[0][2] * 1.0f;
-		float y_ = m[1][0] * r.getX() + m[1][1] * r.getY() + m[1][2] * 1.0f;
+		float x_ = m[0][0] * r.getX() + m[0][1] * r.getY();
+		float y_ = m[1][0] * r.getX() + m[1][1] * r.getY();
 
+		if(useLastColumn)
+		{
+			x_ += m[0][2] * 1.0f;
+			y_ += m[1][2] * 1.0f;
+		}
+		
 		res.set(x_, y_);
 
 		return res;
@@ -183,14 +204,15 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 			if(m == null) throw new ArgumentNullException("m");
 		}
 		
-		Tup3f t = Tup3fPool.get();
-		
-		for(int r = 0; r < ROWS; r++)
-		{
-			setRow(r, m.getRow(r, t));
-		}
+		Tup3f r0 = m.getRow(0, Tup3fPool.get());
+		Tup3f r1 = m.getRow(1, Tup3fPool.get());
+		Tup3f r2 = m.getRow(2, Tup3fPool.get());
 
-		Tup3fPool.store(t);
+		setRow(0, r0);
+		setRow(1, r1);
+		setRow(2, r2);
+
+		Tup3fPool.store(r0, r1, r2);
 		
 		return this;
 	}
@@ -291,9 +313,6 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		return this;
 	}
 
-	/*
-	 *
-	 */
 	public SimpleMat3f setCell(int row, int column, float value)
 	{
 		this.m[row][column] = value;

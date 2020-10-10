@@ -37,8 +37,8 @@ import org.barghos.core.tuple3.pool.Tup3fPool;
  */
 public interface Mat3fR
 {
-	Tup3f getRow(int index);
-	Tup3f getColumn(int index);
+	Tup3fR getRow(int index);
+	Tup3fR getColumn(int index);
 	
 	float getCell(int row, int column);
 	
@@ -61,6 +61,7 @@ public interface Mat3fR
 	Mat3f mul(Mat3fR r, Mat3f res);
 	
 	<T extends Tup3fR & Tup3fW> T transform(T r);
+	<T extends Tup2fR & Tup2fW> T transform(T r, boolean useLastColumn);
 	<T extends Tup3fW> T transform(Tup3fR r, T res);
-	<T extends Tup2fW> T transform(Tup2fR r, T res);
+	<T extends Tup2fW> T transform(Tup2fR r, boolean useLastColumn, T res);
 }
