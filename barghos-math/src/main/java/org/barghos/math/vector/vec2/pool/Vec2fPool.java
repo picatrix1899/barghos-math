@@ -53,9 +53,23 @@ public final class Vec2fPool
 	private Vec2fPool() { }
 	
 	/**
-	 * Returns an instance of {@link Vec2f} from the pool and resets it.
+	 * Returns an instance of {@link Vec2f} from the pool and does not reset it.
+	 * This function is useful for reducing unneccessary calls and operations if a value is
+	 * applied to to the tuple anyway before it is used.
 	 * 
 	 * @return A stored instance.
+	 * 
+	 * @since 1.0
+	 */
+	public static Vec2f getPlain()
+	{
+		return pool.get();
+	}
+	
+	/**
+	 * Returns an instance of {@link Vec2f} from the pool and resets it.
+	 * 
+	 * @return A stored instance with the components set to 0.0f.
 	 * 
 	 * @since 1.0
 	 */

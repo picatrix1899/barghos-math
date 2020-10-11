@@ -39,6 +39,19 @@ private static Pool<Point3> pool = new DequePool<>(Point3.class);
 	
 	private Point3Pool() { }
 	
+	/**
+	 * Returns an instance of {@link Point3} from the pool and does not reset it.
+	 * This function is useful for reducing unneccessary calls and operations if a value is
+	 * applied to to the tuple anyway before it is used.
+	 * 
+	 * @return A stored instance.
+	 * 
+	 * @since 1.0
+	 */
+	public static Point3 getPlain()
+	{
+		return pool.get();
+	}
 	public static Point3 get() { return pool.get().set(0.0f, 0.0f, 0.0f); }
 	public static Point3 get(Tup3fR v) { if(v == null) throw new ArgumentNullException("v"); return pool.get().set(v); }
 	public static Point3 get(float x, float y, float z) { return pool.get().set(x, y, z); }

@@ -37,6 +37,20 @@ public final class Vec3Pool
 	
 	private Vec3Pool() { }
 	
+	/**
+	 * Returns an instance of {@link Vec3} from the pool and does not reset it.
+	 * This function is useful for reducing unneccessary calls and operations if a value is
+	 * applied to to the tuple anyway before it is used.
+	 * 
+	 * @return A stored instance.
+	 * 
+	 * @since 1.0
+	 */
+	public static Vec3 getPlain()
+	{
+		return pool.get();
+	}
+	
 	public static Vec3 get()
 	{
 		return pool.get().set(0.0f, 0.0f, 0.0f);

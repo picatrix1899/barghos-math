@@ -35,6 +35,20 @@ public final class Vec4Pool
 	
 	private Vec4Pool() { }
 	
+	/**
+	 * Returns an instance of {@link Vec4} from the pool and does not reset it.
+	 * This function is useful for reducing unneccessary calls and operations if a value is
+	 * applied to to the tuple anyway before it is used.
+	 * 
+	 * @return A stored instance.
+	 * 
+	 * @since 1.0
+	 */
+	public static Vec4 getPlain()
+	{
+		return pool.get();
+	}
+	
 	public static Vec4 get() { return pool.get().set(0.0f, 0.0f, 0.0f, 0.0f); }
 	public static Vec4 get(Tup4fR v) { if(v == null) throw new ArgumentNullException("v"); return pool.get().set(v); }
 	public static Vec4 get(float x, float y, float z, float w) { return pool.get().set(x, y, z, w); }
