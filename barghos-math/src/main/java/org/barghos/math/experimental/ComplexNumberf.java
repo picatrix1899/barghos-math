@@ -22,38 +22,74 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math;
+package org.barghos.math.experimental;
 
-import org.barghos.math.experimental.Integral;
-import org.barghos.math.vector.vec2.Vec2f;
+import org.barghos.core.tuple2.api.Tup2fR;
+import org.barghos.core.tuple2.api.Tup2fW;
 
 /**
  * @author picatrix1899
  *
  */
-public class Main
+public class ComplexNumberf implements Tup2fR, Tup2fW
 {
-
-	/**
-	 * @param args
+	private float x;
+	private float y;
+	
+	/*
+	 *
 	 */
-	public static void main(String[] args)
+	public Tup2fW setX(float x)
 	{
-		float a = -1.0f;
-		float b = 1.0f;
-		
-		float d = (b-a) / 3.0f;
-		
-		Math.abs(1.0f);
-		
-		float result = (d / 3.0f) * (f(a) + 4.0f*f(a+1.0f*d) + 2*f(a+2.0f*d) + f(b));
-		System.out.println(result);
-		
-		System.out.println(Integral.intSimpsonf(-1.0f, 1.0f, 9, (x) -> { return f(x);}));
+		return null;
 	}
 
-	public static float f(float x)
+	/*
+	 *
+	 */
+	public Tup2fW setY(float y)
 	{
-		return -1.0f * (float)Math.pow(x, 2) + 1.0f;
+		return null;
 	}
+
+	/*
+	 *
+	 */
+	public Tup2fW set(Tup2fR t)
+	{
+		return null;
+	}
+
+	/*
+	 *
+	 */
+	public Tup2fW set(float value)
+	{
+		return null;
+	}
+
+	/*
+	 *
+	 */
+	public Tup2fW set(float x, float y)
+	{
+		return null;
+	}
+
+	/*
+	 *
+	 */
+	public float getX()
+	{
+		return 0;
+	}
+
+	/*
+	 *
+	 */
+	public float getY()
+	{
+		return 0;
+	}
+	
 }
