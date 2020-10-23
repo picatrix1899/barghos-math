@@ -28,7 +28,7 @@ package org.barghos.math;
  * @author picatrix1899
  *
  */
-public enum DefaultRoundingBehavoirs implements RoundingBehavoir
+public enum DefaultRoundingBehaviors implements RoundingBehavoir
 {
 	ROUND {
 		public int roundi(double value) { return (int)Math.round(value); }
