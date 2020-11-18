@@ -22,11 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.vec3;
+package org.barghos.math.vector.vec4;
 
 import org.barghos.math.Maths;
 
-public enum Vec3Axis implements Vec3fR
+public enum Vec4fAxis implements Vec4fR
 {
 	/** The Zero Vector as constant. */
 	ZERO {
@@ -224,4 +224,6 @@ public enum Vec3Axis implements Vec3fR
 		public float getZ() { return -Maths.INV_SQRT3f; }
 	},
 ;
+	
+	public float getW() { return 0; }
 }

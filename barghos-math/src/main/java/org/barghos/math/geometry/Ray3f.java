@@ -25,21 +25,21 @@ SOFTWARE.
 package org.barghos.math.geometry;
 
 import org.barghos.core.tuple3.api.Tup3fR;
-import org.barghos.math.point.Point3;
+import org.barghos.math.point.Point3f;
 import org.barghos.math.vector.vec3.Vec3f;
 
 /**
  * @author picatrix1899
  *
  */
-public class Ray3
+public class Ray3f
 {
-	protected final Point3 origin = new Point3();
+	protected final Point3f origin = new Point3f();
 	protected final Vec3f direction = new Vec3f();
 	
-	public Ray3() { }
+	public Ray3f() { }
 	
-	public Ray3(Tup3fR origin, Tup3fR direction)
+	public Ray3f(Tup3fR origin, Tup3fR direction)
 	{
 		this.origin.set(origin);
 		this.direction.set(direction);

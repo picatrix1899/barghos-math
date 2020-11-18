@@ -31,37 +31,37 @@ import java.util.List;
 
 import org.barghos.core.util.Nullable;
 import org.barghos.math.matrix.Mat4;
-import org.barghos.math.point.Point3;
+import org.barghos.math.point.Point3f;
 import org.barghos.math.vector.vec3.Vec3f;
 
-public class PointSet3 implements FiniteGeometricObject3, Iterable<Point3>
+public class PointSet3f implements FiniteGeometricObject3f, Iterable<Point3f>
 {
-	protected final List<Point3> points = new ArrayList<>();
+	protected final List<Point3f> points = new ArrayList<>();
 	protected final Vec3f min = new Vec3f();
 	protected final Vec3f max = new Vec3f();
 	
 	protected boolean isDirty;
 	
-	public PointSet3() {}
+	public PointSet3f() {}
 	
-	public PointSet3(PointSet3 set)
+	public PointSet3f(PointSet3f set)
 	{
 		set(set);
 	}
 	
-	public PointSet3(Point3... points)
+	public PointSet3f(Point3f... points)
 	{
 		set(points);
 	}
 	
-	public PointSet3(Collection<Point3> c)
+	public PointSet3f(Collection<Point3f> c)
 	{
 		set(c);
 	}
 	
-	public PointSet3 set() { this.points.clear(); this.isDirty = true; return this; }
+	public PointSet3f set() { this.points.clear(); this.isDirty = true; return this; }
 	
-	public PointSet3 set(PointSet3 set)
+	public PointSet3f set(PointSet3f set)
 	{
 		this.points.clear();
 		for(int i = 0; i < set.points.size(); i++)
@@ -70,7 +70,7 @@ public class PointSet3 implements FiniteGeometricObject3, Iterable<Point3>
 		return this;
 	}
 	
-	public PointSet3 set(Point3... points)
+	public PointSet3f set(Point3f... points)
 	{
 		this.points.clear();
 		
@@ -82,7 +82,7 @@ public class PointSet3 implements FiniteGeometricObject3, Iterable<Point3>
 		return this;
 	}
 
-	public PointSet3 set(Collection<Point3> c)
+	public PointSet3f set(Collection<Point3f> c)
 	{
 		this.points.clear();
 		this.points.addAll(c);
@@ -91,7 +91,7 @@ public class PointSet3 implements FiniteGeometricObject3, Iterable<Point3>
 		return this;
 	}
 	
-	public PointSet3 add(Point3... points)
+	public PointSet3f add(Point3f... points)
 	{
 		for(int i = 0; i < points.length; i++)
 			this.points.add(points[i]);
@@ -101,43 +101,43 @@ public class PointSet3 implements FiniteGeometricObject3, Iterable<Point3>
 		return this;
 	}
 	
-	public PointSet3 add(Collection<Point3> c)
+	public PointSet3f add(Collection<Point3f> c)
 	{
 		this.points.addAll(c);
 		this.isDirty = true;
 		return this;
 	}
 	
-	public PointSet3 transform(Mat4 t)
+	public PointSet3f transform(Mat4 t)
 	{
-		Point3[] p = new Point3[this.points.size()];
+		Point3f[] p = new Point3f[this.points.size()];
 		
 		for(int i = 0; i < this.points.size(); i++)
-			p[i] = t.transform(this.points.get(i), (Point3)null);
+			p[i] = t.transform(this.points.get(i), (Point3f)null);
 		
 		return set(p);
 	}
 	
-	public PointSet3 transform(Mat4 t, @Nullable PointSet3 res)
+	public PointSet3f transform(Mat4 t, @Nullable PointSet3f res)
 	{
-		if(res == null) res = new PointSet3();
+		if(res == null) res = new PointSet3f();
 		
-		Point3[] p = new Point3[this.points.size()];
+		Point3f[] p = new Point3f[this.points.size()];
 		
 		for(int i = 0; i < this.points.size(); i++)
-			p[i] = t.transform(this.points.get(i), (Point3)null);
+			p[i] = t.transform(this.points.get(i), (Point3f)null);
 		
 		return res.set(p);
 	}
 	
-	public PointSet3 getPointSet()
+	public PointSet3f getPointSet()
 	{
-		return new PointSet3(this);
+		return new PointSet3f(this);
 	}
 	
-	public Point3[] getPoints()
+	public Point3f[] getPoints()
 	{
-		return this.points.toArray(new Point3[this.points.size()]);
+		return this.points.toArray(new Point3f[this.points.size()]);
 	}
 	
 	private void calculateExtremes()
@@ -153,7 +153,7 @@ public class PointSet3 implements FiniteGeometricObject3, Iterable<Point3>
 		float maxY = Float.NEGATIVE_INFINITY;
 		float maxZ = Float.NEGATIVE_INFINITY;
 		
-		Point3 current;
+		Point3f current;
 		
 		for(int i = 0; i < this.points.size(); i++)
 		{
@@ -224,7 +224,7 @@ public class PointSet3 implements FiniteGeometricObject3, Iterable<Point3>
 		return this.max.getZ();
 	}
 
-	public Iterator<Point3> iterator()
+	public Iterator<Point3f> iterator()
 	{
 		return this.points.iterator();
 	}

@@ -28,63 +28,63 @@ import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.util.Nullable;
 import org.barghos.math.Maths;
 import org.barghos.math.matrix.Mat4;
-import org.barghos.math.point.Point3;
+import org.barghos.math.point.Point3f;
 import org.barghos.math.vector.vec3.Vec3f;
 import org.barghos.math.vector.vec3.Vec3fPool;
 
-public class Triangle3 implements FiniteGeometricObject3
+public class Triangle3f implements FiniteGeometricObject3f
 {
-	protected final Point3 p1 = new Point3();
-	protected final Point3 p2 = new Point3();
-	protected final Point3 p3 = new Point3();
+	protected final Point3f p1 = new Point3f();
+	protected final Point3f p2 = new Point3f();
+	protected final Point3f p3 = new Point3f();
 	
-	public Triangle3() { }
-	public Triangle3(Triangle3 t)
+	public Triangle3f() { }
+	public Triangle3f(Triangle3f t)
 	{
 		set(t);
 	}
 	
-	public Triangle3(Tup3fR p1, Tup3fR p2, Tup3fR p3)
+	public Triangle3f(Tup3fR p1, Tup3fR p2, Tup3fR p3)
 	{
 		set(p1, p2, p3);
 	}
 
-	public Triangle3(float x1, float y1, float z1, Tup3fR p2, Tup3fR p3)
+	public Triangle3f(float x1, float y1, float z1, Tup3fR p2, Tup3fR p3)
 	{
 		set(x1, y1, z1, p2, p3);
 	}
 	
-	public Triangle3(Tup3fR p1, float x2, float y2, float z2, Tup3fR p3)
+	public Triangle3f(Tup3fR p1, float x2, float y2, float z2, Tup3fR p3)
 	{
 		set(p1, x2, y2, z2, p3);
 	}
 	
-	public Triangle3(Tup3fR p1, Tup3fR p2, float x3, float y3, float z3)
+	public Triangle3f(Tup3fR p1, Tup3fR p2, float x3, float y3, float z3)
 	{
 		set(p1, p2, x3, y3, z3);
 	}
 	
-	public Triangle3(float x1, float y1, float z1, float x2, float y2, float z2, Tup3fR p3)
+	public Triangle3f(float x1, float y1, float z1, float x2, float y2, float z2, Tup3fR p3)
 	{
 		set(x1, y1, z1, x2, y2, z2, p3);
 	}
 	
-	public Triangle3(float x1, float y1, float z1, Tup3fR p2, float x3, float y3, float z3)
+	public Triangle3f(float x1, float y1, float z1, Tup3fR p2, float x3, float y3, float z3)
 	{
 		set(x1, y1, z1, p2, x3, y3, z3);
 	}
 	
-	public Triangle3(Tup3fR p1, float x2, float y2, float z2, float x3, float y3, float z3)
+	public Triangle3f(Tup3fR p1, float x2, float y2, float z2, float x3, float y3, float z3)
 	{
 		set(p1, x2, y2, z2, x3, y3, z3);
 	}
 	
-	public Triangle3(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3)
+	public Triangle3f(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3)
 	{
 		set(x1, y1, z1, x2, y2, z2, x3, y3, z3);
 	}
 	
-	public Triangle3 set(Triangle3 t)
+	public Triangle3f set(Triangle3f t)
 	{
 		t.getP1(this.p1);
 		t.getP2(this.p2);
@@ -92,136 +92,136 @@ public class Triangle3 implements FiniteGeometricObject3
 		return this;
 	}
 	
-	public Triangle3 set(Tup3fR p1, Tup3fR p2, Tup3fR p3)
+	public Triangle3f set(Tup3fR p1, Tup3fR p2, Tup3fR p3)
 	{
 		return set(p1.getX(), p1.getY(), p1.getZ(), p2.getX(), p2.getY(), p2.getZ(), p3.getX(), p3.getY(), p3.getZ());
 	}
 	
-	public Triangle3 set(float x1, float y1, float z1, Tup3fR p2, Tup3fR p3)
+	public Triangle3f set(float x1, float y1, float z1, Tup3fR p2, Tup3fR p3)
 	{
 		return set(x1, y1, z1, p2.getX(), p2.getY(), p2.getZ(), p3.getX(), p3.getY(), p3.getZ());
 	}
 	
-	public Triangle3 set(Tup3fR p1, float x2, float y2, float z2, Tup3fR p3)
+	public Triangle3f set(Tup3fR p1, float x2, float y2, float z2, Tup3fR p3)
 	{
 		return set(p1.getX(), p1.getY(), p1.getZ(), x2, y2, z2, p3.getX(), p3.getY(), p3.getZ());
 	}
 	
-	public Triangle3 set(Tup3fR p1, Tup3fR p2, float x3, float y3, float z3)
+	public Triangle3f set(Tup3fR p1, Tup3fR p2, float x3, float y3, float z3)
 	{
 		return set(p1.getX(), p1.getY(), p1.getZ(), p2.getX(), p2.getY(), p2.getZ(), x3, y3, z3);
 	}
 	
-	public Triangle3 set(float x1, float y1, float z1, float x2, float y2, float z2, Tup3fR p3)
+	public Triangle3f set(float x1, float y1, float z1, float x2, float y2, float z2, Tup3fR p3)
 	{
 		return set(x1, y1, z1, x2, y2, z2, p3.getX(), p3.getY(), p3.getZ());
 	}
 	
-	public Triangle3 set(float x1, float y1, float z1, Tup3fR p2, float x3, float y3, float z3)
+	public Triangle3f set(float x1, float y1, float z1, Tup3fR p2, float x3, float y3, float z3)
 	{
 		return set(x1, y1, z1, p2.getX(), p2.getY(), p2.getZ(), x3, y3, z3);
 	}
 	
-	public Triangle3 set(Tup3fR p1, float x2, float y2, float z2, float x3, float y3, float z3)
+	public Triangle3f set(Tup3fR p1, float x2, float y2, float z2, float x3, float y3, float z3)
 	{
 		return set(p1.getX(), p1.getY(), p1.getZ(), x2, y2, z2, x3, y3, z3);
 	}
 	
-	public Triangle3 set(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3)
+	public Triangle3f set(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3)
 	{
 		return setP1(x1, y1, z1).setP2(x2, y2, z2).setP3(x3, y3, z3);
 	}
 	
-	public Triangle3 setP1(Tup3fR t)
+	public Triangle3f setP1(Tup3fR t)
 	{
 		return setP1(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public Triangle3 setP1(float x, float y, float z)
+	public Triangle3f setP1(float x, float y, float z)
 	{
 		this.p1.set(x, y, z); return this;
 	}
 	
-	public Triangle3 setP1X(float x)
+	public Triangle3f setP1X(float x)
 	{
 		this.p1.setX(x); return this;
 	}
 	
-	public Triangle3 setP1Y(float y)
+	public Triangle3f setP1Y(float y)
 	{
 		this.p1.setY(y); return this;
 	}
 	
-	public Triangle3 setP1Z(float z)
+	public Triangle3f setP1Z(float z)
 	{
 		this.p1.setZ(z); return this;
 	}
 	
-	public Triangle3 setP2(Tup3fR t)
+	public Triangle3f setP2(Tup3fR t)
 	{
 		return setP2(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public Triangle3 setP2(float x, float y, float z)
+	public Triangle3f setP2(float x, float y, float z)
 	{
 		this.p2.set(x, y, z); return this;
 	}
 	
-	public Triangle3 setP2X(float x)
+	public Triangle3f setP2X(float x)
 	{
 		this.p2.setX(x); return this;
 	}
 	
-	public Triangle3 setP2Y(float y)
+	public Triangle3f setP2Y(float y)
 	{
 		this.p2.setY(y); return this;
 	}
 	
-	public Triangle3 setP2Z(float z)
+	public Triangle3f setP2Z(float z)
 	{
 		this.p2.setZ(z); return this;
 	}
 	
-	public Triangle3 setP3(Tup3fR t)
+	public Triangle3f setP3(Tup3fR t)
 	{
 		return setP3(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public Triangle3 setP3(float x, float y, float z)
+	public Triangle3f setP3(float x, float y, float z)
 	{
 		this.p3.set(x, y, z); return this;
 	}
 	
-	public Triangle3 setP3X(float x)
+	public Triangle3f setP3X(float x)
 	{
 		this.p3.setX(x); return this;
 	}
 	
-	public Triangle3 setP3Y(float y)
+	public Triangle3f setP3Y(float y)
 	{
 		this.p3.setY(y); return this;
 	}
 	
-	public Triangle3 setP3Z(float z)
+	public Triangle3f setP3Z(float z)
 	{
 		this.p3.setZ(z); return this;
 	}
 	
-	public Point3 getP1(@Nullable Point3 res)
+	public Point3f getP1(@Nullable Point3f res)
 	{
-		if(res == null) res = new Point3();
+		if(res == null) res = new Point3f();
 		return res.set(this.p1);
 	}
 	
-	public Point3 getP2(@Nullable Point3 res)
+	public Point3f getP2(@Nullable Point3f res)
 	{
-		if(res == null) res = new Point3();
+		if(res == null) res = new Point3f();
 		return res.set(this.p2);
 	}
 	
-	public Point3 getP3(@Nullable Point3 res)
+	public Point3f getP3(@Nullable Point3f res)
 	{
-		if(res == null) res = new Point3();
+		if(res == null) res = new Point3f();
 		return res.set(this.p3);
 	}
 	
@@ -255,44 +255,44 @@ public class Triangle3 implements FiniteGeometricObject3
 	
 	public Vec3f getSideP3P2(@Nullable Vec3f res) { return this.p2.sub(this.p3, res); }
 	
-	public Line3 getSideP1P2(@Nullable Line3 res)
+	public Line3f getSideP1P2(@Nullable Line3f res)
 	{
-		if(res == null) res = new Line3();
+		if(res == null) res = new Line3f();
 		
 		return res.set(this.p1, this.p2);
 	}
 	
-	public Line3 getSideP2P1(Line3 res)
+	public Line3f getSideP2P1(Line3f res)
 	{
-		if(res == null) res = new Line3();
+		if(res == null) res = new Line3f();
 		
 		return res.set(this.p2, this.p1);
 	}
 	
-	public Line3 getSideP1P3(Line3 res)
+	public Line3f getSideP1P3(Line3f res)
 	{
-		if(res == null) res = new Line3();
+		if(res == null) res = new Line3f();
 		
 		return res.set(this.p1, this.p3);
 	}
 	
-	public Line3 getSideP3P1(Line3 res)
+	public Line3f getSideP3P1(Line3f res)
 	{
-		if(res == null) res = new Line3();
+		if(res == null) res = new Line3f();
 		
 		return res.set(this.p3, this.p1);
 	}
 	
-	public Line3 getSideP2P3(Line3 res)
+	public Line3f getSideP2P3(Line3f res)
 	{
-		if(res == null) res = new Line3();
+		if(res == null) res = new Line3f();
 
 		return res.set(this.p2, this.p3);
 	}
 	
-	public Line3 getSideP3P2(Line3 res)
+	public Line3f getSideP3P2(Line3f res)
 	{
-		if(res == null) res = new Line3();
+		if(res == null) res = new Line3f();
 		
 		return res.set(this.p3, this.p2);
 	}
@@ -360,22 +360,22 @@ public class Triangle3 implements FiniteGeometricObject3
 		return (float)(Maths.sqrt(s * (s - a) * (s - b) * (s - c)));
 	}
 	@Override
-	public Point3[] getPoints()
+	public Point3f[] getPoints()
 	{
-		return new Point3[] {
-			new Point3(this.p1),
-			new Point3(this.p2),
-			new Point3(this.p3)
+		return new Point3f[] {
+			new Point3f(this.p1),
+			new Point3f(this.p2),
+			new Point3f(this.p3)
 		};
 	}
 
-	public Triangle3 transform(Mat4 t, Triangle3 res)
+	public Triangle3f transform(Mat4 t, Triangle3f res)
 	{
-		if(res == null) res = new Triangle3();
+		if(res == null) res = new Triangle3f();
 		
-		Point3 p1 = getP1(null);
-		Point3 p2 = getP2(null);
-		Point3 p3 = getP3(null);
+		Point3f p1 = getP1(null);
+		Point3f p2 = getP2(null);
+		Point3f p3 = getP3(null);
 
 		t.transform(p1, p1);
 		t.transform(p2, p2);

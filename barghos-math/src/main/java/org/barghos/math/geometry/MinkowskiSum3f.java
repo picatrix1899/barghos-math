@@ -25,9 +25,9 @@ package org.barghos.math.geometry;
  * @author picatrix1899
  *
  */
-public class MinkowskiSum3 extends PointSet3
+public class MinkowskiSum3f extends PointSet3f
 {
-	public MinkowskiSum3(PointSet3 a, PointSet3 b, boolean difference)
+	public MinkowskiSum3f(PointSet3f a, PointSet3f b, boolean difference)
 	{
 
 	}

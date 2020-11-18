@@ -25,34 +25,34 @@ SOFTWARE.
 package org.barghos.math.boundary;
 
 import org.barghos.core.tuple3.api.Tup3fR;
-import org.barghos.math.geometry.FiniteGeometricObject3;
+import org.barghos.math.geometry.FiniteGeometricObject3f;
 import org.barghos.math.matrix.Mat4;
-import org.barghos.math.point.Point3;
+import org.barghos.math.point.Point3f;
 import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.Vec3Axis;
+import org.barghos.math.vector.vec3.Vec3fAxis;
 import org.barghos.math.vector.vec3.Vec3fPool;
 
-public class OBB3 implements FiniteGeometricObject3
+public class OBB3f implements FiniteGeometricObject3f
 {
-	private Point3 center = new Point3();
-	private Vec3f halfExtend = new Point3();
+	private Point3f center = new Point3f();
+	private Vec3f halfExtend = new Point3f();
 	private Mat4 rotation = Mat4.identity();
 	
-	private Point3[] points = new Point3[8];
+	private Point3f[] points = new Point3f[8];
 	private Mat4 modelSpace = Mat4.identity();
 	
 	private boolean isPointsDirty = true;
 	private boolean isModelSpaceDirty = true;
 	
-	public OBB3() { }
+	public OBB3f() { }
 	
-	public OBB3(OBB3 obb) { set(obb); }
+	public OBB3f(OBB3f obb) { set(obb); }
 	
-	public OBB3(Tup3fR center, Tup3fR halfExtend, Mat4 rotation) { set(center, halfExtend, rotation); }
+	public OBB3f(Tup3fR center, Tup3fR halfExtend, Mat4 rotation) { set(center, halfExtend, rotation); }
 	
-	public OBB3(float cX, float cY, float cZ, float heX, float heY, float heZ, Mat4 rotation) { set(cX, cY, cZ, heX, heY, heZ, rotation); }
+	public OBB3f(float cX, float cY, float cZ, float heX, float heY, float heZ, Mat4 rotation) { set(cX, cY, cZ, heX, heY, heZ, rotation); }
 	
-	public OBB3 set(OBB3 obb)
+	public OBB3f set(OBB3f obb)
 	{
 		obb.getCenter(this.center);
 		obb.getHalfExtend(this.halfExtend);
@@ -62,40 +62,40 @@ public class OBB3 implements FiniteGeometricObject3
 		return this;
 	}
 	
-	public OBB3 set(Tup3fR center, Tup3fR halfExtend, Mat4 rotation) { return setCenter(center).setHalfExtend(halfExtend).setRotation(rotation); }
+	public OBB3f set(Tup3fR center, Tup3fR halfExtend, Mat4 rotation) { return setCenter(center).setHalfExtend(halfExtend).setRotation(rotation); }
 	
-	public OBB3 set(float cX, float cY, float cZ, float heX, float heY, float heZ, Mat4 rotation) { return setCenter(cX, cY, cZ).setHalfExtend(heX, heY, heZ).setRotation(rotation); }
+	public OBB3f set(float cX, float cY, float cZ, float heX, float heY, float heZ, Mat4 rotation) { return setCenter(cX, cY, cZ).setHalfExtend(heX, heY, heZ).setRotation(rotation); }
 	
-	public OBB3 setCenter(Tup3fR center) { return setCenter(center.getX(), center.getY(), center.getZ()); }
+	public OBB3f setCenter(Tup3fR center) { return setCenter(center.getX(), center.getY(), center.getZ()); }
 	
-	public OBB3 setCenter(float x, float y, float z) { return setCenterX(x).setCenterY(y).setCenterZ(z); }
+	public OBB3f setCenter(float x, float y, float z) { return setCenterX(x).setCenterY(y).setCenterZ(z); }
 	
-	public OBB3 setCenterX(float x) { this.center.setX(x); this.isPointsDirty = true; return this; }
+	public OBB3f setCenterX(float x) { this.center.setX(x); this.isPointsDirty = true; return this; }
 	
-	public OBB3 setCenterY(float y) { this.center.setY(y); this.isPointsDirty = true; return this; }
+	public OBB3f setCenterY(float y) { this.center.setY(y); this.isPointsDirty = true; return this; }
 	
-	public OBB3 setCenterZ(float z) { this.center.setZ(z); this.isPointsDirty = true; return this; }
+	public OBB3f setCenterZ(float z) { this.center.setZ(z); this.isPointsDirty = true; return this; }
 	
-	public OBB3 setHalfExtend(Tup3fR halfExtend) { return this.setHalfExtend(halfExtend.getX(), halfExtend.getY(), halfExtend.getZ()); }
+	public OBB3f setHalfExtend(Tup3fR halfExtend) { return this.setHalfExtend(halfExtend.getX(), halfExtend.getY(), halfExtend.getZ()); }
 	
-	public OBB3 setHalfExtend(float x, float y, float z) { return setHalfExtendX(x).setHalfExtendY(y).setHalfExtendZ(z); }
+	public OBB3f setHalfExtend(float x, float y, float z) { return setHalfExtendX(x).setHalfExtendY(y).setHalfExtendZ(z); }
 	
-	public OBB3 setHalfExtendX(float x) { this.halfExtend.setX(x); this.isPointsDirty = true; return this; }
+	public OBB3f setHalfExtendX(float x) { this.halfExtend.setX(x); this.isPointsDirty = true; return this; }
 	
-	public OBB3 setHalfExtendY(float y) { this.halfExtend.setY(y); this.isPointsDirty = true; return this; }
+	public OBB3f setHalfExtendY(float y) { this.halfExtend.setY(y); this.isPointsDirty = true; return this; }
 	
-	public OBB3 setHalfExtendZ(float z) { this.halfExtend.setZ(z); this.isPointsDirty = true; return this; }
+	public OBB3f setHalfExtendZ(float z) { this.halfExtend.setZ(z); this.isPointsDirty = true; return this; }
 	
-	public OBB3 setRotation(Mat4 rotation) { this.rotation.set(rotation); this.isPointsDirty = true; this.isModelSpaceDirty = true; return this; }
+	public OBB3f setRotation(Mat4 rotation) { this.rotation.set(rotation); this.isPointsDirty = true; this.isModelSpaceDirty = true; return this; }
 	
-	public Point3 getCenter()
+	public Point3f getCenter()
 	{
-		return new Point3(this.center);
+		return new Point3f(this.center);
 	}
 	
-	public Point3 getCenter(Point3 res)
+	public Point3f getCenter(Point3f res)
 	{
-		if(res == null) res = new Point3();
+		if(res == null) res = new Point3f();
 		return res.set(this.center);
 	}
 	
@@ -135,9 +135,9 @@ public class OBB3 implements FiniteGeometricObject3
 			Vec3f msY = Vec3fPool.get();
 			Vec3f msZ = Vec3fPool.get();
 			
-			this.rotation.transform(Vec3Axis.AXIS_X, msX);
-			this.rotation.transform(Vec3Axis.AXIS_Y, msY);
-			this.rotation.transform(Vec3Axis.AXIS_Z, msZ);
+			this.rotation.transform(Vec3fAxis.AXIS_X, msX);
+			this.rotation.transform(Vec3fAxis.AXIS_Y, msY);
+			this.rotation.transform(Vec3fAxis.AXIS_Z, msZ);
 			
 			Mat4 m = Mat4.identity();
 			m.setRow(0, msX.getX(), msX.getY(), msX.getZ(), 0);
@@ -163,9 +163,9 @@ public class OBB3 implements FiniteGeometricObject3
 			Vec3f msY = Vec3fPool.get();
 			Vec3f msZ = Vec3fPool.get();
 			
-			this.rotation.transform(Vec3Axis.AXIS_X, msX);
-			this.rotation.transform(Vec3Axis.AXIS_Y, msY);
-			this.rotation.transform(Vec3Axis.AXIS_Z, msZ);
+			this.rotation.transform(Vec3fAxis.AXIS_X, msX);
+			this.rotation.transform(Vec3fAxis.AXIS_Y, msY);
+			this.rotation.transform(Vec3fAxis.AXIS_Z, msZ);
 			
 			Mat4 m = Mat4.identity();
 			m.setRow(0, msX.getX(), msX.getY(), msX.getZ(), 0);
@@ -182,7 +182,7 @@ public class OBB3 implements FiniteGeometricObject3
 	}
 	
 	@Override
-	public Point3[] getPoints()
+	public Point3f[] getPoints()
 	{
 		if(this.isPointsDirty)
 		{
@@ -239,9 +239,9 @@ public class OBB3 implements FiniteGeometricObject3
 		return this.points;
 	}
 	
-	public OBB3 transform(Mat4 t, OBB3 res)
+	public OBB3f transform(Mat4 t, OBB3f res)
 	{
-		if(res == null) res = new OBB3();
+		if(res == null) res = new OBB3f();
 		
 		Vec3f min = Vec3fPool.get();
 		Vec3f max = Vec3fPool.get();

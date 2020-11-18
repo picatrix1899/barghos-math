@@ -26,8 +26,8 @@ package org.barghos.math.vector;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.util.Nullable;
-import org.barghos.math.vector.quat.Quat;
-import org.barghos.math.vector.quat.QuatPool;
+import org.barghos.math.vector.quat.Quatf;
+import org.barghos.math.vector.quat.QuatfPool;
 import org.barghos.math.vector.vec3.Vec3f;
 
 public class VectorInterpolation
@@ -46,12 +46,12 @@ public class VectorInterpolation
 		return res;
 	}
 	
-	public static Quat lerp(Quat q1, Quat q2, float alpha, @Nullable Quat res)
+	public static Quatf lerp(Quatf q1, Quatf q2, float alpha, @Nullable Quatf res)
 	{
 		if(q1 == null) throw new ArgumentNullException("q1");
 		if(q2 == null) throw new ArgumentNullException("q2");
 		
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 		
 		res.setX(q1.getX() + alpha * (q2.getX() - q1.getX()));
 		res.setY(q1.getY() + alpha * (q2.getY() - q1.getY()));
@@ -61,15 +61,15 @@ public class VectorInterpolation
 		return res.normal();
 	}
 	
-	public static Quat slerp(Quat q1, Quat q2, float alpha, @Nullable Quat res)
+	public static Quatf slerp(Quatf q1, Quatf q2, float alpha, @Nullable Quatf res)
 	{
 		if(q1 == null) throw new ArgumentNullException("q1");
 		if(q2 == null) throw new ArgumentNullException("q2");
 		
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 		
-		q1 = q1.normal(QuatPool.get());
-		q2 = q2.normal(QuatPool.get());
+		q1 = q1.normal(QuatfPool.get());
+		q2 = q2.normal(QuatfPool.get());
 		
 		float dot = q1.dot(q2);
 		
@@ -99,7 +99,7 @@ public class VectorInterpolation
 			res.setW(q1.getW() * s0 + q2.getW() * s1);
 		}
 		
-		QuatPool.store(q1, q2);
+		QuatfPool.store(q1, q2);
 		
 		return res.normal();
 	}

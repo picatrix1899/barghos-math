@@ -26,7 +26,7 @@ package org.barghos.math;
 
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
-import org.barghos.math.point.Point3;
+import org.barghos.math.point.Point3f;
 import org.barghos.math.vector.vec3.Vec3f;
 
 /**
@@ -35,7 +35,7 @@ import org.barghos.math.vector.vec3.Vec3f;
  */
 public class Transform3 implements ITransform3
 {
-	protected final Point3 position = new Point3();
+	protected final Point3f position = new Point3f();
 	protected final EulerAngles3f orientation = new EulerAngles3f();
 	protected final Vec3f scale = new Vec3f();
 	
@@ -110,7 +110,7 @@ public class Transform3 implements ITransform3
 		return this;
 	}
 	
-	public Point3 getPosition()
+	public Point3f getPosition()
 	{
 		return this.position.clone();
 	}

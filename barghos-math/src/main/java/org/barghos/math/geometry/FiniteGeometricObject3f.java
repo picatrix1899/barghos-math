@@ -25,15 +25,15 @@ SOFTWARE.
 package org.barghos.math.geometry;
 
 import org.barghos.math.matrix.Mat4;
-import org.barghos.math.point.Point3;
+import org.barghos.math.point.Point3f;
 
-public interface FiniteGeometricObject3
+public interface FiniteGeometricObject3f
 {
-	Point3[] getPoints();
+	Point3f[] getPoints();
 	
-	default Point3[] getTransformedPoints(Mat4 t)
+	default Point3f[] getTransformedPoints(Mat4 t)
 	{
-		Point3[] p = getPoints();
+		Point3f[] p = getPoints();
 		
 		int i = 0;
 		for(; i < p.length; i++)
@@ -42,28 +42,28 @@ public interface FiniteGeometricObject3
 		return p;
 	}
 	
-	default PointSet3 getPointSet()
+	default PointSet3f getPointSet()
 	{
-		return new PointSet3(getPoints());
+		return new PointSet3f(getPoints());
 	}
 	
-	default PointSet3 getPointSet(PointSet3 res)
+	default PointSet3f getPointSet(PointSet3f res)
 	{
-		res = res != null ? res : new PointSet3();
+		res = res != null ? res : new PointSet3f();
 
 		return res.set(getPoints());
 	}
 	
-	default PointSet3 getTransformedPointSet(Mat4 t)
+	default PointSet3f getTransformedPointSet(Mat4 t)
 	{
-		PointSet3 s = getPointSet();
+		PointSet3f s = getPointSet();
 
 		return s.transform(t, null);
 	}
 	
-	default PointSet3 getTransformedPointSet(Mat4 t, PointSet3 res)
+	default PointSet3f getTransformedPointSet(Mat4 t, PointSet3f res)
 	{
-		res = res != null ? res : new PointSet3();
+		res = res != null ? res : new PointSet3f();
 		
 		getPointSet(res);
 		

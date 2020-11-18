@@ -26,77 +26,77 @@ package org.barghos.math.geometry;
 
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.util.Nullable;
-import org.barghos.math.point.Point3;
+import org.barghos.math.point.Point3f;
 
 /**
  * @author picatrix1899
  *
  */
-public class Sphere3 implements InfiniteGeometricObject3
+public class Sphere3f implements InfiniteGeometricObject3
 {
-	protected final Point3 center = new Point3();
+	protected final Point3f center = new Point3f();
 	protected float radius;
 	
-	public Sphere3()
+	public Sphere3f()
 	{
 		set(0.0f, 0.0f, 0.0f, 1.0f);
 	}
 	
-	public Sphere3(Sphere3 s)
+	public Sphere3f(Sphere3f s)
 	{
 		set(s);
 	}
 	
-	public Sphere3(Tup3fR center, float radius)
+	public Sphere3f(Tup3fR center, float radius)
 	{
 		set(center, radius);
 	}
 	
-	public Sphere3(float x, float y, float z, float radius)
+	public Sphere3f(float x, float y, float z, float radius)
 	{
 		set(x, y, z, radius);
 	}
 	
-	public Sphere3 set(Sphere3 s)
+	public Sphere3f set(Sphere3f s)
 	{
 		s.getCenter(this.center);
 		setRadius(s.getRadius());
 		return this;
 	}
 	
-	public Sphere3 set(Tup3fR center, float radius)
+	public Sphere3f set(Tup3fR center, float radius)
 	{
 		return setCenter(center).setRadius(radius);
 	}
 
-	public Sphere3 set(float x, float y, float z, float radius)
+	public Sphere3f set(float x, float y, float z, float radius)
 	{
 		return setCenter(x, y, z).setRadius(radius);
 	}
 	
-	public Sphere3 setCenter(Tup3fR center)
+	public Sphere3f setCenter(Tup3fR center)
 	{
 		this.center.set(center); return this;
 	}
 
-	public Sphere3 setCenter(float x, float y, float z)
+	public Sphere3f setCenter(float x, float y, float z)
 	{
 		this.center.set(x, y, z); return this;
 	}
 	
-	public Sphere3 setRadius(float radius)
+	public Sphere3f setRadius(float radius)
 	{
 		this.radius = radius; return this;
 	}
 	
-	public Point3 getCenter()
+	public Point3f getCenter()
 	{
-		return new Point3(this.center);
+		return new Point3f(this.center);
 	}
 	
-	public Point3 getCenter(@Nullable Point3 res)
+	public Point3f getCenter(@Nullable Point3f res)
 	{
-		if(res == null) res = new Point3();
+		if(res == null) res = new Point3f();
 		return res.set(this.center);
 	}
 	

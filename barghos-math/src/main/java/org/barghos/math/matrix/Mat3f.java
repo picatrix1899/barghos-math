@@ -37,7 +37,7 @@ import org.barghos.math.EulerAngles2f;
 import org.barghos.math.ITransform2f;
 import org.barghos.math.Maths;
 import org.barghos.math.point.Point2f;
-import org.barghos.math.vector.quat.Quat;
+import org.barghos.math.vector.quat.Quatf;
 import org.barghos.math.vector.vec2.Vec2f;
 
 public class Mat3f extends SimpleMat3f
@@ -138,7 +138,7 @@ public class Mat3f extends SimpleMat3f
 		return this;
 	}
 	
-	public Mat3f initRotation3D(Quat q)
+	public Mat3f initRotation3D(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -389,7 +389,7 @@ public class Mat3f extends SimpleMat3f
 		return new Mat3f().initScaling2D(x, y);
 	}
 	
-	public static Mat3f rotation3D(Quat q)
+	public static Mat3f rotation3D(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -481,7 +481,7 @@ public class Mat3f extends SimpleMat3f
 		return Mat3f.mul(Mat3f.scaling2D(x, y), this, this);
 	}
 	
-	public Mat3f rotate3D(Quat q)
+	public Mat3f rotate3D(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{

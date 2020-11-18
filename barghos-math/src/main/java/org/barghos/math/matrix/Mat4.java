@@ -39,7 +39,7 @@ import org.barghos.core.tuple4.api.Tup4fW;
 import org.barghos.core.tuple4.pool.Tup4fPool;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.Maths;
-import org.barghos.math.vector.quat.Quat;
+import org.barghos.math.vector.quat.Quatf;
 import org.barghos.math.vector.vec3.Vec3f;
 import org.barghos.math.vector.vec3.Vec3fPool;
 
@@ -156,7 +156,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initRotation(Quat q)
+	public Mat4 initRotation(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -303,7 +303,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initModelMatrix(Tup3fR pos, Quat rot, Tup3fR scale)
+	public Mat4 initModelMatrix(Tup3fR pos, Quatf rot, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -322,7 +322,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initViewMatrix(Tup3fR pos, Quat rot)
+	public Mat4 initViewMatrix(Tup3fR pos, Quatf rot)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -834,7 +834,7 @@ public class Mat4 implements Mat4R
 		return new Mat4().initOrtho(left, right, bottom, top, near, far);
 	}
 	
-	public static Mat4 rotation(Quat q)
+	public static Mat4 rotation(Quatf q)
 	{
 		return new Mat4().initRotation(q);
 	}
@@ -844,7 +844,7 @@ public class Mat4 implements Mat4R
 		return new Mat4().initRotation(forward, left, up);
 	}
 	
-	public static Mat4 modelMatrix(Tup3fR pos, Quat rot, Tup3fR scale)
+	public static Mat4 modelMatrix(Tup3fR pos, Quatf rot, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -854,7 +854,7 @@ public class Mat4 implements Mat4R
 		return new Mat4().initModelMatrix(pos, rot, scale);
 	}
 	
-	public static Mat4 viewMatrix(Tup3fR pos, Quat rot)
+	public static Mat4 viewMatrix(Tup3fR pos, Quatf rot)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -897,7 +897,7 @@ public class Mat4 implements Mat4R
 	{
 		return Mat4.mul(Mat4.translation(x, y, z), this, this);
 	}
-	public Mat4 rotate(Quat q)
+	public Mat4 rotate(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{

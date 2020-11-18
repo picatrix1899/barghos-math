@@ -34,7 +34,7 @@ import org.barghos.core.tuple4.api.Tup4fR;
  * This is a readonly version of a 4-dimensional vector with extended protection against modification.
  * It can be used as a more flexible way to create constants.
  */
-public abstract class PVec4 implements Vec4R
+public abstract class PVec4 implements Vec4fR
 {
 	
 	public static PVec4 gen(Tup4fR t) { if(t == null) throw new ArgumentNullException("t"); return gen(t.getX(), t.getY(), t.getZ(), t.getW()); }

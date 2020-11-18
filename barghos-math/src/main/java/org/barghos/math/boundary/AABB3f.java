@@ -29,14 +29,14 @@ import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.matrix.Mat4;
-import org.barghos.math.point.Point3;
+import org.barghos.math.point.Point3f;
 import org.barghos.math.vector.vec3.Vec3f;
 import org.barghos.math.vector.vec3.Vec3fPool;
 
 public class AABB3f
 {
-	protected final Point3 min = new Point3();
-	protected final Point3 max = new Point3();
+	protected final Point3f min = new Point3f();
+	protected final Point3f max = new Point3f();
 	
 	public AABB3f() { }
 	
@@ -223,7 +223,7 @@ public class AABB3f
 		return res;
 	}
 	
-	public Point3 getMin()
+	public Point3f getMin()
 	{
 		return this.min.clone();
 	}
@@ -240,7 +240,7 @@ public class AABB3f
 		return res;
 	}
 	
-	public Point3 getMax()
+	public Point3f getMax()
 	{
 		return this.max.clone();
 	}
@@ -261,11 +261,11 @@ public class AABB3f
 		return res;
 	}
 	
-	public Point3 getCenter()
+	public Point3f getCenter()
 	{
 		Vec3f halfExtend = this.max.sub(this.min, Vec3fPool.get()).mul(0.5f);
 		
-		Point3 res = this.min.add(halfExtend, new Point3());
+		Point3f res = this.min.add(halfExtend, new Point3f());
 		
 		Vec3fPool.store(halfExtend);
 		

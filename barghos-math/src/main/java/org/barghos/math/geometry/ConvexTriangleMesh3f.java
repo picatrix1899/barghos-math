@@ -28,28 +28,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.barghos.math.boundary.AABB3f;
-import org.barghos.math.boundary.OBB3;
+import org.barghos.math.boundary.OBB3f;
 import org.barghos.math.matrix.Mat4;
-import org.barghos.math.point.Point3;
+import org.barghos.math.point.Point3f;
 import org.barghos.math.vector.vec3.Vec3f;
 import org.barghos.math.vector.vec3.Vec3fPool;
 
-public class ConvexTriangleMesh3 implements FiniteGeometricObject3
+public class ConvexTriangleMesh3f implements FiniteGeometricObject3f
 {
 
-	private List<Triangle3> triangles = new ArrayList<>();
+	private List<Triangle3f> triangles = new ArrayList<>();
 	
-	public ConvexTriangleMesh3()
+	public ConvexTriangleMesh3f()
 	{
 		
 	}
 	
-	public ConvexTriangleMesh3(ConvexTriangleMesh3 mesh)
+	public ConvexTriangleMesh3f(ConvexTriangleMesh3f mesh)
 	{
 		set(mesh.triangles);
 	}
 	
-	public ConvexTriangleMesh3(List<Triangle3> triangles)
+	public ConvexTriangleMesh3f(List<Triangle3f> triangles)
 	{
 		set(triangles);
 	}
@@ -59,19 +59,19 @@ public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 		return !this.triangles.isEmpty();
 	}
 	
-	public ConvexTriangleMesh3 set(List<Triangle3> triangles)
+	public ConvexTriangleMesh3f set(List<Triangle3f> triangles)
 	{
 		this.triangles.clear();
 		
 		for(int i = 0; i < triangles.size(); i++)
-			this.triangles.add(new Triangle3(triangles.get(i)));
+			this.triangles.add(new Triangle3f(triangles.get(i)));
 		
 		return this;
 	}
 
-	public Point3[] getPoints()
+	public Point3f[] getPoints()
 	{
-		Point3[] p = new Point3[triangles.size() * 3];
+		Point3f[] p = new Point3f[triangles.size() * 3];
 		
 		for(int i = 0; i < triangles.size(); i++)
 		{
@@ -83,14 +83,14 @@ public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 		return p;
 	}
 	
-	public List<Triangle3> getTriangles()
+	public List<Triangle3f> getTriangles()
 	{
 		return new ArrayList<>(this.triangles);
 	}
 	
-	public OBB3 getOBBf(Mat4 t, Mat4 r)
+	public OBB3f getOBBf(Mat4 t, Mat4 r)
 	{
-		PointSet3 set = getPointSet(null);
+		PointSet3f set = getPointSet(null);
 
 		Vec3f min = Vec3fPool.get(set.getMinX(), set.getMinY(), set.getMinZ());
 		Vec3f max = Vec3fPool.get(set.getMaxX(), set.getMaxY(), set.getMaxZ());
@@ -99,9 +99,9 @@ public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 		t.transform(max);
 		
 		Vec3f halfExtend = max.sub(min).mul(0.5f);
-		Point3 center = new Point3(min.add(halfExtend, min));
+		Point3f center = new Point3f(min.add(halfExtend, min));
 
-		OBB3 result = new OBB3(center, halfExtend, r);
+		OBB3f result = new OBB3f(center, halfExtend, r);
 		
 		Vec3fPool.store(min, max);
 		
@@ -110,7 +110,7 @@ public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 
 	public AABB3f getAABBf()
 	{
-		PointSet3 set = getPointSet(null);
+		PointSet3f set = getPointSet(null);
 		
 		Vec3f min = Vec3fPool.get(set.getMinX(), set.getMinY(), set.getMinZ());
 		Vec3f max = Vec3fPool.get(set.getMaxX(), set.getMaxY(), set.getMaxZ());
@@ -122,11 +122,11 @@ public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 		return r;
 	}
 	
-	public ConvexTriangleMesh3 transform(Mat4 t, ConvexTriangleMesh3 res)
+	public ConvexTriangleMesh3f transform(Mat4 t, ConvexTriangleMesh3f res)
 	{	
-		if(res == null) res = new ConvexTriangleMesh3();
+		if(res == null) res = new ConvexTriangleMesh3f();
 
-		List<Triangle3> tr = new ArrayList<>();
+		List<Triangle3f> tr = new ArrayList<>();
 		
 		for(int i = 0; i < this.triangles.size(); i++)
 		{

@@ -24,8 +24,8 @@ SOFTWARE.
 
 package org.barghos.math;
 
-import org.barghos.math.vector.quat.Quat;
-import org.barghos.math.vector.quat.QuatPool;
+import org.barghos.math.vector.quat.Quatf;
+import org.barghos.math.vector.quat.QuatfPool;
 
 public class EulerAngles3f
 {
@@ -64,38 +64,38 @@ public class EulerAngles3f
 
 	public float getRoll() { return this.roll; }
 
-	public Quat getPitchRotation(LinearSystem3 system, Quat res)
+	public Quatf getPitchRotation(LinearSystem3 system, Quatf res)
 	{
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 
-		return Quat.getFromAxis(system.getRight(), this.pitch, res);
+		return Quatf.getFromAxis(system.getRight(), this.pitch, res);
 	}
 
-	public Quat getYawRotation(LinearSystem3 system, Quat res)
+	public Quatf getYawRotation(LinearSystem3 system, Quatf res)
 	{
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 
-		return Quat.getFromAxis(system.getUp(), this.yaw, res);
+		return Quatf.getFromAxis(system.getUp(), this.yaw, res);
 	}
 
-	public Quat getRollRotation(LinearSystem3 system, Quat res)
+	public Quatf getRollRotation(LinearSystem3 system, Quatf res)
 	{
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 
-		return Quat.getFromAxis(system.getForward(), this.roll, res);
+		return Quatf.getFromAxis(system.getForward(), this.roll, res);
 	}
 
-	public Quat getRotation(LinearSystem3 system, Quat res)
+	public Quatf getRotation(LinearSystem3 system, Quatf res)
 	{	
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 
-		Quat q1 = QuatPool.get();
-		Quat q2 = QuatPool.get();
-		Quat q3 = QuatPool.get();
+		Quatf q1 = QuatfPool.get();
+		Quatf q2 = QuatfPool.get();
+		Quatf q3 = QuatfPool.get();
 
 		res.set(getRollRotation(system, q3).mul(getYawRotation(system, q2).mul(getPitchRotation(system, q1))));
 
-		QuatPool.store(q1, q2, q3);
+		QuatfPool.store(q1, q2, q3);
 
 		return res;
 	}

@@ -31,7 +31,7 @@ import org.barghos.core.tuple4.api.Tup4fR;
  * 
  * This interface grants readonly access to a 3-dimensional mathematical vector.
  */
-public interface Vec4R extends Tup4fR
+public interface Vec4fR extends Tup4fR
 {
 	float getX();
 	float getY();

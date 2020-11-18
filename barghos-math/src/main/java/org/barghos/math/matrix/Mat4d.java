@@ -39,7 +39,7 @@ import org.barghos.core.tuple4.api.Tup4dW;
 import org.barghos.core.tuple4.pool.Tup4dPool;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.Maths;
-import org.barghos.math.vector.quat.Quat;
+import org.barghos.math.vector.quat.Quatf;
 import org.barghos.math.vector.vec3.Vec3d;
 import org.barghos.math.vector.vec3.Vec3dPool;
 
@@ -156,7 +156,7 @@ public class Mat4d
 		return this;
 	}
 	
-	public Mat4d initRotation(Quat q)
+	public Mat4d initRotation(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -302,7 +302,7 @@ public class Mat4d
 		return this;
 	}
 	
-	public Mat4d initModelMatrix(Tup3dR pos, Quat rot, Tup3dR scale)
+	public Mat4d initModelMatrix(Tup3dR pos, Quatf rot, Tup3dR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -321,7 +321,7 @@ public class Mat4d
 		return this;
 	}
 	
-	public Mat4d initViewMatrix(Tup3dR pos, Quat rot)
+	public Mat4d initViewMatrix(Tup3dR pos, Quatf rot)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -833,7 +833,7 @@ public class Mat4d
 		return new Mat4d().initOrtho(left, right, bottom, top, near, far);
 	}
 	
-	public static Mat4d rotation(Quat q)
+	public static Mat4d rotation(Quatf q)
 	{
 		return new Mat4d().initRotation(q);
 	}
@@ -843,7 +843,7 @@ public class Mat4d
 		return new Mat4d().initRotation(forward, left, up);
 	}
 	
-	public static Mat4d modelMatrix(Tup3dR pos, Quat rot, Tup3dR scale)
+	public static Mat4d modelMatrix(Tup3dR pos, Quatf rot, Tup3dR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -853,7 +853,7 @@ public class Mat4d
 		return new Mat4d().initModelMatrix(pos, rot, scale);
 	}
 	
-	public static Mat4d viewMatrix(Tup3dR pos, Quat rot)
+	public static Mat4d viewMatrix(Tup3dR pos, Quatf rot)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -896,7 +896,7 @@ public class Mat4d
 	{
 		return Mat4d.mul(Mat4d.translation(x, y, z), this, this);
 	}
-	public Mat4d rotate(Quat q)
+	public Mat4d rotate(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{

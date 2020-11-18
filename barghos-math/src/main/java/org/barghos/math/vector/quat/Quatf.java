@@ -32,10 +32,10 @@ import org.barghos.math.Maths;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.vector.vec3.Vec3f;
 import org.barghos.math.vector.vec3.Vec3fPool;
-import org.barghos.math.vector.vec4.Vec4R;
+import org.barghos.math.vector.vec4.Vec4fR;
 
 /** A 3-Dimensional Quaternion */
-public class Quat implements Vec4R
+public class Quatf implements Vec4fR
 {
 	/** The w component. */
 	protected float w;
@@ -50,7 +50,7 @@ public class Quat implements Vec4R
 	 * The default constructor. It sets x,y and z to 0 and w to 1.
 	 * It is commonly used in pools.
 	 */
-	public Quat()
+	public Quatf()
 	{
 		set(1.0f, 0.0f, 0.0f, 0.0f);
 	}
@@ -62,7 +62,7 @@ public class Quat implements Vec4R
 	 * @param y The new y component.
 	 * @param z The new z component.
 	 */
-	public Quat(float w, float x, float y, float z)
+	public Quatf(float w, float x, float y, float z)
 	{
 		set(w, x, y, z);
 	}
@@ -71,7 +71,7 @@ public class Quat implements Vec4R
 	 * This contructor sets the components to the values of q.
 	 * @param q A Quaternion that the components are set to.
 	 */
-	public Quat(Quat q)
+	public Quatf(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -85,7 +85,7 @@ public class Quat implements Vec4R
 	 * This constructor sets
 	 * @param rot
 	 */
-	public Quat(Mat4 rot)
+	public Quatf(Mat4 rot)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -95,15 +95,15 @@ public class Quat implements Vec4R
 		set(rot);
 	}
 
-	public static Quat getFromAxis(Tup3fR axis, float angle) { return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle, null); }
+	public static Quatf getFromAxis(Tup3fR axis, float angle) { return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle, null); }
 	
-	public static Quat getFromAxis(float ax, float ay, float az, float angle) { return getFromAxis(ax, ay, az, angle, null); }
+	public static Quatf getFromAxis(float ax, float ay, float az, float angle) { return getFromAxis(ax, ay, az, angle, null); }
 	
-	public static Quat getFromAxis(Tup3fR axis, float angle, Quat res) { return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle, res); }
+	public static Quatf getFromAxis(Tup3fR axis, float angle, Quatf res) { return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle, res); }
 	
-	public static Quat getFromAxis(float ax, float ay, float az, float angle, Quat res)
+	public static Quatf getFromAxis(float ax, float ay, float az, float angle, Quatf res)
 	{
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 		
 		float halfAngle = angle * 0.5f * (float)Maths.DEG_TO_RAD;
 		float sinHalfAngle = Maths.sin(halfAngle);
@@ -117,7 +117,7 @@ public class Quat implements Vec4R
 		return res.set(rW, rX, rY, rZ).normal();
 	}
 	
-	public static Quat getFromVectors(Vec3f v1, Vec3f v2)
+	public static Quatf getFromVectors(Vec3f v1, Vec3f v2)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -134,7 +134,7 @@ public class Quat implements Vec4R
 		
 		float angle = 1.0f + a.dot(b);
 
-		Quat out = new Quat(angle, axis.getX(), axis.getY(), axis.getZ()).normal();
+		Quatf out = new Quatf(angle, axis.getX(), axis.getY(), axis.getZ()).normal();
 		
 		Vec3fPool.store(a, b, axis);
 		
@@ -149,7 +149,7 @@ public class Quat implements Vec4R
 	
 	public float getZ() { return this.z; }
 	
-	public Quat rotate(Tup3fR axis, float angle)
+	public Quatf rotate(Tup3fR axis, float angle)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -159,12 +159,12 @@ public class Quat implements Vec4R
 		return rotate(angle, axis.getX(), axis.getY(), axis.getZ());
 	}
 	
-	public Quat rotate(float ax, float ay, float az, float angle)
+	public Quatf rotate(float ax, float ay, float az, float angle)
 	{
 		return getFromAxis(angle, ax, ay, az).mul(this, this);
 	}
 	
-	public Quat rotate(Quat q)
+	public Quatf rotate(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -174,7 +174,7 @@ public class Quat implements Vec4R
 		return q.mul(this, this);
 	}
 	
-	public Quat set(Quat q)
+	public Quatf set(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -185,7 +185,7 @@ public class Quat implements Vec4R
 	}
 	
 	//From Ken Shoemake's "Quaternion Calculus and Fast Animation" article
-	public Quat set(Mat4 rot) 
+	public Quatf set(Mat4 rot) 
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -238,38 +238,38 @@ public class Quat implements Vec4R
 		return this;
 	}
 	
-	public Quat set(float w, float x, float y, float z) { return setW(w).setX(x).setY(y).setZ(z); }
+	public Quatf set(float w, float x, float y, float z) { return setW(w).setX(x).setY(y).setZ(z); }
 	
-	public Quat setW(float w) { this.w = w; return this; }
+	public Quatf setW(float w) { this.w = w; return this; }
 	
-	public Quat setX(float x) { this.x = x; return this; }
+	public Quatf setX(float x) { this.x = x; return this; }
 	
-	public Quat setY(float y) { this.y = y; return this; }
+	public Quatf setY(float y) { this.y = y; return this; }
 	
-	public Quat setZ(float z) { this.z = z; return this; }
+	public Quatf setZ(float z) { this.z = z; return this; }
 
-	public Quat conjugate()
+	public Quatf conjugate()
 	{
 		return conjugate(this);
 	}
 	
-	public Quat conjugate(@Nullable Quat res)
+	public Quatf conjugate(@Nullable Quatf res)
 	{
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 
 		res.set(this.w, -this.x, -this.y, -this.z);
 
 		return res;
 	}
 	
-	public Quat inverse()
+	public Quatf inverse()
 	{
 		return inverse(this);
 	}
 	
-	public Quat inverse(@Nullable Quat res)
+	public Quatf inverse(@Nullable Quatf res)
 	{
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 
 		float l = reciprocalLength();
 		
@@ -278,7 +278,7 @@ public class Quat implements Vec4R
 		return res;
 	}
 	
-	public Quat mul(Quat q)
+	public Quatf mul(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -290,14 +290,14 @@ public class Quat implements Vec4R
 		return this;
 	}
 	
-	public Quat mul(Quat q, @Nullable Quat res)
+	public Quatf mul(Quatf q, @Nullable Quatf res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(q == null) throw new ArgumentNullException("q");
 		}
 		
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 		
 		float w_ = this.w * q.getW() - this.x * q.getX() - this.y * q.getY() - this.z * q.getZ(); // w * w' - v * v'
 		float x_ = this.w * q.getX() + q.getW() * this.x + this.y * q.getZ() - this.z * q.getY(); // s * v'.x + s' * v.x + (V x V').x
@@ -309,7 +309,7 @@ public class Quat implements Vec4R
 		return res;
 	}
 	
-	public Quat mul(Tup3fR v)
+	public Quatf mul(Tup3fR v)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -321,14 +321,14 @@ public class Quat implements Vec4R
 		return this;
 	}
 	
-	public Quat mul(Tup3fR v, @Nullable Quat res)
+	public Quatf mul(Tup3fR v, @Nullable Quatf res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(v == null) throw new ArgumentNullException("v");
 		}
 		
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 		
 		float w_ = -this.x * v.getX() - this.y * v.getY() - this.z * v.getZ(); // - v * v'
 		float x_ =  this.w * v.getX() + this.y * v.getZ() - this.z * v.getY(); // s * v'.x ...
@@ -349,14 +349,14 @@ public class Quat implements Vec4R
 		
 		if(res == null) res = new Vec3f();
 		
-		Quat r = mul(v, QuatPool.get());
-		Quat c = conjugate(QuatPool.get());
+		Quatf r = mul(v, QuatfPool.get());
+		Quatf c = conjugate(QuatfPool.get());
 		
 		r.mul(c, r);
 		
 		res.set(r.getX(),r.getY(), r.getZ());
 		
-		QuatPool.store(r, c);
+		QuatfPool.store(r, c);
 		
 		return res;
 	}
@@ -365,14 +365,14 @@ public class Quat implements Vec4R
 	public float squaredLength() { return this.w * this.w + this.x * this.x + this.y * this.y + this.z * this.z; }
 	public float reciprocalLength() { return 1.0f / length(); }
 	
-	public Quat normal()
+	public Quatf normal()
 	{
 		return normal(this);
 	}
 	
-	public Quat normal(@Nullable Quat res)
+	public Quatf normal(@Nullable Quatf res)
 	{
-		if(res == null) res = new Quat();
+		if(res == null) res = new Quatf();
 		
 		float l = reciprocalLength();
 		
@@ -381,7 +381,7 @@ public class Quat implements Vec4R
 		return res;
 	}
 
-	public float dot(Quat q)
+	public float dot(Quatf q)
 	{
 		return this.w * q.w + this.x * q.x + this.y * q.y + this.z * q.z;
 	}
@@ -391,8 +391,8 @@ public class Quat implements Vec4R
 		return "quat(" + this.w + ", " + this.x + ", " + this.y + ", " + this.z + ")";
 	}
 	
-	public Quat clone()
+	public Quatf clone()
 	{
-		return new Quat(this);
+		return new Quatf(this);
 	}
 }

@@ -26,14 +26,14 @@ package org.barghos.math.boundary;
 
 import org.barghos.core.tuple4.Tup4f;
 import org.barghos.core.tuple4.pool.Tup4fPool;
-import org.barghos.math.geometry.PointSet3;
+import org.barghos.math.geometry.PointSet3f;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.vector.vec3.Vec3f;
 import org.barghos.math.vector.vec3.Vec3fPool;
 
 public class OBBOBBResolver
 {
-	public static boolean iOBBOBB3f(OBB3 a, OBB3 b)
+	public static boolean iOBBOBB3f(OBB3f a, OBB3f b)
 	{
 		Vec3f aCenter = a.getCenter(Vec3fPool.get());
 		Vec3f bCenter = b.getCenter(Vec3fPool.get());
@@ -41,8 +41,8 @@ public class OBBOBBResolver
 		Mat4 modelSpaceA = a.getModelSpaceMatrix();
 		Mat4 modelSpaceB = b.getModelSpaceMatrix();
 		
-		PointSet3 aInSpaceA = a.getTransformedPointSet(modelSpaceA);
-		PointSet3 bInSpaceA = b.getTransformedPointSet(modelSpaceA);
+		PointSet3f aInSpaceA = a.getTransformedPointSet(modelSpaceA);
+		PointSet3f bInSpaceA = b.getTransformedPointSet(modelSpaceA);
 
 		float aMinX = aInSpaceA.getMinX();
 		float aMaxX = aInSpaceA.getMaxX();
@@ -94,8 +94,8 @@ public class OBBOBBResolver
 			if(!(bMaxZ > aMinZ))
 				return false;
 
-		PointSet3 aInSpaceB = a.getTransformedPointSet(modelSpaceB);
-		PointSet3 bInSpaceB = b.getTransformedPointSet(modelSpaceB);
+		PointSet3f aInSpaceB = a.getTransformedPointSet(modelSpaceB);
+		PointSet3f bInSpaceB = b.getTransformedPointSet(modelSpaceB);
 		
 		aMinX = aInSpaceB.getMinX();
 		aMaxX = aInSpaceB.getMaxX();
@@ -153,15 +153,15 @@ public class OBBOBBResolver
 		return true;
 	}
 	
-	public static Vec3f rOBBOBB3f(OBB3 a, OBB3 b)
+	public static Vec3f rOBBOBB3f(OBB3f a, OBB3f b)
 	{
 		Vec3f aCenter = a.getCenter(Vec3fPool.get());
 		Vec3f bCenter = b.getCenter(Vec3fPool.get());
 		
 		Mat4 modelSpaceA = a.getModelSpaceMatrix();
 
-		PointSet3 aInSpaceA = a.getTransformedPointSet(modelSpaceA);
-		PointSet3 bInSpaceA = b.getTransformedPointSet(modelSpaceA);
+		PointSet3f aInSpaceA = a.getTransformedPointSet(modelSpaceA);
+		PointSet3f bInSpaceA = b.getTransformedPointSet(modelSpaceA);
 		
 		float aMinX = aInSpaceA.getMinX();
 		float aMaxX = aInSpaceA.getMaxX();
@@ -258,8 +258,8 @@ public class OBBOBBResolver
 		
 		Mat4 modelSpaceB = b.getModelSpaceMatrix();
 		
-		PointSet3 aInSpaceB = a.getTransformedPointSet(modelSpaceB);
-		PointSet3 bInSpaceB = b.getTransformedPointSet(modelSpaceB);
+		PointSet3f aInSpaceB = a.getTransformedPointSet(modelSpaceB);
+		PointSet3f bInSpaceB = b.getTransformedPointSet(modelSpaceB);
 		
 		aMinX = aInSpaceB.getMinX();
 		aMaxX = aInSpaceB.getMaxX();

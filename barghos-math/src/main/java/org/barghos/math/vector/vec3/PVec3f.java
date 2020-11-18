@@ -22,65 +22,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.quat;
+package org.barghos.math.vector.vec3;
 
 import org.barghos.core.exception.ArgumentNullException;
-import org.barghos.core.pool.api.Pool;
+import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.math.BarghosMath;
-import org.barghos.core.pool.DequePool;
 
-public final class QuatPool
+/**
+ * @author picatrix1899
+ *
+ * Represents a persistent 3-dimensional mathematical vector in euclidean space.
+ * This is a readonly version of a 3-dimensional vector with extended protection against modification.
+ * It can be used as a more flexible way to create constants.
+ */
+public abstract class PVec3f implements Vec3fR
 {
-	private static Pool<Quat> pool = new DequePool<>(Quat.class);
 	
-	private QuatPool() { }
-	
-	public static Quat get()
-	{
-		return pool.get().set(1.0f, 0.0f, 0.0f, 0.0f);
-	}
-	
-	public static Quat get(Quat q)
+	public static PVec3f gen(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
-			if(q == null) throw new ArgumentNullException("q");
+			if(t == null) throw new ArgumentNullException("t");
 		}
 		
-		return pool.get().set(q);
+		return gen(t.getX(), t.getY(), t.getZ());
 	}
-	public static Quat get(float x, float y, float z, float w)
+	public static PVec3f gen(float x, float y, float z)
 	{
-		return pool.get().set(x ,y ,z ,w);
-	}
-	
-	public static void store(Quat... instances)
-	{
-		pool.store(instances);
-	}
-	
-	public static void ensure(int count)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		return new PVec3f()
 		{
-			if(count < 0) throw new IllegalArgumentException();
-		}
-		
-		pool.ensure(count);
+			public float getX() { return x; }
+			public float getY() { return y; }
+			public float getZ() { return z; }
+		};
 	}
 	
-	public static void setInternalPool(Pool<Quat> pool)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(pool == null) throw new ArgumentNullException("pool");
-		}
-		
-		QuatPool.pool = pool;
-	}
-	
-	public static Pool<Quat> getInternalPool()
-	{
-		return pool;
-	}
 }
