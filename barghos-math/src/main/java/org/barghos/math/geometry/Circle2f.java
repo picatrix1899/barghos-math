@@ -31,6 +31,7 @@ import org.barghos.core.util.Nullable;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.ITransform2f;
 import org.barghos.math.Maths;
+import org.barghos.math.boundary.AABB2f;
 import org.barghos.math.matrix.Mat3f;
 import org.barghos.math.point.Point2f;
 import org.barghos.math.vector.vec2.Vec2f;

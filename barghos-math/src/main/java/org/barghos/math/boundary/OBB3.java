@@ -22,9 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.geometry;
+package org.barghos.math.boundary;
 
 import org.barghos.core.tuple3.api.Tup3fR;
+import org.barghos.math.geometry.FiniteGeometricObject3;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3;
 import org.barghos.math.vector.vec3.Vec3;

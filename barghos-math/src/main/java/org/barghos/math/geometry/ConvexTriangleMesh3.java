@@ -27,6 +27,8 @@ package org.barghos.math.geometry;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.barghos.math.boundary.AABB3f;
+import org.barghos.math.boundary.OBB3;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3;
 import org.barghos.math.vector.vec3.Vec3;
