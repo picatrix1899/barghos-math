@@ -32,4 +32,7 @@ package org.barghos.math;
 public class BarghosMath
 {
 	public static final boolean BUILD_FLAG__PARAMETER_CHECKS = false;
+	
+	public static final boolean BF__FAST_MATH__USES_FIX_PREGEN_TABLES = true;
+	public static final int BP__FAST_MATH__TABLE_PREGEN_STEPS_PER_HALFAMPLITUDE = 180;
 }

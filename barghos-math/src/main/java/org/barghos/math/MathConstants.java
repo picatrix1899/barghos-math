@@ -43,6 +43,16 @@ interface MathConstants
 	public static final float PIf = 3.14159265359f;
 	
 	/**
+	 * This is the precalculated PI * 2. It's used in some trigonomic calculations.
+	 */
+	public static final double DOUBLE_PI = 6.28318530718; 
+	
+	/**
+	 * This is the precalculated PI * 2. It's used in some trigonomic calculations.
+	 */
+	public static final float DOUBLE_PIf = 6.28318530718f; 
+	
+	/**
 	 * The inverse of PI (1 / PI).
 	 */
 	public static final double INV_PI = 0.31830988618;
@@ -56,6 +66,11 @@ interface MathConstants
 	 * This is the precalculated Half-PI (PI / 2). It's used in some trigonomic calculations.
 	 */
 	public static final double HALF_PI = 1.570796326795;
+	
+	/** 
+	 * This is the precalculated Half-PI (PI / 2). It's used in some trigonomic calculations.
+	 */
+	public static final double HALF_PIf= 1.570796326795f;
 	
 	/**
 	 * This value is a precalculated scalar for conversation from degrees to radians.

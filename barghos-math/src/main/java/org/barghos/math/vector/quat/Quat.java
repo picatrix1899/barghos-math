@@ -106,8 +106,8 @@ public class Quat implements Vec4R
 		if(res == null) res = new Quat();
 		
 		float halfAngle = angle * 0.5f * (float)Maths.DEG_TO_RAD;
-		float sinHalfAngle = (float)Maths.sin(halfAngle);
-		float cosHalfAngle = (float)Maths.cos(halfAngle);
+		float sinHalfAngle = Maths.sin(halfAngle);
+		float cosHalfAngle = Maths.cos(halfAngle);
 		
 		float rX = ax * sinHalfAngle;
 		float rY = ay * sinHalfAngle;

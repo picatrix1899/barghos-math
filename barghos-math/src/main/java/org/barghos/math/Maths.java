@@ -29,10 +29,6 @@ package org.barghos.math;
  */
 public class Maths implements MathConstants
 {
-	/**
-	 * Contains the implementations for unsafe math operations like sqrt, sin, cos etc.
-	 */
-	public static UnsafeMath UNSAFE_MATH_IMPLEMENTATION = JavaUnsafeMath.getInstance();
 
 	/**
 	 * Checks if the value is zero with given tolerance.
@@ -248,31 +244,31 @@ public class Maths implements MathConstants
 	
 	public static double sin(double a)
 	{
-		return Maths.UNSAFE_MATH_IMPLEMENTATION.sin(a);
+		return Math.sin(a);
 	}
 	
 	public static double cos(double a)
 	{
-		return Maths.UNSAFE_MATH_IMPLEMENTATION.cos(a);
+		return Math.cos(a);
 	}
 	
 	public static double sqrt(double a)
 	{
-		return Maths.UNSAFE_MATH_IMPLEMENTATION.sqrt(a);
+		return Math.sqrt(a);
 	}
 	
 	public static float sin(float a)
 	{
-		return (float)Maths.UNSAFE_MATH_IMPLEMENTATION.sin(a);
+		return (float)Math.sin(a);
 	}
 	
 	public static float cos(float a)
 	{
-		return (float)Maths.UNSAFE_MATH_IMPLEMENTATION.cos(a);
+		return (float)Math.cos(a);
 	}
 	
 	public static float sqrt(float a)
 	{
-		return (float)Maths.UNSAFE_MATH_IMPLEMENTATION.sqrt(a);
+		return (float)Math.sqrt(a);
 	}
 }
