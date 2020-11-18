@@ -40,8 +40,8 @@ import org.barghos.core.tuple4.pool.Tup4fPool;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.Maths;
 import org.barghos.math.vector.quat.Quat;
-import org.barghos.math.vector.vec3.Vec3;
-import org.barghos.math.vector.vec3.Vec3Pool;
+import org.barghos.math.vector.vec3.Vec3f;
+import org.barghos.math.vector.vec3.Vec3fPool;
 
 
 public class Mat4 implements Mat4R
@@ -340,19 +340,19 @@ public class Mat4 implements Mat4R
 	
 	public Mat4 initLookAt(Tup3fR pos, Tup3fR target, Tup3fR worldUp)
 	{
-		Vec3 vpos = Vec3Pool.get(pos);
-		Vec3 vtarget = Vec3Pool.get(target);
-		Vec3 vworldUp = Vec3Pool.get(worldUp);
+		Vec3f vpos = Vec3fPool.get(pos);
+		Vec3f vtarget = Vec3fPool.get(target);
+		Vec3f vworldUp = Vec3fPool.get(worldUp);
 		
-		Vec3 zaxis = vpos.sub(vtarget, Vec3Pool.get()).normal();
-		Vec3 xaxis = vworldUp.normal().cross(zaxis, Vec3Pool.get()).normal();
-		Vec3 yaxis = zaxis.cross(xaxis, Vec3Pool.get());
+		Vec3f zaxis = vpos.sub(vtarget, Vec3fPool.get()).normal();
+		Vec3f xaxis = vworldUp.normal().cross(zaxis, Vec3fPool.get()).normal();
+		Vec3f yaxis = zaxis.cross(xaxis, Vec3fPool.get());
 	
 		initIdentity();
 		translate(vpos.invert());
 		rotate(zaxis, xaxis, yaxis);
 		
-		Vec3Pool.store(vpos, vtarget, vworldUp, zaxis, xaxis, yaxis);
+		Vec3fPool.store(vpos, vtarget, vworldUp, zaxis, xaxis, yaxis);
 		
 		return this;
 	}

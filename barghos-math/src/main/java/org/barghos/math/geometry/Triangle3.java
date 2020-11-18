@@ -29,8 +29,8 @@ import org.barghos.core.util.Nullable;
 import org.barghos.math.Maths;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3;
-import org.barghos.math.vector.vec3.Vec3;
-import org.barghos.math.vector.vec3.Vec3Pool;
+import org.barghos.math.vector.vec3.Vec3f;
+import org.barghos.math.vector.vec3.Vec3fPool;
 
 public class Triangle3 implements FiniteGeometricObject3
 {
@@ -243,17 +243,17 @@ public class Triangle3 implements FiniteGeometricObject3
 	
 	public float getP3Z() { return this.p3.getZ(); }
 	
-	public Vec3 getSideP1P2(@Nullable Vec3 res) { return this.p2.sub(this.p1, res); }
+	public Vec3f getSideP1P2(@Nullable Vec3f res) { return this.p2.sub(this.p1, res); }
 	
-	public Vec3 getSideP2P1(@Nullable Vec3 res) { return this.p1.sub(this.p2, res); }
+	public Vec3f getSideP2P1(@Nullable Vec3f res) { return this.p1.sub(this.p2, res); }
 	
-	public Vec3 getSideP1P3(@Nullable Vec3 res) { return this.p3.sub(this.p1, res); }
+	public Vec3f getSideP1P3(@Nullable Vec3f res) { return this.p3.sub(this.p1, res); }
 	
-	public Vec3 getSideP3P1(@Nullable Vec3 res) { return this.p1.sub(this.p3, res); }
+	public Vec3f getSideP3P1(@Nullable Vec3f res) { return this.p1.sub(this.p3, res); }
 	
-	public Vec3 getSideP2P3(@Nullable Vec3 res) { return this.p3.sub(this.p2, res); }
+	public Vec3f getSideP2P3(@Nullable Vec3f res) { return this.p3.sub(this.p2, res); }
 	
-	public Vec3 getSideP3P2(@Nullable Vec3 res) { return this.p2.sub(this.p3, res); }
+	public Vec3f getSideP3P2(@Nullable Vec3f res) { return this.p2.sub(this.p3, res); }
 	
 	public Line3 getSideP1P2(@Nullable Line3 res)
 	{
@@ -299,25 +299,25 @@ public class Triangle3 implements FiniteGeometricObject3
 	
 	public float getSquaredLengthSideP1P2()
 	{
-		Vec3 v = Vec3Pool.get(this.p2);
+		Vec3f v = Vec3fPool.get(this.p2);
 		float sqlength = v.sub(this.p1).squaredLength();
-		Vec3Pool.store(v);
+		Vec3fPool.store(v);
 		return sqlength;
 	}
 	
 	public float getSquaredLengthSideP1P3()
 	{
-		Vec3 v = Vec3Pool.get(this.p3);
+		Vec3f v = Vec3fPool.get(this.p3);
 		float sqlength = v.sub(this.p1).squaredLength();
-		Vec3Pool.store(v);
+		Vec3fPool.store(v);
 		return sqlength;
 	}
 
 	public float getSquaredLengthSideP2P3()
 	{
-		Vec3 v = Vec3Pool.get(this.p3);
+		Vec3f v = Vec3fPool.get(this.p3);
 		float sqlength = v.sub(this.p2).squaredLength();
-		Vec3Pool.store(v);
+		Vec3fPool.store(v);
 		return sqlength;
 	}
 

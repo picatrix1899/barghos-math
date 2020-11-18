@@ -28,15 +28,15 @@ import org.barghos.core.tuple4.Tup4f;
 import org.barghos.core.tuple4.pool.Tup4fPool;
 import org.barghos.math.geometry.PointSet3;
 import org.barghos.math.matrix.Mat4;
-import org.barghos.math.vector.vec3.Vec3;
-import org.barghos.math.vector.vec3.Vec3Pool;
+import org.barghos.math.vector.vec3.Vec3f;
+import org.barghos.math.vector.vec3.Vec3fPool;
 
 public class OBBOBBResolver
 {
 	public static boolean iOBBOBB3f(OBB3 a, OBB3 b)
 	{
-		Vec3 aCenter = a.getCenter(Vec3Pool.get());
-		Vec3 bCenter = b.getCenter(Vec3Pool.get());
+		Vec3f aCenter = a.getCenter(Vec3fPool.get());
+		Vec3f bCenter = b.getCenter(Vec3fPool.get());
 
 		Mat4 modelSpaceA = a.getModelSpaceMatrix();
 		Mat4 modelSpaceB = b.getModelSpaceMatrix();
@@ -147,16 +147,16 @@ public class OBBOBBResolver
 			if(!(bMaxZ > aMinZ))
 				return false;
 		
-		Vec3Pool.store(aCenter, bCenter);
+		Vec3fPool.store(aCenter, bCenter);
 		Tup4fPool.store(t1, t2, t3);
 		
 		return true;
 	}
 	
-	public static Vec3 rOBBOBB3f(OBB3 a, OBB3 b)
+	public static Vec3f rOBBOBB3f(OBB3 a, OBB3 b)
 	{
-		Vec3 aCenter = a.getCenter(Vec3Pool.get());
-		Vec3 bCenter = b.getCenter(Vec3Pool.get());
+		Vec3f aCenter = a.getCenter(Vec3fPool.get());
+		Vec3f bCenter = b.getCenter(Vec3fPool.get());
 		
 		Mat4 modelSpaceA = a.getModelSpaceMatrix();
 
@@ -212,7 +212,7 @@ public class OBBOBBResolver
 				signAX = -1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		else
 			if(bMaxX > aMinX)
 			{
@@ -220,7 +220,7 @@ public class OBBOBBResolver
 				signAX = 1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		
 		if(aPNY < bPNY)
 			if(aMaxY > bMinY)
@@ -229,7 +229,7 @@ public class OBBOBBResolver
 				signAY = -1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		else
 			if(bMaxY > aMinY)
 			{
@@ -237,7 +237,7 @@ public class OBBOBBResolver
 				signAY = 1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		
 		if(aPNZ < bPNZ)
 			if(aMaxZ > bMinZ)
@@ -246,7 +246,7 @@ public class OBBOBBResolver
 				signAZ = -1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		else
 			if(bMaxZ > aMinZ)
 			{
@@ -254,7 +254,7 @@ public class OBBOBBResolver
 				signAZ = 1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		
 		Mat4 modelSpaceB = b.getModelSpaceMatrix();
 		
@@ -297,7 +297,7 @@ public class OBBOBBResolver
 				signBX = -1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		else
 			if(bMaxX > aMinX)
 			{
@@ -305,7 +305,7 @@ public class OBBOBBResolver
 				signBX = 1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 
 		if(aPNY < bPNY)
 			if(aMaxY > bMinY)
@@ -314,7 +314,7 @@ public class OBBOBBResolver
 				signBY = -1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		else
 			if(bMaxY > aMinY)
 			{
@@ -322,7 +322,7 @@ public class OBBOBBResolver
 				signBY = 1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		
 		if(aPNZ < bPNZ)
 			if(aMaxZ > bMinZ)
@@ -331,7 +331,7 @@ public class OBBOBBResolver
 				signBZ = -1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		else
 			if(bMaxZ > aMinZ)
 			{
@@ -339,16 +339,16 @@ public class OBBOBBResolver
 				signBZ = 1;
 			}
 			else
-				return new Vec3();
+				return new Vec3f();
 		
-		Vec3[] v = new Vec3[6];
+		Vec3f[] v = new Vec3f[6];
 
-		Vec3 axisAX = new Vec3(modelSpaceA.getRow(0).getX(), modelSpaceA.getRow(0).getY(), modelSpaceA.getRow(0).getZ());
-		Vec3 axisAY = new Vec3(modelSpaceA.getRow(1).getX(), modelSpaceA.getRow(1).getY(), modelSpaceA.getRow(1).getZ());
-		Vec3 axisAZ = new Vec3(modelSpaceA.getRow(2).getX(), modelSpaceA.getRow(2).getY(), modelSpaceA.getRow(2).getZ());
-		Vec3 axisBX = new Vec3(modelSpaceB.getRow(0).getX(), modelSpaceB.getRow(0).getY(), modelSpaceB.getRow(0).getZ());
-		Vec3 axisBY = new Vec3(modelSpaceB.getRow(1).getX(), modelSpaceB.getRow(1).getY(), modelSpaceB.getRow(1).getZ());
-		Vec3 axisBZ = new Vec3(modelSpaceB.getRow(2).getX(), modelSpaceB.getRow(2).getY(), modelSpaceB.getRow(2).getZ());
+		Vec3f axisAX = new Vec3f(modelSpaceA.getRow(0).getX(), modelSpaceA.getRow(0).getY(), modelSpaceA.getRow(0).getZ());
+		Vec3f axisAY = new Vec3f(modelSpaceA.getRow(1).getX(), modelSpaceA.getRow(1).getY(), modelSpaceA.getRow(1).getZ());
+		Vec3f axisAZ = new Vec3f(modelSpaceA.getRow(2).getX(), modelSpaceA.getRow(2).getY(), modelSpaceA.getRow(2).getZ());
+		Vec3f axisBX = new Vec3f(modelSpaceB.getRow(0).getX(), modelSpaceB.getRow(0).getY(), modelSpaceB.getRow(0).getZ());
+		Vec3f axisBY = new Vec3f(modelSpaceB.getRow(1).getX(), modelSpaceB.getRow(1).getY(), modelSpaceB.getRow(1).getZ());
+		Vec3f axisBZ = new Vec3f(modelSpaceB.getRow(2).getX(), modelSpaceB.getRow(2).getY(), modelSpaceB.getRow(2).getZ());
 		
 		v[0] = axisAX.mul(valAX * signAX);
 		v[1] = axisAY.mul(valAY * signAY);
@@ -363,7 +363,7 @@ public class OBBOBBResolver
 		
 		for(int i = 0; i < 6; i++)
 		{
-			Vec3 c = v[i];
+			Vec3f c = v[i];
 			double sq = c.squaredLength();
 			
 			if(sq < min)
@@ -373,7 +373,7 @@ public class OBBOBBResolver
 			}
 		}
 		
-		Vec3Pool.store(aCenter, bCenter);
+		Vec3fPool.store(aCenter, bCenter);
 		Tup4fPool.store(t1, t2, t3);
 		
 		return v[index];

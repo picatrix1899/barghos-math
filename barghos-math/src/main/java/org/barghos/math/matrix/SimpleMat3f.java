@@ -32,8 +32,8 @@ import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.core.tuple3.pool.Tup3fPool;
 import org.barghos.math.BarghosMath;
-import org.barghos.math.vector.vec3.Vec3;
-import org.barghos.math.vector.vec3.Vec3Pool;
+import org.barghos.math.vector.vec3.Vec3f;
+import org.barghos.math.vector.vec3.Vec3fPool;
 
 /**
  * This class represents a simplified version of the {@link Mat3f} class.
@@ -110,8 +110,8 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		
 		float[] m_ = new float[ROWS * COLUMNS];
 		
-		Vec3 rw = Vec3Pool.get();
-		Vec3 cl = Vec3Pool.get();
+		Vec3f rw = Vec3fPool.get();
+		Vec3f cl = Vec3fPool.get();
 
 		for(int row = 0; row < ROWS; row++)
 		{
@@ -124,7 +124,7 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 			m_[index + 2] = rw.dot(r.getColumn(2, cl));
 		}
 		
-		Vec3Pool.store(rw, cl);
+		Vec3fPool.store(rw, cl);
 		
 		for(int row = 0; row < ROWS; row++)
 		{

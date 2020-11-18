@@ -28,14 +28,14 @@ import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.math.geometry.FiniteGeometricObject3;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3;
-import org.barghos.math.vector.vec3.Vec3;
+import org.barghos.math.vector.vec3.Vec3f;
 import org.barghos.math.vector.vec3.Vec3Axis;
-import org.barghos.math.vector.vec3.Vec3Pool;
+import org.barghos.math.vector.vec3.Vec3fPool;
 
 public class OBB3 implements FiniteGeometricObject3
 {
 	private Point3 center = new Point3();
-	private Vec3 halfExtend = new Point3();
+	private Vec3f halfExtend = new Point3();
 	private Mat4 rotation = Mat4.identity();
 	
 	private Point3[] points = new Point3[8];
@@ -99,20 +99,20 @@ public class OBB3 implements FiniteGeometricObject3
 		return res.set(this.center);
 	}
 	
-	public Vec3 getCenter(Vec3 res)
+	public Vec3f getCenter(Vec3f res)
 	{
-		if(res == null) res = new Vec3();
+		if(res == null) res = new Vec3f();
 		return res.set(this.center);
 	}
 	
-	public Vec3 getHalfExtend()
+	public Vec3f getHalfExtend()
 	{
-		return new Vec3(this.halfExtend);
+		return new Vec3f(this.halfExtend);
 	}
 	
-	public Vec3 getHalfExtend(Vec3 res)
+	public Vec3f getHalfExtend(Vec3f res)
 	{
-		if(res == null) res = new Vec3();
+		if(res == null) res = new Vec3f();
 		return res.set(this.halfExtend);
 	}
 	
@@ -131,9 +131,9 @@ public class OBB3 implements FiniteGeometricObject3
 	{
 		if(this.isModelSpaceDirty)
 		{
-			Vec3 msX = Vec3Pool.get();
-			Vec3 msY = Vec3Pool.get();
-			Vec3 msZ = Vec3Pool.get();
+			Vec3f msX = Vec3fPool.get();
+			Vec3f msY = Vec3fPool.get();
+			Vec3f msZ = Vec3fPool.get();
 			
 			this.rotation.transform(Vec3Axis.AXIS_X, msX);
 			this.rotation.transform(Vec3Axis.AXIS_Y, msY);
@@ -144,7 +144,7 @@ public class OBB3 implements FiniteGeometricObject3
 			m.setRow(1, msY.getX(), msY.getY(), msY.getZ(), 0);
 			m.setRow(2, msZ.getX(), msZ.getY(), msZ.getZ(), 0);
 			
-			Vec3Pool.store(msX, msY, msZ);
+			Vec3fPool.store(msX, msY, msZ);
 			
 			this.modelSpace.set(m);
 			this.isModelSpaceDirty = false;
@@ -159,9 +159,9 @@ public class OBB3 implements FiniteGeometricObject3
 		
 		if(this.isModelSpaceDirty)
 		{
-			Vec3 msX = Vec3Pool.get();
-			Vec3 msY = Vec3Pool.get();
-			Vec3 msZ = Vec3Pool.get();
+			Vec3f msX = Vec3fPool.get();
+			Vec3f msY = Vec3fPool.get();
+			Vec3f msZ = Vec3fPool.get();
 			
 			this.rotation.transform(Vec3Axis.AXIS_X, msX);
 			this.rotation.transform(Vec3Axis.AXIS_Y, msY);
@@ -172,7 +172,7 @@ public class OBB3 implements FiniteGeometricObject3
 			m.setRow(1, msY.getX(), msY.getY(), msY.getZ(), 0);
 			m.setRow(2, msZ.getX(), msZ.getY(), msZ.getZ(), 0);
 			
-			Vec3Pool.store(msX, msY, msZ);
+			Vec3fPool.store(msX, msY, msZ);
 			
 			this.modelSpace.set(m);
 			this.isModelSpaceDirty = false;
@@ -190,21 +190,21 @@ public class OBB3 implements FiniteGeometricObject3
 
 			Mat4 objToWorld = new Mat4(modelSpace).transpose();
 
-			Vec3 v = Vec3Pool.get(this.halfExtend);
+			Vec3f v = Vec3fPool.get(this.halfExtend);
 
 			modelSpace.transform(v);
 
-			Vec3 t1 = Vec3Pool.get(v);
-			Vec3 t2 = Vec3Pool.get(-v.getX(), v.getY(), v.getZ());
-			Vec3 t3 = Vec3Pool.get(-v.getX(), -v.getY(), v.getZ());
-			Vec3 t4 = Vec3Pool.get(v.getX(), -v.getY(), v.getZ());
+			Vec3f t1 = Vec3fPool.get(v);
+			Vec3f t2 = Vec3fPool.get(-v.getX(), v.getY(), v.getZ());
+			Vec3f t3 = Vec3fPool.get(-v.getX(), -v.getY(), v.getZ());
+			Vec3f t4 = Vec3fPool.get(v.getX(), -v.getY(), v.getZ());
 
 			objToWorld.transform(t1);
 			objToWorld.transform(t2);
 			objToWorld.transform(t3);
 			objToWorld.transform(t4);
 			
-			Vec3 r = Vec3Pool.get();
+			Vec3f r = Vec3fPool.get();
 			
 			if(this.points[0] == null)
 			{
@@ -231,7 +231,7 @@ public class OBB3 implements FiniteGeometricObject3
 				this.center.sub(t4, this.points[7]);
 			}
 
-			Vec3Pool.store(v, t1, t2, t3, t4, r);
+			Vec3fPool.store(v, t1, t2, t3, t4, r);
 			
 			this.isPointsDirty = false;
 			
@@ -243,18 +243,18 @@ public class OBB3 implements FiniteGeometricObject3
 	{
 		if(res == null) res = new OBB3();
 		
-		Vec3 min = Vec3Pool.get();
-		Vec3 max = Vec3Pool.get();
+		Vec3f min = Vec3fPool.get();
+		Vec3f max = Vec3fPool.get();
 
 		t.transform(this.center.sub(this.halfExtend, min));
 		t.transform(this.center.add(this.halfExtend, max));
 		
-		Vec3 halfExtend = max.sub(min).mul(0.5f);
-		Vec3 center = min.add(halfExtend);
+		Vec3f halfExtend = max.sub(min).mul(0.5f);
+		Vec3f center = min.add(halfExtend);
 		
 		res.set(center, halfExtend, this.rotation);
 		
-		Vec3Pool.store(min, max);
+		Vec3fPool.store(min, max);
 		
 		return res;
 	}

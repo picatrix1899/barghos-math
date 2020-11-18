@@ -32,13 +32,13 @@ import java.util.List;
 import org.barghos.core.util.Nullable;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3;
-import org.barghos.math.vector.vec3.Vec3;
+import org.barghos.math.vector.vec3.Vec3f;
 
 public class PointSet3 implements FiniteGeometricObject3, Iterable<Point3>
 {
 	protected final List<Point3> points = new ArrayList<>();
-	protected final Vec3 min = new Vec3();
-	protected final Vec3 max = new Vec3();
+	protected final Vec3f min = new Vec3f();
+	protected final Vec3f max = new Vec3f();
 	
 	protected boolean isDirty;
 	

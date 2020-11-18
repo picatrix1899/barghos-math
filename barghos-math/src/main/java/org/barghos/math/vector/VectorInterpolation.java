@@ -28,16 +28,16 @@ import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.util.Nullable;
 import org.barghos.math.vector.quat.Quat;
 import org.barghos.math.vector.quat.QuatPool;
-import org.barghos.math.vector.vec3.Vec3;
+import org.barghos.math.vector.vec3.Vec3f;
 
 public class VectorInterpolation
 {
-	public static Vec3 lerp(Vec3 v1, Vec3 v2, float alpha, @Nullable Vec3 res)
+	public static Vec3f lerp(Vec3f v1, Vec3f v2, float alpha, @Nullable Vec3f res)
 	{
 		if(v1 == null) throw new ArgumentNullException("v1");
 		if(v2 == null) throw new ArgumentNullException("v2");
 		
-		if(res == null) res = new Vec3();
+		if(res == null) res = new Vec3f();
 		
 		res.setX(v1.getX() + alpha * (v2.getX() - v1.getX()));
 		res.setY(v1.getY() + alpha * (v2.getY() - v1.getY()));

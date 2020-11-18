@@ -27,8 +27,8 @@ package org.barghos.math.geometry;
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.math.Maths;
 import org.barghos.math.point.Point3;
-import org.barghos.math.vector.vec3.Vec3;
-import org.barghos.math.vector.vec3.Vec3Pool;
+import org.barghos.math.vector.vec3.Vec3f;
+import org.barghos.math.vector.vec3.Vec3fPool;
 
 public class Line3 implements FiniteGeometricObject3
 {
@@ -67,9 +67,9 @@ public class Line3 implements FiniteGeometricObject3
 		return res.set(this.p1);
 	}
 	
-	public Vec3 getP1(Vec3 res)
+	public Vec3f getP1(Vec3f res)
 	{
-		if(res == null) res = new Vec3();
+		if(res == null) res = new Vec3f();
 		return res.set(this.p1);
 	}
 	
@@ -79,9 +79,9 @@ public class Line3 implements FiniteGeometricObject3
 		return res.set(this.p2);
 	}
 	
-	public Vec3 getP2(Vec3 res)
+	public Vec3f getP2(Vec3f res)
 	{
-		if(res == null) res = new Vec3();
+		if(res == null) res = new Vec3f();
 		return res.set(this.p2);
 	}
 	
@@ -167,9 +167,9 @@ public class Line3 implements FiniteGeometricObject3
 	
 	public float squaredLength()
 	{
-		Vec3 v = this.p2.sub(this.p1, Vec3Pool.get());
+		Vec3f v = this.p2.sub(this.p1, Vec3fPool.get());
 		float sqlength = v.squaredLength();
-		Vec3Pool.store(v);
+		Vec3fPool.store(v);
 		
 		return sqlength;
 	}
@@ -179,14 +179,14 @@ public class Line3 implements FiniteGeometricObject3
 		return (float)Maths.sqrt(squaredLength());
 	}
 	
-	public Vec3 vector(Vec3 res)
+	public Vec3f vector(Vec3f res)
 	{
-		if(res == null) res = new Vec3();
+		if(res == null) res = new Vec3f();
 		
 		return this.p2.sub(this.p1, res);
 	}
 	
-	public Vec3 vector()
+	public Vec3f vector()
 	{
 		return this.p2.subN(this.p1);
 	}

@@ -30,8 +30,8 @@ import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3;
-import org.barghos.math.vector.vec3.Vec3;
-import org.barghos.math.vector.vec3.Vec3Pool;
+import org.barghos.math.vector.vec3.Vec3f;
+import org.barghos.math.vector.vec3.Vec3fPool;
 
 public class AABB3f
 {
@@ -252,22 +252,22 @@ public class AABB3f
 			if(res == null) throw new ArgumentNullException("res");
 		}
 		
-		Vec3 halfExtend = this.max.sub(this.min, Vec3Pool.get()).mul(0.5f);
+		Vec3f halfExtend = this.max.sub(this.min, Vec3fPool.get()).mul(0.5f);
 		
 		this.min.add(halfExtend, res);
 		
-		Vec3Pool.store(halfExtend);
+		Vec3fPool.store(halfExtend);
 		
 		return res;
 	}
 	
 	public Point3 getCenter()
 	{
-		Vec3 halfExtend = this.max.sub(this.min, Vec3Pool.get()).mul(0.5f);
+		Vec3f halfExtend = this.max.sub(this.min, Vec3fPool.get()).mul(0.5f);
 		
 		Point3 res = this.min.add(halfExtend, new Point3());
 		
-		Vec3Pool.store(halfExtend);
+		Vec3fPool.store(halfExtend);
 		
 		return res;
 	}
@@ -279,22 +279,22 @@ public class AABB3f
 			if(res == null) throw new ArgumentNullException("res");
 		}
 		
-		Vec3 halfExtend = this.max.sub(this.min, Vec3Pool.get()).mul(0.5f);
+		Vec3f halfExtend = this.max.sub(this.min, Vec3fPool.get()).mul(0.5f);
 		
 		res.set(halfExtend);
 		
-		Vec3Pool.store(halfExtend);
+		Vec3fPool.store(halfExtend);
 		
 		return res;
 	}
 	
-	public Vec3 getHalfExtend()
+	public Vec3f getHalfExtend()
 	{
-		Vec3 halfExtend = this.max.sub(this.min, Vec3Pool.get()).mul(0.5f);
+		Vec3f halfExtend = this.max.sub(this.min, Vec3fPool.get()).mul(0.5f);
 		
-		Vec3 res = new Vec3(halfExtend);
+		Vec3f res = new Vec3f(halfExtend);
 		
-		Vec3Pool.store(halfExtend);
+		Vec3fPool.store(halfExtend);
 		
 		return res;
 	}
@@ -307,15 +307,15 @@ public class AABB3f
 			if(res == null) throw new ArgumentNullException("res");
 		}
 
-		Vec3 min = Vec3Pool.get(this.min);
-		Vec3 max = Vec3Pool.get(this.max);
+		Vec3f min = Vec3fPool.get(this.min);
+		Vec3f max = Vec3fPool.get(this.max);
 
 		t.transform(min);
 		t.transform(max);
 
 		res.set(min, max);
 		
-		Vec3Pool.store(min, max);
+		Vec3fPool.store(min, max);
 		
 		return res;
 	}
@@ -327,15 +327,15 @@ public class AABB3f
 			if(t == null) throw new ArgumentNullException("t");
 		}
 
-		Vec3 min = Vec3Pool.get(this.min);
-		Vec3 max = Vec3Pool.get(this.max);
+		Vec3f min = Vec3fPool.get(this.min);
+		Vec3f max = Vec3fPool.get(this.max);
 
 		t.transform(min);
 		t.transform(max);
 
 		AABB3f res = new AABB3f(min, max);
 		
-		Vec3Pool.store(min, max);
+		Vec3fPool.store(min, max);
 		
 		return res;
 	}

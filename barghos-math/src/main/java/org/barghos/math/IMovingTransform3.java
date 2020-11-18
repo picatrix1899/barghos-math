@@ -25,7 +25,7 @@ SOFTWARE.
 package org.barghos.math;
 
 import org.barghos.math.vector.quat.Quat;
-import org.barghos.math.vector.vec3.Vec3;
+import org.barghos.math.vector.vec3.Vec3f;
 
 /**
  * @author picatrix1899
@@ -33,7 +33,7 @@ import org.barghos.math.vector.vec3.Vec3;
  */
 public interface IMovingTransform3 extends ITransform3
 {
-	Vec3 getVelocity();
+	Vec3f getVelocity();
 	Quat getRotation();
-	Vec3 getScaling();
+	Vec3f getScaling();
 }

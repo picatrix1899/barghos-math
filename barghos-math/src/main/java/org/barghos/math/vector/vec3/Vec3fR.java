@@ -29,9 +29,9 @@ import org.barghos.core.tuple3.api.Tup3fR;
 /**
  * @author picatrix1899
  * 
- * This interface grants readonly access to a 3-dimensional mathematical vector.
+ * This interface grants readonly access to a 3-dimensional mathematical float vector.
  */
-public interface Vec3R extends Tup3fR
+public interface Vec3fR extends Tup3fR
 {
 	float getX();
 	float getY();

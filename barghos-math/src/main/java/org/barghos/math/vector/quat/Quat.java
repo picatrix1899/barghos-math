@@ -30,8 +30,8 @@ import org.barghos.core.util.Nullable;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.Maths;
 import org.barghos.math.matrix.Mat4;
-import org.barghos.math.vector.vec3.Vec3;
-import org.barghos.math.vector.vec3.Vec3Pool;
+import org.barghos.math.vector.vec3.Vec3f;
+import org.barghos.math.vector.vec3.Vec3fPool;
 import org.barghos.math.vector.vec4.Vec4R;
 
 /** A 3-Dimensional Quaternion */
@@ -117,7 +117,7 @@ public class Quat implements Vec4R
 		return res.set(rW, rX, rY, rZ).normal();
 	}
 	
-	public static Quat getFromVectors(Vec3 v1, Vec3 v2)
+	public static Quat getFromVectors(Vec3f v1, Vec3f v2)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -126,17 +126,17 @@ public class Quat implements Vec4R
 		}
 		
 		
-		Vec3 a = v1.normal(Vec3Pool.get());
-		Vec3 b = v2.normal(Vec3Pool.get());
+		Vec3f a = v1.normal(Vec3fPool.get());
+		Vec3f b = v2.normal(Vec3fPool.get());
 
-		Vec3 axis = a.cross(b, Vec3Pool.get());
+		Vec3f axis = a.cross(b, Vec3fPool.get());
 		axis.normal(axis);
 		
 		float angle = 1.0f + a.dot(b);
 
 		Quat out = new Quat(angle, axis.getX(), axis.getY(), axis.getZ()).normal();
 		
-		Vec3Pool.store(a, b, axis);
+		Vec3fPool.store(a, b, axis);
 		
 		return out;
 	}
@@ -340,14 +340,14 @@ public class Quat implements Vec4R
 		return res;
 	}
 	
-	public Vec3 transform(Tup3fR v, @Nullable Vec3 res)
+	public Vec3f transform(Tup3fR v, @Nullable Vec3f res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(v == null) throw new ArgumentNullException("v");
 		}
 		
-		if(res == null) res = new Vec3();
+		if(res == null) res = new Vec3f();
 		
 		Quat r = mul(v, QuatPool.get());
 		Quat c = conjugate(QuatPool.get());

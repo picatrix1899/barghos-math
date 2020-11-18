@@ -25,7 +25,7 @@ SOFTWARE.
 package org.barghos.math;
 
 import org.barghos.core.tuple3.api.Tup3fR;
-import org.barghos.math.vector.vec3.Vec3;
+import org.barghos.math.vector.vec3.Vec3f;
 
 /**
  * @author picatrix1899
@@ -33,9 +33,9 @@ import org.barghos.math.vector.vec3.Vec3;
  */
 public class LinearSystem3 implements CoordinateSpaceSystem3
 {
-	private final Vec3 up = new Vec3();
-	private final Vec3 forward = new Vec3();
-	private final Vec3 right = new Vec3();
+	private final Vec3f up = new Vec3f();
+	private final Vec3f forward = new Vec3f();
+	private final Vec3f right = new Vec3f();
 	
 	public LinearSystem3()
 	{
@@ -63,68 +63,68 @@ public class LinearSystem3 implements CoordinateSpaceSystem3
 		return this;
 	}
 
-	public Vec3 getUp(Vec3 res)
+	public Vec3f getUp(Vec3f res)
 	{
-		if(res == null) res = new Vec3();
+		if(res == null) res = new Vec3f();
 		
 		return res.set(this.up);
 	}
 	
-	public Vec3 getUp()
+	public Vec3f getUp()
 	{
-		return new Vec3(this.up);
+		return new Vec3f(this.up);
 	}
 	
-	public Vec3 getForward(Vec3 res)
+	public Vec3f getForward(Vec3f res)
 	{
-		if(res == null) res = new Vec3();
+		if(res == null) res = new Vec3f();
 		
 		return res.set(this.forward);
 	}
 	
-	public Vec3 getForward()
+	public Vec3f getForward()
 	{
-		return new Vec3(this.forward);
+		return new Vec3f(this.forward);
 	}
 	
-	public Vec3 getRight(Vec3 res)
+	public Vec3f getRight(Vec3f res)
 	{
-		if(res == null) res = new Vec3();
+		if(res == null) res = new Vec3f();
 		
 		return res.set(this.right);
 	}
 	
-	public Vec3 getRight()
+	public Vec3f getRight()
 	{
-		return new Vec3(this.right);
+		return new Vec3f(this.right);
 	}
 	
-	public Vec3 getDown(Vec3 res)
+	public Vec3f getDown(Vec3f res)
 	{
 		return this.up.invert(res);
 	}
 	
-	public Vec3 getDown()
+	public Vec3f getDown()
 	{
 		return this.up.invert(null);
 	}
 	
-	public Vec3 getBack(Vec3 res)
+	public Vec3f getBack(Vec3f res)
 	{
 		return this.forward.invert(res);
 	}
 	
-	public Vec3 getBack()
+	public Vec3f getBack()
 	{
 		return this.forward.invert(null);
 	}
 	
-	public Vec3 getLeft(Vec3 res)
+	public Vec3f getLeft(Vec3f res)
 	{
 		return this.right.invert(res);
 	}
 	
-	public Vec3 getLeft()
+	public Vec3f getLeft()
 	{
 		return this.right.invert(null);
 	}

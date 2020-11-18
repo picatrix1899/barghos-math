@@ -35,7 +35,7 @@ import org.barghos.math.BarghosMath;
  * This is a readonly version of a 3-dimensional vector with extended protection against modification.
  * It can be used as a more flexible way to create constants.
  */
-public abstract class PVec3 implements Vec3R
+public abstract class PVec3 implements Vec3fR
 {
 	
 	public static PVec3 gen(Tup3fR t)

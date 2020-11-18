@@ -31,8 +31,8 @@ import org.barghos.math.boundary.AABB3f;
 import org.barghos.math.boundary.OBB3;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3;
-import org.barghos.math.vector.vec3.Vec3;
-import org.barghos.math.vector.vec3.Vec3Pool;
+import org.barghos.math.vector.vec3.Vec3f;
+import org.barghos.math.vector.vec3.Vec3fPool;
 
 public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 {
@@ -92,18 +92,18 @@ public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 	{
 		PointSet3 set = getPointSet(null);
 
-		Vec3 min = Vec3Pool.get(set.getMinX(), set.getMinY(), set.getMinZ());
-		Vec3 max = Vec3Pool.get(set.getMaxX(), set.getMaxY(), set.getMaxZ());
+		Vec3f min = Vec3fPool.get(set.getMinX(), set.getMinY(), set.getMinZ());
+		Vec3f max = Vec3fPool.get(set.getMaxX(), set.getMaxY(), set.getMaxZ());
 
 		t.transform(min);
 		t.transform(max);
 		
-		Vec3 halfExtend = max.sub(min).mul(0.5f);
+		Vec3f halfExtend = max.sub(min).mul(0.5f);
 		Point3 center = new Point3(min.add(halfExtend, min));
 
 		OBB3 result = new OBB3(center, halfExtend, r);
 		
-		Vec3Pool.store(min, max);
+		Vec3fPool.store(min, max);
 		
 		return result;
 	}
@@ -112,15 +112,15 @@ public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 	{
 		PointSet3 set = getPointSet(null);
 		
-		Vec3 min = Vec3Pool.get(set.getMinX(), set.getMinY(), set.getMinZ());
-		Vec3 max = Vec3Pool.get(set.getMaxX(), set.getMaxY(), set.getMaxZ());
+		Vec3f min = Vec3fPool.get(set.getMinX(), set.getMinY(), set.getMinZ());
+		Vec3f max = Vec3fPool.get(set.getMaxX(), set.getMaxY(), set.getMaxZ());
 		
-		Vec3 halfExtend = max.sub(min).mul(0.5f);
+		Vec3f halfExtend = max.sub(min).mul(0.5f);
 		Point3 center = new Point3(min.add(halfExtend, min));
 
 		AABB3f r = new AABB3f(center, halfExtend);
 		
-		Vec3Pool.store(min, max);
+		Vec3fPool.store(min, max);
 		
 		return r;
 	}

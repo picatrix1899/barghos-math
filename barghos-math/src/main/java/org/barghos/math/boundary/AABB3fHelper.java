@@ -25,8 +25,8 @@ SOFTWARE.
 package org.barghos.math.boundary;
 
 import org.barghos.core.tuple3.helper.Tup3fHelper;
-import org.barghos.math.vector.vec3.Vec3;
-import org.barghos.math.vector.vec3.Vec3Pool;
+import org.barghos.math.vector.vec3.Vec3f;
+import org.barghos.math.vector.vec3.Vec3fPool;
 
 /**
  * @author picatrix1899
@@ -36,34 +36,34 @@ public class AABB3fHelper
 {
 	public static AABB3f merge(AABB3f a, AABB3f b)
 	{
-		Vec3 minA = a.getMin(Vec3Pool.get());
-		Vec3 maxA = a.getMax(Vec3Pool.get());
-		Vec3 minB = b.getMin(Vec3Pool.get());
-		Vec3 maxB = b.getMax(Vec3Pool.get());
+		Vec3f minA = a.getMin(Vec3fPool.get());
+		Vec3f maxA = a.getMax(Vec3fPool.get());
+		Vec3f minB = b.getMin(Vec3fPool.get());
+		Vec3f maxB = b.getMax(Vec3fPool.get());
 		
-		Vec3 min = Tup3fHelper.min(minA, minB, minA);
-		Vec3 max = Tup3fHelper.max(maxA, maxB, maxA);
+		Vec3f min = Tup3fHelper.min(minA, minB, minA);
+		Vec3f max = Tup3fHelper.max(maxA, maxB, maxA);
 		
 		AABB3f out = new AABB3f(min, max);
 		
-		Vec3Pool.store(minA, maxA, minB, maxB);
+		Vec3fPool.store(minA, maxA, minB, maxB);
 		
 		return out;
 	}
 	
 	public static AABB3f merge(AABB3f a, AABB3f b, AABB3f res)
 	{
-		Vec3 minA = a.getMin(Vec3Pool.get());
-		Vec3 maxA = a.getMax(Vec3Pool.get());
-		Vec3 minB = b.getMin(Vec3Pool.get());
-		Vec3 maxB = b.getMax(Vec3Pool.get());
+		Vec3f minA = a.getMin(Vec3fPool.get());
+		Vec3f maxA = a.getMax(Vec3fPool.get());
+		Vec3f minB = b.getMin(Vec3fPool.get());
+		Vec3f maxB = b.getMax(Vec3fPool.get());
 		
-		Vec3 min = Tup3fHelper.min(minA, minB, minA);
-		Vec3 max = Tup3fHelper.max(maxA, maxB, maxA);
+		Vec3f min = Tup3fHelper.min(minA, minB, minA);
+		Vec3f max = Tup3fHelper.max(maxA, maxB, maxA);
 
 		res.set(min, max);
 		
-		Vec3Pool.store(minA, maxA, minB, maxB);
+		Vec3fPool.store(minA, maxA, minB, maxB);
 		
 		return res;
 	}
