@@ -44,16 +44,10 @@ public class AABB3fHelper
 		
 		Vec3 min = Tup3fHelper.min(minA, minB, minA);
 		Vec3 max = Tup3fHelper.max(maxA, maxB, maxA);
-
-		Vec3 he = Vec3Pool.get();
-		max.sub(min, he).mul(0.5f);
 		
-		Vec3 center = Vec3Pool.get();
-		min.add(he, center);
+		AABB3f out = new AABB3f(min, max);
 		
-		AABB3f out = new AABB3f(center, he);
-		
-		Vec3Pool.store(minA, maxA, minB, maxB, he, center);
+		Vec3Pool.store(minA, maxA, minB, maxB);
 		
 		return out;
 	}
@@ -68,15 +62,9 @@ public class AABB3fHelper
 		Vec3 min = Tup3fHelper.min(minA, minB, minA);
 		Vec3 max = Tup3fHelper.max(maxA, maxB, maxA);
 
-		Vec3 he = Vec3Pool.get();
-		max.sub(min, he).mul(0.5f);
+		res.set(min, max);
 		
-		Vec3 center = Vec3Pool.get();
-		min.add(he, center);
-
-		res.set(center, he);
-		
-		Vec3Pool.store(minA, maxA, minB, maxB, he, center);
+		Vec3Pool.store(minA, maxA, minB, maxB);
 		
 		return res;
 	}

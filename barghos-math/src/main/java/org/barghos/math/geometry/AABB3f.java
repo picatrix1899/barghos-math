@@ -24,214 +24,324 @@ SOFTWARE.
 
 package org.barghos.math.geometry;
 
+import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple3.api.Tup3fR;
+import org.barghos.core.tuple3.api.Tup3fW;
+import org.barghos.math.BarghosMath;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3;
 import org.barghos.math.vector.vec3.Vec3;
 import org.barghos.math.vector.vec3.Vec3Pool;
 
-public class AABB3f implements FiniteGeometricObject3
+public class AABB3f
 {
-	protected final Point3 center = new Point3();
-	protected final Vec3 halfExtend = new Vec3();
-	private boolean dirty;
-	private final Point3[] points = new Point3[8];
+	protected final Point3 min = new Point3();
+	protected final Point3 max = new Point3();
 	
 	public AABB3f() { }
 	
-	public AABB3f(AABB3f aabb) { set(aabb); }
+	public AABB3f(AABB3f aabb)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(aabb == null) throw new ArgumentNullException("aabb");
+		}
+		
+		set(aabb);
+	}
 	
-	public AABB3f(Tup3fR center, Tup3fR halfExtend) { set(center, halfExtend); }
+	public AABB3f(Tup3fR min, Tup3fR max)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(min == null) throw new ArgumentNullException("min");
+			if(max == null) throw new ArgumentNullException("max");
+		}
+		
+		set(min, max);
+	}
 	
-	public AABB3f(float cX, float cY, float cZ, float heX, float heY, float heZ) { set(cX, cY, cZ, heX, heY, heZ); }
+	public AABB3f(Tup3fR min, float maxX, float maxY, float maxZ)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(min == null) throw new ArgumentNullException("min");
+		}
+		
+		set(min, maxX, maxY, maxZ);
+	}
+	
+	public AABB3f(float minX, float minY, float minZ, Tup3fR max)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(max == null) throw new ArgumentNullException("max");
+		}
+		
+		set(minX, minY, minZ, max);
+	}
+	
+	public AABB3f(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
+	{
+		set(minX, minY, minZ, maxX, maxY, maxZ);
+	}
 	
 	public AABB3f set(AABB3f aabb)
 	{
-		aabb.getCenter(this.center);
-		aabb.getHalfExtend(this.halfExtend);
-		this.dirty = true;
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(aabb == null) throw new ArgumentNullException("aabb");
+		}
+		
+		aabb.getMin(this.min);
+		aabb.getMax(this.max);
+		
 		return this;
 	}
 	
-	public AABB3f set(Tup3fR center, Tup3fR halfExtend) { return setCenter(center).setHalfExtend(halfExtend); }
-	
-	public AABB3f set(float cX, float cY, float cZ, float heX, float heY, float heZ) { return setCenter(cX, cY, cZ).setHalfExtend(heX, heY, heZ); }
-	
-	public AABB3f setHalfExtend(Tup3fR t) { return setHalfExtend(t.getX(), t.getY(), t.getZ()); }
-	
-	public AABB3f setHalfExtend(float x, float y, float z) { return setHalfExtendX(x).setHalfExtendY(y).setHalfExtendZ(z); }
-	
-	public AABB3f setHalfExtendX(float x) { this.halfExtend.setX(x); this.dirty = true; return this; }
-	
-	public AABB3f setHalfExtendY(float y) { this.halfExtend.setY(y); this.dirty = true; return this; }
-	
-	public AABB3f setHalfExtendZ(float z) { this.halfExtend.setZ(z); this.dirty = true; return this; }
-	
-	public AABB3f setCenter(Tup3fR t) { return setCenter(t.getX(), t.getY(), t.getZ()); }
-	
-	public AABB3f setCenter(float x, float y, float z) { return setCenterX(x).setCenterY(y).setCenterZ(z); }
-	
-	public AABB3f setCenterX(float x) { this.center.setX(x); this.dirty = true; return this; }
-	
-	public AABB3f setCenterY(float y) { this.center.setY(y); this.dirty = true; return this; }
-	
-	public AABB3f setCenterZ(float z) { this.center.setZ(z); this.dirty = true; return this; }
-	
-	public Point3 getCenter(Point3 res)
+	public AABB3f set(Tup3fR min, Tup3fR max)
 	{
-		if(res == null) res = new Point3();
-		return res.set(this.center);
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(min == null) throw new ArgumentNullException("min");
+			if(max == null) throw new ArgumentNullException("max");
+		}
+		
+		return setMin(min).setMax(max);
 	}
 	
-	public Point3 getCenter()
+	public AABB3f set(Tup3fR min, float maxX, float maxY, float maxZ)
 	{
-		return new Point3(this.center);
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(min == null) throw new ArgumentNullException("min");
+		}
+		
+		return setMin(min).setMax(maxX, maxY, maxZ);
 	}
 	
-	public Vec3 getCenter(Vec3 res)
+	public AABB3f set(float minX, float minY, float minZ, Tup3fR max)
 	{
-		if(res == null) res = new Vec3();
-		return res.set(this.center);
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(max == null) throw new ArgumentNullException("max");
+		}
+		
+		return setMin(minX, minY, minZ).setMax(max);
 	}
 	
-	public Vec3 getHalfExtend()
+	public AABB3f set(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
 	{
-		return new Vec3(this.halfExtend);
+		return setMin(minX, minY, minZ).setMax(maxX, maxY, maxZ);
 	}
 	
-	public Vec3 getHalfExtend(Vec3 res)
+	public AABB3f setMin(Tup3fR min)
 	{
-		if(res == null) res = new Vec3();
-		return res.set(this.halfExtend);
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(min == null) throw new ArgumentNullException("min");
+		}
+		
+		return setMin(min.getX(), min.getY(), min.getZ());
 	}
 	
-	public Point3 getMin(Point3 res)
+	public AABB3f setMin(float x, float y, float z)
 	{
-		if(res == null) res = new Point3();
-		this.center.sub(this.halfExtend, res);
+		this.min.set(x, y, z);
+		
+		return this;
+	}
+	
+	public AABB3f setMinX(float x)
+	{
+		this.min.setX(x);
+		
+		return this;
+	}
+	
+	public AABB3f setMinY(float y)
+	{
+		this.min.setY(y);
+		
+		return this;
+	}
+	
+	public AABB3f setMinZ(float z)
+	{
+		this.min.setZ(z);
+	
+		return this;
+	}
+	
+	public AABB3f setMax(Tup3fR max)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(max == null) throw new ArgumentNullException("max");
+		}
+		
+		return setMin(max.getX(), max.getY(), max.getZ());
+	}
+	
+	public AABB3f setMax(float x, float y, float z)
+	{
+		this.max.set(x, y, z);
+		
+		return this;
+	}
+	
+	public AABB3f setMaxX(float x)
+	{
+		this.max.setX(x);
+		
+		return this;
+	}
+	
+	public AABB3f setMaxY(float y)
+	{
+		this.max.setY(y);
+		
+		return this;
+	}
+	
+	public AABB3f setMaxZ(float z)
+	{
+		this.max.setZ(z);
+		
+		return this;
+	}
+	
+	public <T extends Tup3fW> T getMin(T res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		res.set(this.min);
+		
 		return res;
-	}
-	
-	public Vec3 getMin(Vec3 res)
-	{
-		if(res == null) res = new Vec3();
-		return this.center.sub(this.halfExtend, res);
 	}
 	
 	public Point3 getMin()
 	{
-		Point3 result = new Point3();
-		this.center.sub(this.halfExtend, result);
-		return result;
+		return this.min.clone();
 	}
 	
-	public Point3 getMax(Point3 res)
+	public <T extends Tup3fW> T getMax(T res)
 	{
-		if(res == null) res = new Point3();
-		this.center.add(this.halfExtend, res);
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		res.set(this.max);
+		
 		return res;
-	}
-	
-	public Vec3 getMax(Vec3 res)
-	{
-		if(res == null) res = new Vec3();
-		return this.center.add(this.halfExtend, res);
 	}
 	
 	public Point3 getMax()
 	{
-		Point3 result = new Point3();
-		this.center.add(this.halfExtend, result);
-		return result;
+		return this.max.clone();
+	}
+
+	public <T extends Tup3fW> T getCenter(T res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		Vec3 halfExtend = this.max.sub(this.min, Vec3Pool.get()).mul(0.5f);
+		
+		this.min.add(halfExtend, res);
+		
+		Vec3Pool.store(halfExtend);
+		
+		return res;
 	}
 	
-	public Point3[] getPoints()
+	public Point3 getCenter()
 	{
-		if(this.dirty)
-		{
-			Vec3 v = Vec3Pool.get(this.halfExtend);
-
-			Vec3 t1 = Vec3Pool.get(v);
-			Vec3 t2 = Vec3Pool.get(-v.getX(), v.getY(), v.getZ());
-			Vec3 t3 = Vec3Pool.get(-v.getX(), -v.getY(), v.getZ());
-			Vec3 t4 = Vec3Pool.get(v.getX(), -v.getY(), v.getZ());
-
-			if(this.points[0] == null)
-			{
-				this.points[0] = this.center.addN(t1);
-				this.points[1] = this.center.addN(t2);
-				this.points[2] = this.center.addN(t3);
-				this.points[3] = this.center.addN(t4);
-				
-				this.points[4] = this.center.sub(t1);
-				this.points[5] = this.center.sub(t2);
-				this.points[6] = this.center.sub(t3);
-				this.points[7] = this.center.sub(t4);
-			}
-			else
-			{
-				this.center.add(t1, this.points[0]);
-				this.center.add(t2, this.points[1]);
-				this.center.add(t3, this.points[2]);
-				this.center.add(t4, this.points[3]);
-				
-				this.center.sub(t1, this.points[4]);
-				this.center.sub(t2, this.points[5]);
-				this.center.sub(t3, this.points[6]);
-				this.center.sub(t4, this.points[7]);
-			}
-			
-			Vec3Pool.store(v, t1, t2, t3, t4);
-			
-			this.dirty = false;
-		}
-		return this.points;
+		Vec3 halfExtend = this.max.sub(this.min, Vec3Pool.get()).mul(0.5f);
+		
+		Point3 res = this.min.add(halfExtend, new Point3());
+		
+		Vec3Pool.store(halfExtend);
+		
+		return res;
 	}
 
+	public <T extends Tup3fW> T getHalfExtend(T res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		Vec3 halfExtend = this.max.sub(this.min, Vec3Pool.get()).mul(0.5f);
+		
+		res.set(halfExtend);
+		
+		Vec3Pool.store(halfExtend);
+		
+		return res;
+	}
+	
+	public Vec3 getHalfExtend()
+	{
+		Vec3 halfExtend = this.max.sub(this.min, Vec3Pool.get()).mul(0.5f);
+		
+		Vec3 res = new Vec3(halfExtend);
+		
+		Vec3Pool.store(halfExtend);
+		
+		return res;
+	}
+	
 	public AABB3f transform(Mat4 t, AABB3f res)
 	{
-		if(res == null) res = new AABB3f();
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+			if(res == null) throw new ArgumentNullException("res");
+		}
 
-		Vec3 min = Vec3Pool.get();
-		Vec3 max = Vec3Pool.get();
+		Vec3 min = Vec3Pool.get(this.min);
+		Vec3 max = Vec3Pool.get(this.max);
 
-		t.transform(this.center.sub(this.halfExtend, min));
-		t.transform(this.center.add(this.halfExtend, max));
-		
-		Vec3 halfExtend = max.sub(min).mul(0.5f);
-		Vec3 center = min.add(halfExtend);
-		
-		res.set(center, halfExtend);
+		t.transform(min);
+		t.transform(max);
+
+		res.set(min, max);
 		
 		Vec3Pool.store(min, max);
 		
 		return res;
 	}
 	
-	public OBB3 getOBB()
+	public AABB3f transform(Mat4 t)
 	{
-		return new OBB3(this.center, this.halfExtend, Mat4.IDENTITY);
-	}
-	
-	public OBB3 getOBB(OBB3 res)
-	{
-		if(res == null) res = new OBB3();
-		return res.set(this.center, this.halfExtend, Mat4.IDENTITY);
-	}
-	
-	public OBB3 getOBB(Mat4 rotation)
-	{
-		return new OBB3(this.center, this.halfExtend, rotation);
-	}
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+		}
 
-	public OBB3 getOBB(Mat4 rotation, OBB3 res)
-	{
-		if(res == null) res = new OBB3();
-		return res.set(this.center, this.halfExtend, rotation);
+		Vec3 min = Vec3Pool.get(this.min);
+		Vec3 max = Vec3Pool.get(this.max);
+
+		t.transform(min);
+		t.transform(max);
+
+		AABB3f res = new AABB3f(min, max);
+		
+		Vec3Pool.store(min, max);
+		
+		return res;
 	}
 	
 	public String toString()
 	{
-		return "aabb3f(center=" + this.center + ", halfExtend=" + this.halfExtend + ")";
+		return "aabb3f(min=" + this.min + ", max=" + this.max + ")";
 	}
 }
