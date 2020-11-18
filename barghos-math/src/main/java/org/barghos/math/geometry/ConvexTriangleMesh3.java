@@ -114,11 +114,8 @@ public class ConvexTriangleMesh3 implements FiniteGeometricObject3
 		
 		Vec3f min = Vec3fPool.get(set.getMinX(), set.getMinY(), set.getMinZ());
 		Vec3f max = Vec3fPool.get(set.getMaxX(), set.getMaxY(), set.getMaxZ());
-		
-		Vec3f halfExtend = max.sub(min).mul(0.5f);
-		Point3 center = new Point3(min.add(halfExtend, min));
 
-		AABB3f r = new AABB3f(center, halfExtend);
+		AABB3f r = new AABB3f(min, max);
 		
 		Vec3fPool.store(min, max);
 		

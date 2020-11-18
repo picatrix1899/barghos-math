@@ -180,7 +180,7 @@ public class AABB3f
 			if(max == null) throw new ArgumentNullException("max");
 		}
 		
-		return setMin(max.getX(), max.getY(), max.getZ());
+		return setMax(max.getX(), max.getY(), max.getZ());
 	}
 	
 	public AABB3f setMax(float x, float y, float z)
