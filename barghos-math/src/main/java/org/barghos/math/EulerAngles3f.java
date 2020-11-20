@@ -85,7 +85,7 @@ public class EulerAngles3f
 		return Quatf.getFromAxis(system.getForward(), this.roll, res);
 	}
 
-	public Quatf getRotation(LinearSystem3 system, Quatf res)
+		public Quatf getRotation(LinearSystem3 system, Quatf res)
 	{	
 		if(res == null) res = new Quatf();
 
@@ -93,8 +93,52 @@ public class EulerAngles3f
 		Quatf q2 = QuatfPool.get();
 		Quatf q3 = QuatfPool.get();
 
-		res.set(getRollRotation(system, q3).mul(getYawRotation(system, q2).mul(getPitchRotation(system, q1))));
+		switch(BarghosMath.DEFAULT_EULER_ROTATION_ORDER)
+		{
+			case PITCH_YAW_ROLL:
+				res.set(getRollRotation(system, q3).mul(getYawRotation(system, q2).mul(getPitchRotation(system, q1))));
+			case PITCH_ROLL_YAW:
+				res.set(getYawRotation(system, q3).mul(getRollRotation(system, q2).mul(getPitchRotation(system, q1))));
+			case YAW_PITCH_ROLL:
+				res.set(getRollRotation(system, q3).mul(getPitchRotation(system, q2).mul(getYawRotation(system, q1))));
+			case YAW_ROLL_PITCH:
+				res.set(getPitchRotation(system, q3).mul(getRollRotation(system, q2).mul(getYawRotation(system, q1))));
+			case ROLL_PITCH_YAW:
+				res.set(getYawRotation(system, q3).mul(getPitchRotation(system, q2).mul(getRollRotation(system, q1))));
+			case ROLL_YAW_PITCH:
+				res.set(getPitchRotation(system, q3).mul(getYawRotation(system, q2).mul(getRollRotation(system, q1))));
+		}
+		
+		QuatfPool.store(q1, q2, q3);
 
+		return res;
+	}
+
+	
+	public Quatf getRotation(LinearSystem3 system, EulerRotationOrder3 order, Quatf res)
+	{	
+		if(res == null) res = new Quatf();
+
+		Quatf q1 = QuatfPool.get();
+		Quatf q2 = QuatfPool.get();
+		Quatf q3 = QuatfPool.get();
+
+		switch(order)
+		{
+			case PITCH_YAW_ROLL:
+				res.set(getRollRotation(system, q3).mul(getYawRotation(system, q2).mul(getPitchRotation(system, q1))));
+			case PITCH_ROLL_YAW:
+				res.set(getYawRotation(system, q3).mul(getRollRotation(system, q2).mul(getPitchRotation(system, q1))));
+			case YAW_PITCH_ROLL:
+				res.set(getRollRotation(system, q3).mul(getPitchRotation(system, q2).mul(getYawRotation(system, q1))));
+			case YAW_ROLL_PITCH:
+				res.set(getPitchRotation(system, q3).mul(getRollRotation(system, q2).mul(getYawRotation(system, q1))));
+			case ROLL_PITCH_YAW:
+				res.set(getYawRotation(system, q3).mul(getPitchRotation(system, q2).mul(getRollRotation(system, q1))));
+			case ROLL_YAW_PITCH:
+				res.set(getPitchRotation(system, q3).mul(getYawRotation(system, q2).mul(getRollRotation(system, q1))));
+		}
+		
 		QuatfPool.store(q1, q2, q3);
 
 		return res;
