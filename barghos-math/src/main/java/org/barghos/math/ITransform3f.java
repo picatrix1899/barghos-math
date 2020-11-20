@@ -32,7 +32,7 @@ import org.barghos.math.vector.vec3.Vec3f;
  * @author picatrix1899
  *
  */
-public interface ITransform3
+public interface ITransform3f
 {
 	Point3f getPosition();
 	<T extends Tup3fW> T getPosition(T w);

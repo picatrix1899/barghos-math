@@ -33,30 +33,30 @@ import org.barghos.math.vector.vec3.Vec3f;
  * @author picatrix1899
  *
  */
-public class Transform3 implements ITransform3
+public class Transform3f implements ITransform3f
 {
 	protected final Point3f position = new Point3f();
 	protected final EulerAngles3f orientation = new EulerAngles3f();
 	protected final Vec3f scale = new Vec3f();
 	
-	private ITransform3 parent;
+	private ITransform3f parent;
 	
-	public Transform3()
+	public Transform3f()
 	{
 		this.scale.set(1.0f, 1.0f, 1.0f);
 	}
 	
-	public Transform3(Transform3 t)
+	public Transform3f(Transform3f t)
 	{
 		set(t);
 	}
 	
-	public Transform3(Tup3fR position, EulerAngles3f orientation, Tup3fR size)
+	public Transform3f(Tup3fR position, EulerAngles3f orientation, Tup3fR size)
 	{
 		set(position, orientation, size);
 	}
 
-	public Transform3 set(Transform3 t)
+	public Transform3f set(Transform3f t)
 	{
 		t.getPosition(this.position);
 		t.getOrientation(this.orientation);
@@ -64,47 +64,47 @@ public class Transform3 implements ITransform3
 		return this;
 	}
 	
-	public Transform3 set(Tup3fR position, EulerAngles3f orientation, Tup3fR size)
+	public Transform3f set(Tup3fR position, EulerAngles3f orientation, Tup3fR size)
 	{
 		return setPosition(position).setOrientation(orientation).setScale(size);
 	}
 	
-	public Transform3 setPosition(Tup3fR position)
+	public Transform3f setPosition(Tup3fR position)
 	{
 		this.position.set(position); return this;
 	}
 	
-	public Transform3 setPosition(float x, float y, float z)
+	public Transform3f setPosition(float x, float y, float z)
 	{
 		this.position.set(x, y, z); return this;
 	}
 	
-	public Transform3 setOrientation(EulerAngles3f orientation)
+	public Transform3f setOrientation(EulerAngles3f orientation)
 	{
 		this.orientation.set(orientation); return this;
 	}
 	
-	public Transform3 setOrientation(float pitch, float yaw, float roll)
+	public Transform3f setOrientation(float pitch, float yaw, float roll)
 	{
 		this.orientation.set(pitch, yaw, roll); return this;
 	}
 	
-	public Transform3 setScale(Tup3fR size)
+	public Transform3f setScale(Tup3fR size)
 	{
 		this.scale.set(size); return this;
 	}
 	
-	public Transform3 setScale(float scalar)
+	public Transform3f setScale(float scalar)
 	{
 		this.scale.set(scalar, scalar, scalar); return this;
 	}
 	
-	public Transform3 setScale(float x, float y, float z)
+	public Transform3f setScale(float x, float y, float z)
 	{
 		this.scale.set(x, y, z); return this;
 	}
 	
-	public Transform3 setParent(ITransform3 parent)
+	public Transform3f setParent(ITransform3f parent)
 	{
 		this.parent = parent;
 		return this;
@@ -143,7 +143,7 @@ public class Transform3 implements ITransform3
 		return (T) res.set(this.scale);
 	}
 	
-	public ITransform3 getParent()
+	public ITransform3f getParent()
 	{
 		return this.parent;
 	}

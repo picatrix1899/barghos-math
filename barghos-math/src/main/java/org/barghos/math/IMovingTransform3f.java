@@ -31,7 +31,7 @@ import org.barghos.math.vector.vec3.Vec3f;
  * @author picatrix1899
  *
  */
-public interface IMovingTransform3 extends ITransform3
+public interface IMovingTransform3f extends ITransform3f
 {
 	Vec3f getVelocity();
 	Quatf getRotation();
