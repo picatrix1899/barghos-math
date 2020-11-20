@@ -32,7 +32,7 @@ package org.barghos.math;
 public class BarghosMath
 {
 	public static final boolean BUILD_FLAG__PARAMETER_CHECKS = false;
+
 	
-	public static final boolean BF__FAST_MATH__USES_FIX_PREGEN_TABLES = true;
-	public static final int BP__FAST_MATH__TABLE_PREGEN_STEPS_PER_HALFAMPLITUDE = 180;
+	public static EulerRotationOrder3 DEFAULT_EULER_ROTATION_ORDER = EulerRotationOrder3.PITCH_YAW_ROLL;
 }
