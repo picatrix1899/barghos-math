@@ -25,12 +25,16 @@ SOFTWARE.
 package org.barghos.math;
 
 /**
+ * This class provides some predefined rounding behaviors.
+ * 
  * @author picatrix1899
- *
  */
-public enum DefaultRoundingBehaviors implements RoundingBehavoir
+public final class RoundingBehaviors
 {
-	ROUND {
+	/**
+	 * This implementation of {@link RoundingBehavior} rounds with the behavior of {@link Math#round}.
+	 */
+	public static RoundingBehavior ROUND = new RoundingBehavior() {
 		public int roundi(double value) { return (int)Math.round(value); }
 		public long roundl(double value) { return Math.round(value); }
 		public float roundf(double value) { return (float) Math.round(value); }
@@ -40,8 +44,12 @@ public enum DefaultRoundingBehaviors implements RoundingBehavoir
 		public long roundl(float value) { return Math.round(value); }
 		public float roundf(float value) { return (float) Math.round(value); }
 		public double roundd(float value) { return (double) Math.round(value); }
-	},
-	FLOOR {
+	};
+	
+	/**
+	 * This implementation of {@link RoundingBehavior} rounds with the behavior of {@link Math#floor}.
+	 */
+	public static RoundingBehavior FLOOR = new RoundingBehavior() {
 		public int roundi(double value) { return (int)Math.floor(value); }
 		public long roundl(double value) { return (long)Math.floor(value); }
 		public float roundf(double value) { return (float) Math.floor(value); }
@@ -51,8 +59,12 @@ public enum DefaultRoundingBehaviors implements RoundingBehavoir
 		public long roundl(float value) { return (long)Math.floor(value); }
 		public float roundf(float value) { return (float) Math.floor(value); }
 		public double roundd(float value) { return Math.floor(value); }
-	},
-	CEIL {
+	};
+	
+	/**
+	 * This implementation of {@link RoundingBehavior} rounds with the behavior of {@link Math#ceil}.
+	 */
+	public static RoundingBehavior CEIL = new RoundingBehavior() {
 		public int roundi(double value) { return (int)Math.ceil(value); }
 		public long roundl(double value) { return (long)Math.ceil(value); }
 		public float roundf(double value) { return (float) Math.ceil(value); }
@@ -62,8 +74,13 @@ public enum DefaultRoundingBehaviors implements RoundingBehavoir
 		public long roundl(float value) { return (long)Math.ceil(value); }
 		public float roundf(float value) { return (float) Math.ceil(value); }
 		public double roundd(float value) { return Math.ceil(value); }
-	},
-	INT {
+	};
+	
+	/**
+	 * This implementation of {@link RoundingBehavior} rounds by casting the value to the respective type int or long
+	 * And therefore trimming the decimals.
+	 */
+	public static RoundingBehavior TRIM = new RoundingBehavior() {
 		public int roundi(double value) { return (int)value; }
 		public long roundl(double value) { return (long)value; }
 		public float roundf(double value) { return (float)((int)value); }
@@ -74,6 +91,6 @@ public enum DefaultRoundingBehaviors implements RoundingBehavoir
 		public float roundf(float value) { return (float)((int)value); }
 		public double roundd(float value) { return (double)((long)value); }
 	};
-
-
+	
+	private RoundingBehaviors() { }
 }
