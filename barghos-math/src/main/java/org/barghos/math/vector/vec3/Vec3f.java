@@ -32,6 +32,7 @@ import org.barghos.core.tuple4.api.Tup4fR;
 import org.barghos.core.util.Nullable;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.Maths;
+import org.barghos.math.vector.vec3.api.Vec3fR;
 
 /**
  * @author picatrix1899

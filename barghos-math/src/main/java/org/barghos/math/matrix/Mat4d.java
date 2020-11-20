@@ -41,7 +41,7 @@ import org.barghos.math.BarghosMath;
 import org.barghos.math.Maths;
 import org.barghos.math.vector.quat.Quatf;
 import org.barghos.math.vector.vec3.Vec3d;
-import org.barghos.math.vector.vec3.Vec3dPool;
+import org.barghos.math.vector.vec3.pool.Vec3dPool;
 
 
 public class Mat4d

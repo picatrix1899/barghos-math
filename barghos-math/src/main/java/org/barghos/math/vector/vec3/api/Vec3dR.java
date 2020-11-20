@@ -22,20 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.vec3;
+package org.barghos.math.vector.vec3.api;
 
-import java.math.BigDecimal;
-
-import org.barghos.core.tuple3.api.Tup3bigdR;
+import org.barghos.core.tuple3.api.Tup3dR;
 
 /**
  * @author picatrix1899
  * 
- * This interface grants readonly access to a 3-dimensional mathematical big decimal vector.
+ * This interface grants readonly access to a 3-dimensional mathematical double vector.
  */
-public interface Vec3bigdR extends Tup3bigdR
+public interface Vec3dR extends Tup3dR
 {
-	BigDecimal getX();
-	BigDecimal getY();
-	BigDecimal getZ();
+	double getX();
+	double getY();
+	double getZ();
 }

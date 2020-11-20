@@ -25,6 +25,7 @@ SOFTWARE.
 package org.barghos.math.vector.vec3;
 
 import org.barghos.math.Maths;
+import org.barghos.math.vector.vec3.api.Vec3fR;
 
 public enum Vec3fAxis implements Vec3fR
 {

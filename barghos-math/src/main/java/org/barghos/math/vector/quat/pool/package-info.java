@@ -22,49 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.boundary;
-
-import org.barghos.core.tuple3.helper.Tup3fHelper;
-import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.pool.Vec3fPool;
-
 /**
  * @author picatrix1899
  *
  */
-public class AABB3fHelper
-{
-	public static AABB3f merge(AABB3f a, AABB3f b)
-	{
-		Vec3f minA = a.getMin(Vec3fPool.get());
-		Vec3f maxA = a.getMax(Vec3fPool.get());
-		Vec3f minB = b.getMin(Vec3fPool.get());
-		Vec3f maxB = b.getMax(Vec3fPool.get());
-		
-		Vec3f min = Tup3fHelper.min(minA, minB, minA);
-		Vec3f max = Tup3fHelper.max(maxA, maxB, maxA);
-		
-		AABB3f out = new AABB3f(min, max);
-		
-		Vec3fPool.store(minA, maxA, minB, maxB);
-		
-		return out;
-	}
-	
-	public static AABB3f merge(AABB3f a, AABB3f b, AABB3f res)
-	{
-		Vec3f minA = a.getMin(Vec3fPool.get());
-		Vec3f maxA = a.getMax(Vec3fPool.get());
-		Vec3f minB = b.getMin(Vec3fPool.get());
-		Vec3f maxB = b.getMax(Vec3fPool.get());
-		
-		Vec3f min = Tup3fHelper.min(minA, minB, minA);
-		Vec3f max = Tup3fHelper.max(maxA, maxB, maxA);
 
-		res.set(min, max);
-		
-		Vec3fPool.store(minA, maxA, minB, maxB);
-		
-		return res;
-	}
-}
+package org.barghos.math.vector.quat.pool;

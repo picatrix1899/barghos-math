@@ -27,7 +27,7 @@ package org.barghos.math.vector;
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.util.Nullable;
 import org.barghos.math.vector.quat.Quatf;
-import org.barghos.math.vector.quat.QuatfPool;
+import org.barghos.math.vector.quat.pool.QuatfPool;
 import org.barghos.math.vector.vec3.Vec3f;
 
 public class VectorInterpolation

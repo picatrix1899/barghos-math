@@ -25,7 +25,7 @@ SOFTWARE.
 package org.barghos.math;
 
 import org.barghos.math.vector.quat.Quatf;
-import org.barghos.math.vector.quat.QuatfPool;
+import org.barghos.math.vector.quat.pool.QuatfPool;
 
 public class EulerAngles3f
 {

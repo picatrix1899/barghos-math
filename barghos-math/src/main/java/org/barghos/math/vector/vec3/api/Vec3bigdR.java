@@ -22,49 +22,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.boundary;
+package org.barghos.math.vector.vec3.api;
 
-import org.barghos.core.tuple3.helper.Tup3fHelper;
-import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.pool.Vec3fPool;
+import java.math.BigDecimal;
+
+import org.barghos.core.tuple3.api.Tup3bigdR;
 
 /**
  * @author picatrix1899
- *
+ * 
+ * This interface grants readonly access to a 3-dimensional mathematical big decimal vector.
  */
-public class AABB3fHelper
+public interface Vec3bigdR extends Tup3bigdR
 {
-	public static AABB3f merge(AABB3f a, AABB3f b)
-	{
-		Vec3f minA = a.getMin(Vec3fPool.get());
-		Vec3f maxA = a.getMax(Vec3fPool.get());
-		Vec3f minB = b.getMin(Vec3fPool.get());
-		Vec3f maxB = b.getMax(Vec3fPool.get());
-		
-		Vec3f min = Tup3fHelper.min(minA, minB, minA);
-		Vec3f max = Tup3fHelper.max(maxA, maxB, maxA);
-		
-		AABB3f out = new AABB3f(min, max);
-		
-		Vec3fPool.store(minA, maxA, minB, maxB);
-		
-		return out;
-	}
-	
-	public static AABB3f merge(AABB3f a, AABB3f b, AABB3f res)
-	{
-		Vec3f minA = a.getMin(Vec3fPool.get());
-		Vec3f maxA = a.getMax(Vec3fPool.get());
-		Vec3f minB = b.getMin(Vec3fPool.get());
-		Vec3f maxB = b.getMax(Vec3fPool.get());
-		
-		Vec3f min = Tup3fHelper.min(minA, minB, minA);
-		Vec3f max = Tup3fHelper.max(maxA, maxB, maxA);
-
-		res.set(min, max);
-		
-		Vec3fPool.store(minA, maxA, minB, maxB);
-		
-		return res;
-	}
+	BigDecimal getX();
+	BigDecimal getY();
+	BigDecimal getZ();
 }

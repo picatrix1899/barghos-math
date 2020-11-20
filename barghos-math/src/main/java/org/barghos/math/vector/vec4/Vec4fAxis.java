@@ -25,6 +25,7 @@ SOFTWARE.
 package org.barghos.math.vector.vec4;
 
 import org.barghos.math.Maths;
+import org.barghos.math.vector.vec4.api.Vec4fR;
 
 public enum Vec4fAxis implements Vec4fR
 {

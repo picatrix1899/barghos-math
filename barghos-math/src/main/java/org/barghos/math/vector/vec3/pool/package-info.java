@@ -22,18 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.vec3;
-
-import org.barghos.core.tuple3.api.Tup3dR;
-
 /**
  * @author picatrix1899
- * 
- * This interface grants readonly access to a 3-dimensional mathematical double vector.
+ *
  */
-public interface Vec3dR extends Tup3dR
-{
-	double getX();
-	double getY();
-	double getZ();
-}
+
+package org.barghos.math.vector.vec3.pool;

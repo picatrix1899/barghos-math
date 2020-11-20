@@ -41,7 +41,7 @@ import org.barghos.math.BarghosMath;
 import org.barghos.math.Maths;
 import org.barghos.math.vector.quat.Quatf;
 import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.Vec3fPool;
+import org.barghos.math.vector.vec3.pool.Vec3fPool;
 
 
 public class Mat4 implements Mat4R

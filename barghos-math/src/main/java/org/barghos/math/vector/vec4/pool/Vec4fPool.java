@@ -22,12 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.vec4;
+package org.barghos.math.vector.vec4.pool;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.pool.DequePool;
 import org.barghos.core.pool.api.Pool;
 import org.barghos.core.tuple4.api.Tup4fR;
+import org.barghos.math.vector.vec4.Vec4f;
 
 public final class Vec4fPool
 {

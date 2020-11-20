@@ -29,7 +29,7 @@ import org.barghos.core.tuple4.pool.Tup4fPool;
 import org.barghos.math.geometry.PointSet3f;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.Vec3fPool;
+import org.barghos.math.vector.vec3.pool.Vec3fPool;
 
 public class OBBOBBResolver
 {

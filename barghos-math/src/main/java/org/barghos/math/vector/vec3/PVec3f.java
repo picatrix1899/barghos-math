@@ -27,6 +27,7 @@ package org.barghos.math.vector.vec3;
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.math.BarghosMath;
+import org.barghos.math.vector.vec3.api.Vec3fR;
 
 /**
  * @author picatrix1899

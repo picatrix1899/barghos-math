@@ -28,7 +28,7 @@ import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.math.Maths;
 import org.barghos.math.point.Point3f;
 import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.Vec3fPool;
+import org.barghos.math.vector.vec3.pool.Vec3fPool;
 
 public class Line3f implements FiniteGeometricObject3f
 {

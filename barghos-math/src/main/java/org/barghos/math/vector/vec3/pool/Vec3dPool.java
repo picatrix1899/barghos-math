@@ -22,45 +22,58 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.quat;
+package org.barghos.math.vector.vec3.pool;
 
 import org.barghos.core.exception.ArgumentNullException;
-import org.barghos.core.pool.api.Pool;
-import org.barghos.math.BarghosMath;
 import org.barghos.core.pool.DequePool;
+import org.barghos.core.pool.api.Pool;
+import org.barghos.core.tuple3.api.Tup3dR;
+import org.barghos.math.BarghosMath;
+import org.barghos.math.vector.vec3.Vec3d;
 
-public final class QuatdPool
+
+public final class Vec3dPool
 {
-	private static Pool<Quatd> pool = new DequePool<>(Quatd.class);
+	private static Pool<Vec3d> pool = new DequePool<>(Vec3d.class);
 	
-	private QuatdPool() { }
+	private Vec3dPool() { }
 	
-	public static Quatd get()
+	/**
+	 * Returns an instance of {@link Vec3d} from the pool and does not reset it.
+	 * This function is useful for reducing unneccessary calls and operations if a value is
+	 * applied to to the tuple anyway before it is used.
+	 * 
+	 * @return A stored instance.
+	 * 
+	 * @since 1.0
+	 */
+	public static Vec3d getPlain()
 	{
-		return pool.get().set(1.0f, 0.0f, 0.0f, 0.0f);
+		return pool.get();
 	}
 	
-	public static Quatd get(Quatd q)
+	public static Vec3d get()
 	{
+		return pool.get().set(0.0, 0.0, 0.0);
+	}
+	
+	public static Vec3d get(Tup3dR v)
+	{	
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
-			if(q == null) throw new ArgumentNullException("q");
+			if(v == null) throw new ArgumentNullException("v");
 		}
 		
-		return pool.get().set(q);
-	}
-	public static Quatd get(float x, float y, float z, float w)
-	{
-		return pool.get().set(x ,y ,z ,w);
+		return pool.get().set(v);
 	}
 	
-	public static void store(Quatd... instances)
+	public static Vec3d get(double x, double y, double z)
 	{
-		pool.store(instances);
+		return pool.get().set(x, y, z);
 	}
 	
 	public static void ensure(int count)
-	{
+	{ 
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(count < 0) throw new IllegalArgumentException();
@@ -69,17 +82,22 @@ public final class QuatdPool
 		pool.ensure(count);
 	}
 	
-	public static void setInternalPool(Pool<Quatd> pool)
+	public static void store(Vec3d... instances)
+	{
+		pool.store(instances);
+	}
+	
+	public static void setInternalPool(Pool<Vec3d> pool)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(pool == null) throw new ArgumentNullException("pool");
 		}
 		
-		QuatdPool.pool = pool;
+		Vec3dPool.pool = pool; 
 	}
 	
-	public static Pool<Quatd> getInternalPool()
+	public static Pool<Vec3d> getInternalPool()
 	{
 		return pool;
 	}

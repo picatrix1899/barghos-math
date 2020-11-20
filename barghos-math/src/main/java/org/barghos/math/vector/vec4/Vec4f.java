@@ -29,6 +29,7 @@ import org.barghos.core.tuple4.api.Tup4fR;
 import org.barghos.core.tuple4.api.Tup4fW;
 import org.barghos.core.util.Nullable;
 import org.barghos.math.Maths;
+import org.barghos.math.vector.vec4.api.Vec4fR;
 
 /**
  * @author picatrix1899

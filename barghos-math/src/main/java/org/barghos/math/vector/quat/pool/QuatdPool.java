@@ -22,25 +22,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.quat;
+package org.barghos.math.vector.quat.pool;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.pool.api.Pool;
 import org.barghos.math.BarghosMath;
+import org.barghos.math.vector.quat.Quatd;
 import org.barghos.core.pool.DequePool;
 
-public final class QuatfPool
+public final class QuatdPool
 {
-	private static Pool<Quatf> pool = new DequePool<>(Quatf.class);
+	private static Pool<Quatd> pool = new DequePool<>(Quatd.class);
 	
-	private QuatfPool() { }
+	private QuatdPool() { }
 	
-	public static Quatf get()
+	public static Quatd get()
 	{
 		return pool.get().set(1.0f, 0.0f, 0.0f, 0.0f);
 	}
 	
-	public static Quatf get(Quatf q)
+	public static Quatd get(Quatd q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -49,12 +50,12 @@ public final class QuatfPool
 		
 		return pool.get().set(q);
 	}
-	public static Quatf get(float x, float y, float z, float w)
+	public static Quatd get(float x, float y, float z, float w)
 	{
 		return pool.get().set(x ,y ,z ,w);
 	}
 	
-	public static void store(Quatf... instances)
+	public static void store(Quatd... instances)
 	{
 		pool.store(instances);
 	}
@@ -69,17 +70,17 @@ public final class QuatfPool
 		pool.ensure(count);
 	}
 	
-	public static void setInternalPool(Pool<Quatf> pool)
+	public static void setInternalPool(Pool<Quatd> pool)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(pool == null) throw new ArgumentNullException("pool");
 		}
 		
-		QuatfPool.pool = pool;
+		QuatdPool.pool = pool;
 	}
 	
-	public static Pool<Quatf> getInternalPool()
+	public static Pool<Quatd> getInternalPool()
 	{
 		return pool;
 	}

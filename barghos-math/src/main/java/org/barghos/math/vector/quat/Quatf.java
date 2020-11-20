@@ -30,9 +30,10 @@ import org.barghos.core.util.Nullable;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.Maths;
 import org.barghos.math.matrix.Mat4;
+import org.barghos.math.vector.quat.pool.QuatfPool;
 import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.Vec3fPool;
-import org.barghos.math.vector.vec4.Vec4fR;
+import org.barghos.math.vector.vec3.pool.Vec3fPool;
+import org.barghos.math.vector.vec4.api.Vec4fR;
 
 /** A 3-Dimensional Quaternion */
 public class Quatf implements Vec4fR

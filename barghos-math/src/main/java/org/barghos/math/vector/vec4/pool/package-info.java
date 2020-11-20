@@ -22,18 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.vector.vec3;
-
-import org.barghos.core.tuple3.api.Tup3fR;
-
 /**
  * @author picatrix1899
- * 
- * This interface grants readonly access to a 3-dimensional mathematical float vector.
+ *
  */
-public interface Vec3fR extends Tup3fR
-{
-	float getX();
-	float getY();
-	float getZ();
-}
+
+package org.barghos.math.vector.vec4.pool;
