@@ -24,6 +24,7 @@ SOFTWARE.
 
 package org.barghos.math;
 
+import org.barghos.math.utils.Maths;
 import org.barghos.math.utils.api.EulerRotationOrder3;
 
 /**
@@ -34,6 +35,7 @@ public class BarghosMath
 {
 	public static final boolean BUILD_FLAG__PARAMETER_CHECKS = false;
 
-	
 	public static EulerRotationOrder3 DEFAULT_EULER_ROTATION_ORDER = EulerRotationOrder3.PITCH_YAW_ROLL;
+	public static float DEFAULT_ZERO_THRESHOLD_F = Maths.SMALL_NUMBER_E6f;
+	public static double DEFAULT_ZERO_THRESHOLD = Maths.SMALL_NUMBER_E6;
 }

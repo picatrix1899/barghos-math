@@ -22,46 +22,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.matrix;
+package org.barghos.math.matrix.api;
 
 import org.barghos.core.tuple2.api.Tup2fR;
-import org.barghos.core.tuple2.api.Tup2fW;
-import org.barghos.core.tuple3.Tup3f;
 import org.barghos.core.tuple3.api.Tup3fR;
-import org.barghos.core.tuple3.api.Tup3fW;
-import org.barghos.core.tuple3.pool.Tup3fPool;
 
 /**
  * @author picatrix1899
  *
  */
-public interface Mat3fR
+public interface Mat3fW
 {
-	Tup3fR getRow(int index);
-	Tup3fR getColumn(int index);
+	Mat3fW setRow(int index, Tup3fR t);
+	Mat3fW setRow(int index, Tup2fR t, float z);
+	Mat3fW setRow(int index, float x, Tup2fR t);
+	Mat3fW setRow(int index, float x, float y, float z);
+
+	Mat3fW setColumn(int index, Tup3fR t);
+	Mat3fW setColumn(int index, Tup2fR t, float z);
+	Mat3fW setColumn(int index, float x, Tup2fR t);
+	Mat3fW setColumn(int index, float x, float y, float z);
 	
-	float getCell(int row, int column);
-	
-	<T extends Tup3fW> T getRow(int index, T res);
-	<T extends Tup3fW> T getColumn(int index, T res);
-	
-	default float determinant()
-	{
-		Tup3f r0 = getRow(0, Tup3fPool.get());
-		Tup3f r1 = getRow(1, Tup3fPool.get());
-		Tup3f r2 = getRow(2, Tup3fPool.get());
-		
-		float det = MatUtils.det3x3f(r0, r1, r2);
-		
-		Tup3fPool.store(r0, r1, r2);
-		
-		return det;
-	}
-	
-	<T extends Mat3fW> T mul(Mat3fR r, T res);
-	
-	<T extends Tup3fR & Tup3fW> T transform(T r);
-	<T extends Tup2fR & Tup2fW> T transform(T r, boolean useLastColumn);
-	<T extends Tup3fW> T transform(Tup3fR r, T res);
-	<T extends Tup2fW> T transform(Tup2fR r, boolean useLastColumn, T res);
+	Mat3fW setCell(int row, int column, float value);
 }

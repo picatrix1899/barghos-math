@@ -26,13 +26,12 @@ package org.barghos.math.matrix;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple2.api.Tup2fR;
-import org.barghos.core.tuple3.Tup3f;
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
-import org.barghos.core.tuple3.pool.Tup3fPool;
 import org.barghos.core.util.Nullable;
 
 import org.barghos.math.BarghosMath;
+import org.barghos.math.matrix.api.Mat3fR;
 import org.barghos.math.point.Point2f;
 import org.barghos.math.quat.Quatf;
 import org.barghos.math.utils.EulerAngles2f;
@@ -74,6 +73,7 @@ public class Mat3f extends SimpleMat3f
 		setRow(0, 1.0f, 0.0f, 0.0f);
 		setRow(1, 0.0f, 1.0f, 0.0f);
 		setRow(2, 0.0f, 0.0f, 1.0f);
+		
 		return this;
 	}
 
@@ -725,23 +725,6 @@ public class Mat3f extends SimpleMat3f
 		return this;
 	}
 	
-
-	
-	public static Mat3f mul(Mat3f l, Mat3f r, @Nullable Mat3f res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(l == null) throw new ArgumentNullException("l");
-			if(r == null) throw new ArgumentNullException("r");
-		}
-		
-		if(res == null) res = new Mat3f();
-		
-		l.mul(r, res);
-		
-		return res;
-	}
-	
 	public Mat3f mul(Mat3fR r)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -756,15 +739,7 @@ public class Mat3f extends SimpleMat3f
 	
 	public Mat3f transpose()
 	{
-		Tup3f r0 = getRow(0, Tup3fPool.get());
-		Tup3f r1 = getRow(1, Tup3fPool.get());
-		Tup3f r2 = getRow(2, Tup3fPool.get());
-		
-		setColumn(0, r0).setColumn(1, r1).setColumn(2, r2);
-		
-		Tup3fPool.store(r0, r1, r2);
-		
-		return this;
+		return super.transpose(this);
 	}
 	
 	public static Point2f transform(Mat3f l, Point2f r, Point2f res)
@@ -872,7 +847,328 @@ public class Mat3f extends SimpleMat3f
 		return Mat3f.transform(this, r, res);
 	}
 	
-		public static Mat3f identity()
+	
+	
+	public Mat3f scale3D(Tup3fR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		return mul(Mat3f.scaling3D(t));
+	}
+	
+	public Mat3f scale3D(float x, float y, float z)
+	{
+		return mul(Mat3f.scaling3D(x, y, z));
+	}
+	
+	public Mat3f scale2D(Tup2fR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		return mul(Mat3f.scaling2D(t));
+	}
+	
+	public Mat3f scale2D(float x, float y)
+	{
+		return mul(Mat3f.scaling2D(x, y));
+	}
+	
+	public Mat3f rotate2D(EulerAngles2f angles)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+		}
+		
+		return mul(Mat3f.rotation2D(angles));
+	}
+	
+	public Mat3f rotate2DRad(EulerAnglesRad2f angles)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+		}
+		
+		return mul(Mat3f.rotation2DRad(angles));
+	}
+	
+	public Mat3f rotate2D(float angle)
+	{
+		return mul(Mat3f.rotation2D(angle));
+	}
+	
+	public Mat3f rotate2DRad(float angle)
+	{
+		return mul(Mat3f.rotation2DRad(angle));
+	}
+	
+	public Mat3f rotate3D(Quatf q)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(q == null) throw new ArgumentNullException("q");
+		}
+		
+		return mul(Mat3f.rotation3D(q));
+	}
+
+	public Mat3f rotate3D(Tup3fR forward, Tup3fR left, Tup3fR up)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(forward == null) throw new ArgumentNullException("forward");
+			if(left == null) throw new ArgumentNullException("left");
+			if(up == null) throw new ArgumentNullException("up");
+		}
+		
+		return mul(Mat3f.rotation3D(forward, left, up));
+	}
+	
+	public Mat3f rotate3D(LinearSystem3 system)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		return mul(Mat3f.rotation3D(system));
+	}
+	
+	public Mat3f pitchRotate3D(float angle)
+	{
+		return mul(Mat3f.pitchRotation3D(angle));
+	}
+	
+	public Mat3f pitchRotate3DRad(float angle)
+	{
+		return mul(Mat3f.pitchRotation3DRad(angle));
+	}
+	
+	public Mat3f pitchRotate3D(float angle, LinearSystem3 system)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		return mul(Mat3f.pitchRotation3D(angle, system));
+	}
+	
+	public Mat3f pitchRotate3DRad(float angle, LinearSystem3 system)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		return mul(Mat3f.pitchRotation3DRad(angle, system));
+	}
+	
+	public Mat3f yawRotate3D(float angle)
+	{
+		return mul(Mat3f.yawRotation3D(angle));
+	}
+	
+	public Mat3f yawRotate3DRad(float angle)
+	{
+		return mul(Mat3f.yawRotation3DRad(angle));
+	}
+	
+	public Mat3f yawRotate3D(float angle, LinearSystem3 system)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		return mul(Mat3f.yawRotation3D(angle, system));
+	}
+	
+	public Mat3f yawRotate3DRad(float angle, LinearSystem3 system)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		return mul(Mat3f.yawRotation3DRad(angle, system));
+	}
+	
+	public Mat3f rollRotate3D(float angle)
+	{
+		return mul(Mat3f.rollRotation3D(angle));
+	}
+	
+	public Mat3f rollRotate3DRad(float angle)
+	{
+		return mul(Mat3f.rollRotation3DRad(angle));
+	}
+	
+	public Mat3f rollRotate3D(float angle, LinearSystem3 system)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		return mul(Mat3f.rollRotation3D(angle, system));
+	}
+	
+	public Mat3f rollRotate3DRad(float angle, LinearSystem3 system)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		return mul(Mat3f.rollRotation3DRad(angle, system));
+	}
+	
+	public Mat3f rotate3D(EulerAngles3f angles)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+		}
+		
+		return mul(Mat3f.rotation3D(angles));
+	}
+	
+	public Mat3f rotate3DRad(EulerAnglesRad3f angles)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+		}
+		
+		return mul(Mat3f.rotation3DRad(angles));
+	}
+	
+	public Mat3f rotate3D(EulerAngles3f angles, LinearSystem3 system)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		return mul(Mat3f.rotation3D(angles, system));
+	}
+	
+	public Mat3f rotate3DRad(EulerAnglesRad3f angles, LinearSystem3 system)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		return mul(Mat3f.rotation3DRad(angles, system));
+	}
+	
+	public Mat3f rotate3D(EulerAngles3f angles, EulerRotationOrder3 order)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+			if(order == null) throw new ArgumentNullException("order");
+		}
+		
+		return mul(Mat3f.rotation3D(angles, order));
+	}
+	
+	public Mat3f rotate3DRad(EulerAnglesRad3f angles, EulerRotationOrder3 order)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+			if(order == null) throw new ArgumentNullException("order");
+		}
+		
+		return mul(Mat3f.rotation3DRad(angles, order));
+	}
+	
+	public Mat3f rotate3D(EulerAngles3f angles, LinearSystem3 system, EulerRotationOrder3 order)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+			if(system == null) throw new ArgumentNullException("system");
+			if(order == null) throw new ArgumentNullException("order");
+		}
+		
+		return mul(Mat3f.rotation3D(angles, system, order));
+	}
+	
+	public Mat3f rotate3DRad(EulerAnglesRad3f angles, LinearSystem3 system, EulerRotationOrder3 order)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+			if(system == null) throw new ArgumentNullException("system");
+			if(order == null) throw new ArgumentNullException("order");
+		}
+		
+		return mul(Mat3f.rotation3DRad(angles, system, order));
+	}
+	
+	public Mat3f translate2D(Tup2fR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		return mul(Mat3f.translation2D(t));
+	}
+	
+	public Mat3f translate2D(float x, float y)
+	{
+		return mul(Mat3f.translation2D(x, y));
+	}
+	
+	public Mat3f clean()
+	{
+		super.clean();
+		
+		return this;
+	}
+	
+	public String toString()
+	{
+		return 	"mat3f(" + this.m[0][0] + ", " + this.m[0][1] + ", " + this.m[0][2] + "\n"
+			  + "      " + this.m[1][0] + ", " + this.m[1][1] + ", " + this.m[1][2] + "\n"
+			  + "      " + this.m[2][0] + ", " + this.m[2][1] + ", " + this.m[2][2] + ")";
+	}
+	
+	public Mat3f clone()
+	{
+		return new Mat3f(this);
+	}
+	
+	public static Mat3f mul(Mat3f l, Mat3f r, @Nullable Mat3f res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(l == null) throw new ArgumentNullException("l");
+			if(r == null) throw new ArgumentNullException("r");
+		}
+		
+		if(res == null) res = new Mat3f();
+		
+		l.mul(r, res);
+		
+		return res;
+	}
+	
+	public static Mat3f identity()
 	{
 		return new Mat3f().initIdentity();
 	}
@@ -1175,295 +1471,5 @@ public class Mat3f extends SimpleMat3f
 		}
 		
 		return new Mat3f().initTranform2D(t);
-	}
-	
-	public Mat3f scale3D(Tup3fR t)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(t == null) throw new ArgumentNullException("t");
-		}
-		
-		return mul(Mat3f.scaling3D(t));
-	}
-	
-	public Mat3f scale3D(float x, float y, float z)
-	{
-		return mul(Mat3f.scaling3D(x, y, z));
-	}
-	
-	public Mat3f scale2D(Tup2fR t)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(t == null) throw new ArgumentNullException("t");
-		}
-		
-		return mul(Mat3f.scaling2D(t));
-	}
-	
-	public Mat3f scale2D(float x, float y)
-	{
-		return mul(Mat3f.scaling2D(x, y));
-	}
-	
-	public Mat3f rotate2D(EulerAngles2f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return mul(Mat3f.rotation2D(angles));
-	}
-	
-	public Mat3f rotate2DRad(EulerAnglesRad2f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return mul(Mat3f.rotation2DRad(angles));
-	}
-	
-	public Mat3f rotate2D(float angle)
-	{
-		return mul(Mat3f.rotation2D(angle));
-	}
-	
-	public Mat3f rotate2DRad(float angle)
-	{
-		return mul(Mat3f.rotation2DRad(angle));
-	}
-	
-	public Mat3f rotate3D(Quatf q)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(q == null) throw new ArgumentNullException("q");
-		}
-		
-		return mul(Mat3f.rotation3D(q));
-	}
-
-	public Mat3f rotate3D(Tup3fR forward, Tup3fR left, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(left == null) throw new ArgumentNullException("left");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return mul(Mat3f.rotation3D(forward, left, up));
-	}
-	
-	public Mat3f rotate3D(LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat3f.rotation3D(system));
-	}
-	
-	public Mat3f pitchRotate3D(float angle)
-	{
-		return mul(Mat3f.pitchRotation3D(angle));
-	}
-	
-	public Mat3f pitchRotate3DRad(float angle)
-	{
-		return mul(Mat3f.pitchRotation3DRad(angle));
-	}
-	
-	public Mat3f pitchRotate3D(float angle, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat3f.pitchRotation3D(angle, system));
-	}
-	
-	public Mat3f pitchRotate3DRad(float angle, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat3f.pitchRotation3DRad(angle, system));
-	}
-	
-	public Mat3f yawRotate3D(float angle)
-	{
-		return mul(Mat3f.yawRotation3D(angle));
-	}
-	
-	public Mat3f yawRotate3DRad(float angle)
-	{
-		return mul(Mat3f.yawRotation3DRad(angle));
-	}
-	
-	public Mat3f yawRotate3D(float angle, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat3f.yawRotation3D(angle, system));
-	}
-	
-	public Mat3f yawRotate3DRad(float angle, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat3f.yawRotation3DRad(angle, system));
-	}
-	
-	public Mat3f rollRotate3D(float angle)
-	{
-		return mul(Mat3f.rollRotation3D(angle));
-	}
-	
-	public Mat3f rollRotate3DRad(float angle)
-	{
-		return mul(Mat3f.rollRotation3DRad(angle));
-	}
-	
-	public Mat3f rollRotate3D(float angle, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat3f.rollRotation3D(angle, system));
-	}
-	
-	public Mat3f rollRotate3DRad(float angle, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat3f.rollRotation3DRad(angle, system));
-	}
-	
-	public Mat3f rotate3D(EulerAngles3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return mul(Mat3f.rotation3D(angles));
-	}
-	
-	public Mat3f rotate3DRad(EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return mul(Mat3f.rotation3DRad(angles));
-	}
-	
-	public Mat3f rotate3D(EulerAngles3f angles, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat3f.rotation3D(angles, system));
-	}
-	
-	public Mat3f rotate3DRad(EulerAnglesRad3f angles, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat3f.rotation3DRad(angles, system));
-	}
-	
-	public Mat3f rotate3D(EulerAngles3f angles, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return mul(Mat3f.rotation3D(angles, order));
-	}
-	
-	public Mat3f rotate3DRad(EulerAnglesRad3f angles, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return mul(Mat3f.rotation3DRad(angles, order));
-	}
-	
-	public Mat3f rotate3D(EulerAngles3f angles, LinearSystem3 system, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return mul(Mat3f.rotation3D(angles, system, order));
-	}
-	
-	public Mat3f rotate3DRad(EulerAnglesRad3f angles, LinearSystem3 system, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return mul(Mat3f.rotation3DRad(angles, system, order));
-	}
-	
-	public Mat3f translate2D(Tup2fR t)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(t == null) throw new ArgumentNullException("t");
-		}
-		
-		return mul(Mat3f.translation2D(t));
-	}
-	
-	public Mat3f translate2D(float x, float y)
-	{
-		return mul(Mat3f.translation2D(x, y));
-	}
-	
-	public Mat3f clone()
-	{
-		return new Mat3f(this);
 	}
 }

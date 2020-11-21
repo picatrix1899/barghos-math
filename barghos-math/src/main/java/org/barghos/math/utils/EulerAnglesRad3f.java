@@ -25,7 +25,7 @@ SOFTWARE.
 package org.barghos.math.utils;
 
 import org.barghos.math.BarghosMath;
-import org.barghos.math.matrix.Mat3fR;
+import org.barghos.math.matrix.api.Mat3fR;
 import org.barghos.math.quat.Quatf;
 import org.barghos.math.quat.pool.QuatfPool;
 import org.barghos.math.utils.api.EulerRotationOrder3;

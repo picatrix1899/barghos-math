@@ -32,6 +32,8 @@ import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.core.tuple3.pool.Tup3fPool;
 import org.barghos.math.BarghosMath;
+import org.barghos.math.matrix.api.Mat3fR;
+import org.barghos.math.matrix.api.Mat3fW;
 import org.barghos.math.utils.LinearSystem3;
 import org.barghos.math.vec3.Vec3f;
 import org.barghos.math.vec3.pool.Vec3fPool;
@@ -355,25 +357,88 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		return this;
 	}
 	
-		public boolean isZeroMatrix()
+	public SimpleMat3f transpose()
 	{
-		return  this.m[0][0] == 0.0f && this.m[0][1] == 0.0f && this.m[0][2] == 0.0f &&
-				this.m[1][0] == 0.0f && this.m[1][1] == 0.0f && this.m[1][2] == 0.0f &&
-				this.m[2][0] == 0.0f && this.m[2][1] == 0.0f && this.m[2][2] == 0.0f;
+		return transpose(this);
+	}
+	
+	public <T extends Mat3fW> T transpose(T res)
+	{
+		Tup3f r0 = getRow(0, Tup3fPool.get());
+		Tup3f r1 = getRow(1, Tup3fPool.get());
+		Tup3f r2 = getRow(2, Tup3fPool.get());
+		
+		res.setColumn(0, r0).setColumn(1, r1).setColumn(2, r2);
+		
+		Tup3fPool.store(r0, r1, r2);
+		
+		return res;
+	}
+	
+	public SimpleMat3f clean()
+	{
+		return clean(this);
+	}
+	
+	public <T extends Mat3fW> T clean(T res)
+	{
+		float tr = BarghosMath.DEFAULT_ZERO_THRESHOLD_F;
+		
+		for(int r = 0; r < ROWS; r++)
+			for(int c = 0; c < COLUMNS; c++)
+			{
+				if(Math.abs(this.m[r][c]) <= tr)
+					res.setCell(r, c, 0.0f);
+				else if(1.0f - this.m[r][c] <= tr)
+					res.setCell(r, c, 1.0f);
+				else if(1.0f + this.m[r][c] <= tr)
+					res.setCell(r, c, -1.0f);
+			}
+		
+		return res;
+	}
+	
+	public boolean isZeroMatrix()
+	{
+		return isZeroMatrix(BarghosMath.DEFAULT_ZERO_THRESHOLD_F);
+	}
+	
+	public boolean isZeroMatrix(float tr)
+	{
+		return  Math.abs(this.m[0][0]) <= tr && Math.abs(this.m[0][1]) <= tr && Math.abs(this.m[0][2]) <= tr &&
+				Math.abs(this.m[1][0]) <= tr && Math.abs(this.m[1][1]) <= tr && Math.abs(this.m[1][2]) <= tr &&
+				Math.abs(this.m[2][0]) <= tr && Math.abs(this.m[2][1]) <= tr && Math.abs(this.m[2][2]) <= tr;
 	}
 	
 	public boolean isIdentityMatrix()
 	{
-		return  this.m[0][0] == 1.0f && this.m[0][1] == 0.0f && this.m[0][2] == 0.0f &&
-				this.m[1][0] == 0.0f && this.m[1][1] == 1.0f && this.m[1][2] == 0.0f &&
-				this.m[2][0] == 0.0f && this.m[2][1] == 0.0f && this.m[2][2] == 1.0f;
+		return isIdentityMatrix(BarghosMath.DEFAULT_ZERO_THRESHOLD_F);
+	}
+	
+	public boolean isIdentityMatrix(float tr)
+	{	
+		return  1.0f - this.m[0][0] <= tr		&& Math.abs(this.m[0][1]) <= tr	&& Math.abs(this.m[0][2]) <= tr &&
+				Math.abs(this.m[1][0]) <= tr	&& 1.0f - this.m[1][1] <= tr	&& Math.abs(this.m[1][2]) <= tr &&
+				Math.abs(this.m[2][0]) <= tr	&& Math.abs(this.m[2][1]) <= tr	&& 1.0f - this.m[2][2] <= tr;
+	}
+	
+	public boolean isRotationMatrix()
+	{
+		return isRotationMatrix(BarghosMath.DEFAULT_ZERO_THRESHOLD_F);
+	}
+	
+	public boolean isRotationMatrix(float tr)
+	{
+		Mat3f t = transpose(new Mat3f());
+
+		return !isIdentityMatrix(tr) && mul(t, t).isIdentityMatrix(tr);
 	}
 	
 	public String toString()
 	{
-		return 	"mat3f(" + this.m[0][0] + ", " + this.m[0][1] + ", " + this.m[0][2] + "\n"
-			  + "      " + this.m[1][0] + ", " + this.m[1][1] + ", " + this.m[1][2] + "\n"
-			  + "      " + this.m[2][0] + ", " + this.m[2][1] + ", " + this.m[2][2] + ")";
+		return 	"simpleMat3f(" + this.m[0][0] + ", " + this.m[0][1] + ", " + this.m[0][2] + "\n"
+			  + "            " + this.m[1][0] + ", " + this.m[1][1] + ", " + this.m[1][2] + "\n"
+			  + "            " + this.m[2][0] + ", " + this.m[2][1] + ", " + this.m[2][2] + ")";
 	}
 	
 	public SimpleMat3f clone()
