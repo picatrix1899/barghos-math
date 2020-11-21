@@ -26,6 +26,8 @@ package org.barghos.math.utils;
 
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
+import org.barghos.math.matrix.Mat3f;
+import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3f;
 import org.barghos.math.utils.api.ITransform3f;
 import org.barghos.math.vec3.Vec3f;
@@ -62,6 +64,7 @@ public class Transform3f implements ITransform3f
 		t.getPosition(this.position);
 		t.getOrientation(this.orientation);
 		t.getScale(this.scale);
+		
 		return this;
 	}
 	
@@ -72,37 +75,51 @@ public class Transform3f implements ITransform3f
 	
 	public Transform3f setPosition(Tup3fR position)
 	{
-		this.position.set(position); return this;
+		this.position.set(position);
+		
+		return this;
 	}
 	
 	public Transform3f setPosition(float x, float y, float z)
 	{
-		this.position.set(x, y, z); return this;
+		this.position.set(x, y, z);
+		
+		return this;
 	}
 	
 	public Transform3f setOrientation(EulerAngles3f orientation)
 	{
-		this.orientation.set(orientation); return this;
+		this.orientation.set(orientation);
+		
+		return this;
 	}
 	
 	public Transform3f setOrientation(float pitch, float yaw, float roll)
 	{
-		this.orientation.set(pitch, yaw, roll); return this;
+		this.orientation.set(pitch, yaw, roll);
+		
+		return this;
 	}
 	
 	public Transform3f setScale(Tup3fR size)
 	{
-		this.scale.set(size); return this;
+		this.scale.set(size);
+		
+		return this;
 	}
 	
 	public Transform3f setScale(float scalar)
 	{
-		this.scale.set(scalar, scalar, scalar); return this;
+		this.scale.set(scalar, scalar, scalar);
+		
+		return this;
 	}
 	
 	public Transform3f setScale(float x, float y, float z)
 	{
-		this.scale.set(x, y, z); return this;
+		this.scale.set(x, y, z);
+		
+		return this;
 	}
 	
 	public Transform3f setParent(ITransform3f parent)
@@ -115,11 +132,12 @@ public class Transform3f implements ITransform3f
 	{
 		return this.position.clone();
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	public <T extends Tup3fW> T getPosition(T res)
 	{
-		return (T) res.set(this.position);
+		res.set(this.position);
+		
+		return res;
 	}
 	
 	public EulerAngles3f getOrientation()
@@ -129,7 +147,6 @@ public class Transform3f implements ITransform3f
 
 	public EulerAngles3f getOrientation(EulerAngles3f res)
 	{
-		if(res == null) res = new EulerAngles3f();
 		return res.set(this.orientation);
 	}
 	
@@ -138,15 +155,46 @@ public class Transform3f implements ITransform3f
 		return new Vec3f(this.scale);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public <T extends Tup3fW> T getScale(T res)
 	{
-		return (T) res.set(this.scale);
+		res.set(this.scale);
+		
+		return res;
 	}
 	
 	public ITransform3f getParent()
 	{
 		return this.parent;
+	}
+	
+	public Mat3f getRotationMatrix3f()
+	{
+		return this.orientation.toRotationMatrix3f();
+	}
+	
+	public Mat3f getRotationMatrix3f(Mat3f res)
+	{
+		return this.orientation.toRotationMatrix3f(res);
+	}
+	
+	public Mat4 getTranslationMatrix4f()
+	{
+		return Mat4.translation(this.position);
+	}
+	
+	public Mat4 getTranslationMatrix4f(Mat4 res)
+	{
+		return res.initTranslation(this.position);
+	}
+	
+	public Mat3f getScaleMatrix3f()
+	{
+		return Mat3f.scaling3D(this.scale);
+	}
+	
+	public Mat3f getScaleMatrix3f(Mat3f res)
+	{
+		return res.initScaling3D(this.scale);
 	}
 	
 	public String toString()

@@ -25,6 +25,7 @@ SOFTWARE.
 package org.barghos.math.utils;
 
 import org.barghos.math.BarghosMath;
+import org.barghos.math.matrix.Mat3f;
 import org.barghos.math.matrix.api.Mat3fR;
 import org.barghos.math.quat.Quatf;
 import org.barghos.math.quat.pool.QuatfPool;
@@ -56,9 +57,15 @@ public class EulerAngles3f
 		set(m);
 	}
 	
-	public EulerAngles3f set(float pitch, float yaw, float roll) { return setPitch(pitch).setYaw(yaw).setRoll(roll); }
+	public EulerAngles3f set(float pitch, float yaw, float roll)
+	{
+		return setPitch(pitch).setYaw(yaw).setRoll(roll);
+	}
 	
-	public EulerAngles3f set(EulerAngles3f e) { return set(e.getPitch(), e.getYaw(), e.getRoll()); }
+	public EulerAngles3f set(EulerAngles3f e)
+	{
+		return set(e.getPitch(), e.getYaw(), e.getRoll());
+	}
 	
 	public EulerAngles3f set(Mat3fR m)
 	{
@@ -80,17 +87,41 @@ public class EulerAngles3f
 		return this;
 	}
 	
-	public EulerAngles3f setPitch(float pitch) { this.pitch = pitch; return this; }
+	public EulerAngles3f setPitch(float pitch)
+	{
+		this.pitch = pitch;
+		
+		return this;
+	}
 	
-	public EulerAngles3f setYaw(float yaw) { this.yaw = yaw; return this; }
+	public EulerAngles3f setYaw(float yaw)
+	{
+		this.yaw = yaw;
+		
+		return this;
+	}
 	
-	public EulerAngles3f setRoll(float roll) { this.roll = roll; return this; }
+	public EulerAngles3f setRoll(float roll)
+	{
+		this.roll = roll;
+		
+		return this;
+	}
 
-	public float getPitch() { return this.pitch; }
+	public float getPitch()
+	{
+		return this.pitch;
+	}
 	
-	public float getYaw() { return this.yaw; }
+	public float getYaw()
+	{
+		return this.yaw;
+	}
 
-	public float getRoll() { return this.roll; }
+	public float getRoll()
+	{
+		return this.roll;
+	}
 
 	public Quatf getPitchRotation(LinearSystem3 system, Quatf res)
 	{
@@ -177,6 +208,16 @@ public class EulerAngles3f
 		this.pitch += pitch;
 		this.yaw += yaw;
 		this.roll += roll;
+	}
+	
+	public Mat3f toRotationMatrix3f()
+	{
+		return toRotationMatrix3f(new Mat3f());
+	}
+	
+	public Mat3f toRotationMatrix3f(Mat3f res)
+	{
+		return res.initRotation3D(this);
 	}
 	
 	public String toString()
