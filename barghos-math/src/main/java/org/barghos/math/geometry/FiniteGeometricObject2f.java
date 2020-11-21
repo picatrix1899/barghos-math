@@ -27,9 +27,9 @@ package org.barghos.math.geometry;
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.util.Nullable;
 import org.barghos.math.BarghosMath;
-import org.barghos.math.ITransform2f;
 import org.barghos.math.matrix.Mat3f;
 import org.barghos.math.point.Point2f;
+import org.barghos.math.utils.api.ITransform2f;
 
 /**
  * @author picatrix1899

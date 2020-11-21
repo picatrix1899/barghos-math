@@ -32,9 +32,9 @@ import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.core.tuple3.pool.Tup3fPool;
 import org.barghos.math.BarghosMath;
-import org.barghos.math.LinearSystem3;
-import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.pool.Vec3fPool;
+import org.barghos.math.utils.LinearSystem3;
+import org.barghos.math.vec3.Vec3f;
+import org.barghos.math.vec3.pool.Vec3fPool;
 
 /**
  * This class represents a simplified version of the {@link Mat3f} class.

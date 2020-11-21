@@ -33,17 +33,17 @@ import org.barghos.core.tuple3.pool.Tup3fPool;
 import org.barghos.core.util.Nullable;
 
 import org.barghos.math.BarghosMath;
-import org.barghos.math.EulerAngles2f;
-import org.barghos.math.EulerAngles3f;
-import org.barghos.math.EulerAnglesRad2f;
-import org.barghos.math.EulerAnglesRad3f;
-import org.barghos.math.EulerRotationOrder3;
-import org.barghos.math.ITransform2f;
-import org.barghos.math.LinearSystem3;
-import org.barghos.math.Maths;
 import org.barghos.math.point.Point2f;
-import org.barghos.math.vector.quat.Quatf;
-import org.barghos.math.vector.vec2.Vec2f;
+import org.barghos.math.quat.Quatf;
+import org.barghos.math.utils.EulerAngles2f;
+import org.barghos.math.utils.EulerAngles3f;
+import org.barghos.math.utils.EulerAnglesRad2f;
+import org.barghos.math.utils.EulerAnglesRad3f;
+import org.barghos.math.utils.LinearSystem3;
+import org.barghos.math.utils.Maths;
+import org.barghos.math.utils.api.EulerRotationOrder3;
+import org.barghos.math.utils.api.ITransform2f;
+import org.barghos.math.vec2.Vec2f;
 
 public class Mat3f extends SimpleMat3f
 {

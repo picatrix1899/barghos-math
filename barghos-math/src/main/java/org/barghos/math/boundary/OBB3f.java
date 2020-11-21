@@ -28,9 +28,9 @@ import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.math.geometry.FiniteGeometricObject3f;
 import org.barghos.math.matrix.Mat4;
 import org.barghos.math.point.Point3f;
-import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.Vec3fAxis;
-import org.barghos.math.vector.vec3.pool.Vec3fPool;
+import org.barghos.math.vec3.Vec3f;
+import org.barghos.math.vec3.Vec3fAxis;
+import org.barghos.math.vec3.pool.Vec3fPool;
 
 public class OBB3f implements FiniteGeometricObject3f
 {

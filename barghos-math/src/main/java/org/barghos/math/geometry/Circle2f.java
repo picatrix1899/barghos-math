@@ -29,13 +29,13 @@ import org.barghos.core.tuple2.api.Tup2fR;
 import org.barghos.core.util.Nullable;
 
 import org.barghos.math.BarghosMath;
-import org.barghos.math.ITransform2f;
-import org.barghos.math.Maths;
 import org.barghos.math.boundary.AABB2f;
 import org.barghos.math.matrix.Mat3f;
 import org.barghos.math.point.Point2f;
-import org.barghos.math.vector.vec2.Vec2f;
-import org.barghos.math.vector.vec2.pool.Vec2fPool;
+import org.barghos.math.utils.Maths;
+import org.barghos.math.utils.api.ITransform2f;
+import org.barghos.math.vec2.Vec2f;
+import org.barghos.math.vec2.pool.Vec2fPool;
 
 /**
  * @author picatrix1899

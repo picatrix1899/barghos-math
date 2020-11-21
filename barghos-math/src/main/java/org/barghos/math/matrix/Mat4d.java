@@ -38,10 +38,10 @@ import org.barghos.core.tuple4.api.Tup4dR;
 import org.barghos.core.tuple4.api.Tup4dW;
 import org.barghos.core.tuple4.pool.Tup4dPool;
 import org.barghos.math.BarghosMath;
-import org.barghos.math.Maths;
-import org.barghos.math.vector.quat.Quatf;
-import org.barghos.math.vector.vec3.Vec3d;
-import org.barghos.math.vector.vec3.pool.Vec3dPool;
+import org.barghos.math.quat.Quatf;
+import org.barghos.math.utils.Maths;
+import org.barghos.math.vec3.Vec3d;
+import org.barghos.math.vec3.pool.Vec3dPool;
 
 
 public class Mat4d

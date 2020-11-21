@@ -24,6 +24,7 @@ SOFTWARE.
 
 package org.barghos.math;
 
+import org.barghos.math.utils.api.EulerRotationOrder3;
 
 /**
  * @author picatrix1899

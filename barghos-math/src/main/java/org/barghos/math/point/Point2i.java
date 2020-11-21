@@ -27,7 +27,7 @@ package org.barghos.math.point;
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple2.api.Tup2iR;
 import org.barghos.math.BarghosMath;
-import org.barghos.math.vector.vec2.Vec2i;
+import org.barghos.math.vec2.Vec2i;
 
 /**
  * Represents a 2-dimensional point with int components in euclidean space.

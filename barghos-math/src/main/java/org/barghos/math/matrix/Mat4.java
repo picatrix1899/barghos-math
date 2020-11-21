@@ -38,10 +38,10 @@ import org.barghos.core.tuple4.api.Tup4fR;
 import org.barghos.core.tuple4.api.Tup4fW;
 import org.barghos.core.tuple4.pool.Tup4fPool;
 import org.barghos.math.BarghosMath;
-import org.barghos.math.Maths;
-import org.barghos.math.vector.quat.Quatf;
-import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.pool.Vec3fPool;
+import org.barghos.math.quat.Quatf;
+import org.barghos.math.utils.Maths;
+import org.barghos.math.vec3.Vec3f;
+import org.barghos.math.vec3.pool.Vec3fPool;
 
 
 public class Mat4 implements Mat4R

@@ -26,7 +26,7 @@ package org.barghos.math.point;
 
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple3.api.Tup3fR;
-import org.barghos.math.vector.vec3.Vec3f;
+import org.barghos.math.vec3.Vec3f;
 
 public class Point3f extends Vec3f
 {

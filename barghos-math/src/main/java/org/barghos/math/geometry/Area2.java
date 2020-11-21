@@ -26,8 +26,8 @@ package org.barghos.math.geometry;
 
 import org.barghos.core.tuple2.Tup2fHelper;
 import org.barghos.math.point.Point2f;
-import org.barghos.math.vector.vec2.Vec2f;
-import org.barghos.math.vector.vec2.pool.Vec2fPool;
+import org.barghos.math.vec2.Vec2f;
+import org.barghos.math.vec2.pool.Vec2fPool;
 
 /**
  * @author picatrix1899

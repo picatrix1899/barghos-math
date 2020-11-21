@@ -25,8 +25,8 @@ SOFTWARE.
 package org.barghos.math.boundary;
 
 import org.barghos.core.tuple3.helper.Tup3fHelper;
-import org.barghos.math.vector.vec3.Vec3f;
-import org.barghos.math.vector.vec3.pool.Vec3fPool;
+import org.barghos.math.vec3.Vec3f;
+import org.barghos.math.vec3.pool.Vec3fPool;
 
 /**
  * @author picatrix1899

@@ -29,7 +29,7 @@ import org.barghos.core.tuple2.api.Tup2fR;
 
 import org.barghos.math.BarghosMath;
 import org.barghos.math.point.Point2f;
-import org.barghos.math.vector.vec2.Vec2f;
+import org.barghos.math.vec2.Vec2f;
 
 /**
  * @author picatrix1899
