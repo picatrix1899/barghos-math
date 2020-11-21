@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.matrix;
+package org.barghos.math.matrix.api;
 
 import org.barghos.core.tuple2.api.Tup2fR;
 import org.barghos.core.tuple2.api.Tup2fW;
@@ -31,12 +31,13 @@ import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.core.tuple4.Tup4f;
 import org.barghos.core.tuple4.api.Tup4fR;
 import org.barghos.core.tuple4.api.Tup4fW;
+import org.barghos.math.matrix.Mat4f;
 
 /**
  * @author picatrix1899
  *
  */
-public interface Mat4R
+public interface Mat4fR
 {
 
 	Tup4f getRow(int index);
@@ -49,7 +50,7 @@ public interface Mat4R
 	
 	float determinant();
 	
-	Mat4 mul(Mat4 r, Mat4 res);
+	Mat4f mul(Mat4f r, Mat4f res);
 	
 	<T extends Tup4fR & Tup4fW> T transform(T r);
 	<T extends Tup4fW> T transform(Tup4fR r, T res);

@@ -28,7 +28,7 @@ import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.util.Nullable;
 import org.barghos.math.BarghosMath;
-import org.barghos.math.matrix.Mat4;
+import org.barghos.math.matrix.Mat4f;
 import org.barghos.math.quat.pool.QuatfPool;
 import org.barghos.math.utils.Maths;
 import org.barghos.math.vec3.Vec3f;
@@ -86,7 +86,7 @@ public class Quatf implements Vec4fR
 	 * This constructor sets
 	 * @param rot
 	 */
-	public Quatf(Mat4 rot)
+	public Quatf(Mat4f rot)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -186,7 +186,7 @@ public class Quatf implements Vec4fR
 	}
 	
 	//From Ken Shoemake's "Quaternion Calculus and Fast Animation" article
-	public Quatf set(Mat4 rot) 
+	public Quatf set(Mat4f rot) 
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{

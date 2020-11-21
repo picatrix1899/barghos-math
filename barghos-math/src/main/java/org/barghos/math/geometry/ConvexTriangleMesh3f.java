@@ -29,7 +29,7 @@ import java.util.List;
 
 import org.barghos.math.boundary.AABB3f;
 import org.barghos.math.boundary.OBB3f;
-import org.barghos.math.matrix.Mat4;
+import org.barghos.math.matrix.Mat4f;
 import org.barghos.math.point.Point3f;
 import org.barghos.math.vec3.Vec3f;
 import org.barghos.math.vec3.pool.Vec3fPool;
@@ -88,7 +88,7 @@ public class ConvexTriangleMesh3f implements FiniteGeometricObject3f
 		return new ArrayList<>(this.triangles);
 	}
 	
-	public OBB3f getOBBf(Mat4 t, Mat4 r)
+	public OBB3f getOBBf(Mat4f t, Mat4f r)
 	{
 		PointSet3f set = getPointSet(null);
 
@@ -122,7 +122,7 @@ public class ConvexTriangleMesh3f implements FiniteGeometricObject3f
 		return r;
 	}
 	
-	public ConvexTriangleMesh3f transform(Mat4 t, ConvexTriangleMesh3f res)
+	public ConvexTriangleMesh3f transform(Mat4f t, ConvexTriangleMesh3f res)
 	{	
 		if(res == null) res = new ConvexTriangleMesh3f();
 

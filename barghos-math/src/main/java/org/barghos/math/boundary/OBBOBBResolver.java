@@ -27,7 +27,7 @@ package org.barghos.math.boundary;
 import org.barghos.core.tuple4.Tup4f;
 import org.barghos.core.tuple4.pool.Tup4fPool;
 import org.barghos.math.geometry.PointSet3f;
-import org.barghos.math.matrix.Mat4;
+import org.barghos.math.matrix.Mat4f;
 import org.barghos.math.vec3.Vec3f;
 import org.barghos.math.vec3.pool.Vec3fPool;
 
@@ -38,8 +38,8 @@ public class OBBOBBResolver
 		Vec3f aCenter = a.getCenter(Vec3fPool.get());
 		Vec3f bCenter = b.getCenter(Vec3fPool.get());
 
-		Mat4 modelSpaceA = a.getModelSpaceMatrix();
-		Mat4 modelSpaceB = b.getModelSpaceMatrix();
+		Mat4f modelSpaceA = a.getModelSpaceMatrix();
+		Mat4f modelSpaceB = b.getModelSpaceMatrix();
 		
 		PointSet3f aInSpaceA = a.getTransformedPointSet(modelSpaceA);
 		PointSet3f bInSpaceA = b.getTransformedPointSet(modelSpaceA);
@@ -158,7 +158,7 @@ public class OBBOBBResolver
 		Vec3f aCenter = a.getCenter(Vec3fPool.get());
 		Vec3f bCenter = b.getCenter(Vec3fPool.get());
 		
-		Mat4 modelSpaceA = a.getModelSpaceMatrix();
+		Mat4f modelSpaceA = a.getModelSpaceMatrix();
 
 		PointSet3f aInSpaceA = a.getTransformedPointSet(modelSpaceA);
 		PointSet3f bInSpaceA = b.getTransformedPointSet(modelSpaceA);
@@ -256,7 +256,7 @@ public class OBBOBBResolver
 			else
 				return new Vec3f();
 		
-		Mat4 modelSpaceB = b.getModelSpaceMatrix();
+		Mat4f modelSpaceB = b.getModelSpaceMatrix();
 		
 		PointSet3f aInSpaceB = a.getTransformedPointSet(modelSpaceB);
 		PointSet3f bInSpaceB = b.getTransformedPointSet(modelSpaceB);

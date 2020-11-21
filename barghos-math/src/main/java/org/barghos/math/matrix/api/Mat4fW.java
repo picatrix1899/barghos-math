@@ -22,54 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math.geometry;
+package org.barghos.math.matrix.api;
 
-import org.barghos.math.matrix.Mat4f;
-import org.barghos.math.point.Point3f;
 
-public interface FiniteGeometricObject3f
+/**
+ * @author picatrix1899
+ *
+ */
+public interface Mat4fW
 {
-	Point3f[] getPoints();
-	
-	default Point3f[] getTransformedPoints(Mat4f t)
-	{
-		Point3f[] p = getPoints();
-		
-		int i = 0;
-		for(; i < p.length; i++)
-			t.transform(p[i], p[i]);
-		
-		return p;
-	}
-	
-	default PointSet3f getPointSet()
-	{
-		return new PointSet3f(getPoints());
-	}
-	
-	default PointSet3f getPointSet(PointSet3f res)
-	{
-		res = res != null ? res : new PointSet3f();
-
-		return res.set(getPoints());
-	}
-	
-	default PointSet3f getTransformedPointSet(Mat4f t)
-	{
-		PointSet3f s = getPointSet();
-
-		return s.transform(t, null);
-	}
-	
-	default PointSet3f getTransformedPointSet(Mat4f t, PointSet3f res)
-	{
-		res = res != null ? res : new PointSet3f();
-		
-		getPointSet(res);
-		
-		res.transform(t, res);
-		
-		return res;
-	}
 
 }

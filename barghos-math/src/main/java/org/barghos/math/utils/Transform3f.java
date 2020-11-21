@@ -27,7 +27,7 @@ package org.barghos.math.utils;
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.math.matrix.Mat3f;
-import org.barghos.math.matrix.Mat4;
+import org.barghos.math.matrix.Mat4f;
 import org.barghos.math.point.Point3f;
 import org.barghos.math.utils.api.ITransform3f;
 import org.barghos.math.vec3.Vec3f;
@@ -177,12 +177,12 @@ public class Transform3f implements ITransform3f
 		return this.orientation.toRotationMatrix3f(res);
 	}
 	
-	public Mat4 getTranslationMatrix4f()
+	public Mat4f getTranslationMatrix4f()
 	{
-		return Mat4.translation(this.position);
+		return Mat4f.translation(this.position);
 	}
 	
-	public Mat4 getTranslationMatrix4f(Mat4 res)
+	public Mat4f getTranslationMatrix4f(Mat4f res)
 	{
 		return res.initTranslation(this.position);
 	}

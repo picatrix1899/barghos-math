@@ -28,7 +28,7 @@ import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.math.BarghosMath;
-import org.barghos.math.matrix.Mat4;
+import org.barghos.math.matrix.Mat4f;
 import org.barghos.math.point.Point3f;
 import org.barghos.math.vec3.Vec3f;
 import org.barghos.math.vec3.pool.Vec3fPool;
@@ -299,7 +299,7 @@ public class AABB3f
 		return res;
 	}
 	
-	public AABB3f transform(Mat4 t, AABB3f res)
+	public AABB3f transform(Mat4f t, AABB3f res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -320,7 +320,7 @@ public class AABB3f
 		return res;
 	}
 	
-	public AABB3f transform(Mat4 t)
+	public AABB3f transform(Mat4f t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{

@@ -44,17 +44,17 @@ import org.barghos.math.vec3.Vec3f;
 import org.barghos.math.vec3.pool.Vec3fPool;
 
 
-public class Mat4 implements Mat4R
+public class Mat4f extends SimpleMat4f
 {	
-	public static final Mat4 IDENTITY = Mat4.identity();
+	public static final Mat4f IDENTITY = Mat4f.identity();
 	
 	public static final int ROWS = 4;
 	public static final int COLUMNS = 4;
 	
 	public final float[][] m = new float[ROWS][COLUMNS];
 	
-	public Mat4() {  }
-	public Mat4(Mat4 m)
+	public Mat4f() {  }
+	public Mat4f(Mat4f m)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -64,7 +64,7 @@ public class Mat4 implements Mat4R
 		set(m);
 	}
 	
-	public Mat4 set(Mat3f m)
+	public Mat4f set(Mat3f m)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -84,7 +84,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 set(Mat4 m)
+	public Mat4f set(Mat4f m)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -98,7 +98,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initIdentity()
+	public Mat4f initIdentity()
 	{
 		setRow(0, 1.0f, 0.0f, 0.0f, 0.0f);
 		setRow(1, 0.0f, 1.0f, 0.0f, 0.0f);
@@ -108,7 +108,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 
-	public Mat4 initZero()
+	public Mat4f initZero()
 	{
 		setRow(0, 0.0f, 0.0f, 0.0f, 0.0f);
 		setRow(1, 0.0f, 0.0f, 0.0f, 0.0f);
@@ -117,7 +117,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initScaling(Tup3fR t)
+	public Mat4f initScaling(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -127,7 +127,7 @@ public class Mat4 implements Mat4R
 		return initScaling(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public Mat4 initScaling(float x, float y, float z)
+	public Mat4f initScaling(float x, float y, float z)
 	{
 		setRow(0, x,	0.0f,	0.0f, 	0.0f);
 		setRow(1, 0.0f,	y,		0.0f, 	0.0f);
@@ -136,7 +136,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initTranslation(Tup3fR t)
+	public Mat4f initTranslation(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -146,7 +146,7 @@ public class Mat4 implements Mat4R
 		return initTranslation(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public Mat4 initTranslation(float x, float y, float z)
+	public Mat4f initTranslation(float x, float y, float z)
 	{
 		setRow(0, 1.0f, 0.0f, 0.0f, x	);
 		setRow(1, 0.0f, 1.0f, 0.0f, y	);
@@ -156,7 +156,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initRotation(Quatf q)
+	public Mat4f initRotation(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -183,7 +183,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initRotation(Tup3fR forward, Tup3fR left, Tup3fR up)
+	public Mat4f initRotation(Tup3fR forward, Tup3fR left, Tup3fR up)
 	{
 		setColumn(0, left, 0.0f);
 		setColumn(1, up, 0.0f);
@@ -193,7 +193,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initPerspective(Tup2fR t, float fov, float near, float far)
+	public Mat4f initPerspective(Tup2fR t, float fov, float near, float far)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -204,7 +204,7 @@ public class Mat4 implements Mat4R
 		return initPerspective(t.getX(), t.getY(), fov, near, far);
 	}
 	
-	public Mat4 initPerspective(float width, float height, float fovY, float near, float far)
+	public Mat4f initPerspective(float width, float height, float fovY, float near, float far)
 	{
 		float y_scale = 1.0f / (float)Math.tan(fovY * 0.5 * Maths.DEG_TO_RAD);
 		float x_scale = y_scale / (width / height);
@@ -217,7 +217,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initPerspective(float fovX, float fovY, float near, float far)
+	public Mat4f initPerspective(float fovX, float fovY, float near, float far)
 	{
 		float y_scale = 1.0f / (float)Math.tan(fovY * 0.5 * Maths.DEG_TO_RAD);
 		float x_scale = 1.0f / (float)Math.tan(fovX * 0.5 * Maths.DEG_TO_RAD);
@@ -230,7 +230,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initPerspective(float left, float right, float bottom, float top, float near, float far)
+	public Mat4f initPerspective(float left, float right, float bottom, float top, float near, float far)
 	{
 		setRow(0, 2f * near / (right - left),		0f,									0f,									0f	);
 		setRow(1, 0f,								2f * near / (top - bottom),			0f,									0f	);
@@ -240,7 +240,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initOrtho(Tup2fR t, float near, float far)
+	public Mat4f initOrtho(Tup2fR t, float near, float far)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -250,7 +250,7 @@ public class Mat4 implements Mat4R
 		return initOrtho(t.getX(), t.getY(), near, far);
 	}
 	
-	public Mat4 initOrtho(float width, float height, float length)
+	public Mat4f initOrtho(float width, float height, float length)
 	{
 		setRow(0, 2.0f / width,	0f,				0f,						0f);
 		setRow(1, 0f,			2.0f / height,	0f,						0f);
@@ -260,7 +260,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initOrtho2(float width, float height, float fovY, float near, float far)
+	public Mat4f initOrtho2(float width, float height, float fovY, float near, float far)
 	{
 		float y_scale = 1.0f / (float)Math.tan(fovY * 0.5 * Maths.DEG_TO_RAD);
 		float x_scale = y_scale / (width / height);
@@ -273,7 +273,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initOrtho(float width, float height, float near, float far)
+	public Mat4f initOrtho(float width, float height, float near, float far)
 	{
 		setRow(0, 2.0f / width,	0f,				0f,						0f);
 		setRow(1, 0f,			2.0f / height,	0f,						0f);
@@ -283,7 +283,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initOrtho(float left, float right, float bottom, float top, float near, float far)
+	public Mat4f initOrtho(float left, float right, float bottom, float top, float near, float far)
 	{
 		setRow(0, 2.0f / (right - left),				0f,									0f,								0f);
 		setRow(1, 0f,									2.0f / (top - bottom),				0f,								0f);
@@ -293,7 +293,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initOrthoWithCorrection(float left, float right, float bottom, float top, float near, float far)
+	public Mat4f initOrthoWithCorrection(float left, float right, float bottom, float top, float near, float far)
 	{
 		setRow(0, 2.0f / (right - left),				0f,									0f,								-(right + left) / (right - left));
 		setRow(1, 0f,									2.0f / (top - bottom),				0f,								-(top + bottom) / (top - bottom));
@@ -303,7 +303,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initModelMatrix(Tup3fR pos, Quatf rot, Tup3fR scale)
+	public Mat4f initModelMatrix(Tup3fR pos, Quatf rot, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -322,7 +322,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initViewMatrix(Tup3fR pos, Quatf rot)
+	public Mat4f initViewMatrix(Tup3fR pos, Quatf rot)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -338,7 +338,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 initLookAt(Tup3fR pos, Tup3fR target, Tup3fR worldUp)
+	public Mat4f initLookAt(Tup3fR pos, Tup3fR target, Tup3fR worldUp)
 	{
 		Vec3f vpos = Vec3fPool.get(pos);
 		Vec3f vtarget = Vec3fPool.get(target);
@@ -357,7 +357,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public Mat4 setRow(int index, Tup2fR t, float z, float w)
+	public Mat4f setRow(int index, Tup2fR t, float z, float w)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -368,7 +368,7 @@ public class Mat4 implements Mat4R
 		return setRow(index, t.getX(), t.getY(), z, w);
 	}
 	
-	public Mat4 setRow(int index, float x, Tup2fR t, float w)
+	public Mat4f setRow(int index, float x, Tup2fR t, float w)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -379,7 +379,7 @@ public class Mat4 implements Mat4R
 		return setRow(index, x, t.getX(), t.getY(), w);
 	}
 	
-	public Mat4 setRow(int index, float x, float y, Tup2fR t)
+	public Mat4f setRow(int index, float x, float y, Tup2fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -390,7 +390,7 @@ public class Mat4 implements Mat4R
 		return setRow(index, x, y, t.getX(), t.getY());
 	}
 	
-	public Mat4 setRow(int index, Tup3fR t, float w)
+	public Mat4f setRow(int index, Tup3fR t, float w)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -401,7 +401,7 @@ public class Mat4 implements Mat4R
 		return setRow(index, t.getX(), t.getY(), t.getZ(), w);
 	}
 	
-	public Mat4 setRow(int index, float x, Tup3fR t)
+	public Mat4f setRow(int index, float x, Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -412,7 +412,7 @@ public class Mat4 implements Mat4R
 		return setRow(index, x, t.getX(), t.getY(), t.getZ());
 	}
 	
-	public Mat4 setRow(int index, Tup4fR t)
+	public Mat4f setRow(int index, Tup4fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -423,7 +423,7 @@ public class Mat4 implements Mat4R
 		return setRow(index, t.getX(), t.getY(), t.getZ(), t.getW());
 	}
 	
-	public Mat4 setRow(int index, float x, float y, float z, float w)
+	public Mat4f setRow(int index, float x, float y, float z, float w)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -438,7 +438,7 @@ public class Mat4 implements Mat4R
 	}
 	
 	
-	public Mat4 setColumn(int index, Tup2fR t, float z, float w)
+	public Mat4f setColumn(int index, Tup2fR t, float z, float w)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -449,7 +449,7 @@ public class Mat4 implements Mat4R
 		return setColumn(index, t.getX(), t.getY(), z, w);
 	}
 	
-	public Mat4 setColumn(int index, float x, Tup2fR t, float w)
+	public Mat4f setColumn(int index, float x, Tup2fR t, float w)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -460,7 +460,7 @@ public class Mat4 implements Mat4R
 		return setColumn(index, x, t.getX(), t.getY(), w);
 	}
 	
-	public Mat4 setColumn(int index, float x, float y, Tup2fR t)
+	public Mat4f setColumn(int index, float x, float y, Tup2fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -471,7 +471,7 @@ public class Mat4 implements Mat4R
 		return setColumn(index, x, y, t.getX(), t.getY());
 	}
 	
-	public Mat4 setColumn(int index, Tup3fR t, float w)
+	public Mat4f setColumn(int index, Tup3fR t, float w)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -482,7 +482,7 @@ public class Mat4 implements Mat4R
 		return setColumn(index, t.getX(), t.getY(), t.getZ(), w);
 	}
 	
-	public Mat4 setColumn(int index, float x, Tup3fR t)
+	public Mat4f setColumn(int index, float x, Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -493,7 +493,7 @@ public class Mat4 implements Mat4R
 		return setColumn(index, x, t.getX(), t.getY(), t.getZ());
 	}
 	
-	public Mat4 setColumn(int index, Tup4fR t)
+	public Mat4f setColumn(int index, Tup4fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -504,7 +504,7 @@ public class Mat4 implements Mat4R
 		return setColumn(index, t.getX(), t.getY(), t.getZ(), t.getW());
 	}
 	
-	public Mat4 setColumn(int index, float x, float y, float z, float w)
+	public Mat4f setColumn(int index, float x, float y, float z, float w)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -572,7 +572,7 @@ public class Mat4 implements Mat4R
 								this.m[3][0], this.m[3][1], this.m[3][2], this.m[3][3]);
 	}
 	
-	public Mat4 transpose()
+	public Mat4f transpose()
 	{
 		Tup4f r0 = Tup4fPool.get();
 		Tup4f r1 = Tup4fPool.get();
@@ -591,7 +591,7 @@ public class Mat4 implements Mat4R
 		return this;
 	}
 	
-	public static Mat4 mul(Mat4 l, Mat4 r, Mat4 res)
+	public static Mat4f mul(Mat4f l, Mat4f r, Mat4f res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -599,7 +599,7 @@ public class Mat4 implements Mat4R
 			if(r == null) throw new ArgumentNullException("r");
 		}
 		
-		if(res == null) res = new Mat4();
+		if(res == null) res = new Mat4f();
 		
 		float[][] m_ = new float[ROWS][COLUMNS];
 		
@@ -618,27 +618,27 @@ public class Mat4 implements Mat4R
 		return res;
 	}
 	
-	public Mat4 mul(Mat4 r)
+	public Mat4f mul(Mat4f r)
 	{
 		if(Barghos.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(r == null) throw new ArgumentNullException("r");
 		}
 		
-		return Mat4.mul(this, r, this);
+		return Mat4f.mul(this, r, this);
 	}
 	
-	public Mat4 mul(Mat4 r, Mat4 res)
+	public Mat4f mul(Mat4f r, Mat4f res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(r == null) throw new ArgumentNullException("r");
 		}
 		
-		return Mat4.mul(this, r, res);
+		return Mat4f.mul(this, r, res);
 	}
 	
-	public static <T extends Tup4fW> T transform(Mat4 l, Tup4fR r, T res)
+	public static <T extends Tup4fW> T transform(Mat4f l, Tup4fR r, T res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -664,7 +664,7 @@ public class Mat4 implements Mat4R
 			if(r == null) throw new ArgumentNullException("r");
 		}
 
-		return Mat4.transform(this, r, r);
+		return Mat4f.transform(this, r, r);
 	}
 	
 	public <T extends Tup4fW> T transform(Tup4fR r, T res)
@@ -674,10 +674,10 @@ public class Mat4 implements Mat4R
 			if(r == null) throw new ArgumentNullException("r");
 		}
 		
-		return Mat4.transform(this, r, res);
+		return Mat4f.transform(this, r, res);
 	}
 	
-	public static <T extends Tup4fR & Tup4fW> T transform(Mat4 l, T r)
+	public static <T extends Tup4fR & Tup4fW> T transform(Mat4f l, T r)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -685,10 +685,10 @@ public class Mat4 implements Mat4R
 			if(r == null) throw new ArgumentNullException("r");
 		}
 		
-		return Mat4.transform(l, r, r);
+		return Mat4f.transform(l, r, r);
 	}
 	
-	public static <T extends Tup3fW> T transform(Mat4 l, Tup3fR r, T res)
+	public static <T extends Tup3fW> T transform(Mat4f l, Tup3fR r, T res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -713,7 +713,7 @@ public class Mat4 implements Mat4R
 			if(r == null) throw new ArgumentNullException("r");
 		}
 		
-		return Mat4.transform(this, r, r);
+		return Mat4f.transform(this, r, r);
 	}
 	
 	public <T extends Tup3fW> T transform(Tup3fR r, T res)
@@ -723,10 +723,10 @@ public class Mat4 implements Mat4R
 			if(r == null) throw new ArgumentNullException("r");
 		}
 		
-		return Mat4.transform(this, r, res);
+		return Mat4f.transform(this, r, res);
 	}
 	
-	public static <T extends Tup3fR & Tup3fW> T transform(Mat4 l, T r)
+	public static <T extends Tup3fR & Tup3fW> T transform(Mat4f l, T r)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -734,10 +734,10 @@ public class Mat4 implements Mat4R
 			if(r == null) throw new ArgumentNullException("r");
 		}
 		
-		return Mat4.transform(l, r, r);
+		return Mat4f.transform(l, r, r);
 	}
 	
-	public static <T extends Tup2fW> T transform(Mat4 l, Tup2fR r, T res)
+	public static <T extends Tup2fW> T transform(Mat4f l, Tup2fR r, T res)
 	{
 		float x_ = l.m[0][0] * r.getX() + l.m[0][1] * r.getY() + l.m[0][2] * 1.0f + l.m[0][3] * 1.0f;
 		float y_ = l.m[1][0] * r.getX() + l.m[1][1] * r.getY() + l.m[1][2] * 1.0f + l.m[1][3] * 1.0f;
@@ -749,20 +749,20 @@ public class Mat4 implements Mat4R
 
 	public <T extends Tup2fW> T transform(Tup2fR r, T res)
 	{
-		return Mat4.transform(this, r, res);
+		return Mat4f.transform(this, r, res);
 	}
 
-	public static Mat4 identity()
+	public static Mat4f identity()
 	{
-		return new Mat4().initIdentity();
+		return new Mat4f().initIdentity();
 	}
 	
-	public static Mat4 zero()
+	public static Mat4f zero()
 	{
-		return new Mat4().initZero();
+		return new Mat4f().initZero();
 	}
 	
-	public static Mat4 scaling(Tup3fR t)
+	public static Mat4f scaling(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -771,12 +771,12 @@ public class Mat4 implements Mat4R
 		
 		return scaling(t.getX(), t.getY(), t.getZ());
 	}
-	public static Mat4 scaling(float x, float y, float z)
+	public static Mat4f scaling(float x, float y, float z)
 	{
-		return new Mat4().initScaling(x, y,z);
+		return new Mat4f().initScaling(x, y,z);
 	}
 	
-	public static Mat4 translation(Tup3fR t)
+	public static Mat4f translation(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -785,12 +785,12 @@ public class Mat4 implements Mat4R
 		
 		return translation(t.getX(),t.getY(), t.getZ());
 	}
-	public static Mat4 translation(float x, float y, float z)
+	public static Mat4f translation(float x, float y, float z)
 	{
-		return new Mat4().initTranslation(x, y, z);
+		return new Mat4f().initTranslation(x, y, z);
 	}
 	
-	public static Mat4 perspective(Tup2fR t, float fovY, float near, float far)
+	public static Mat4f perspective(Tup2fR t, float fovY, float near, float far)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -799,22 +799,22 @@ public class Mat4 implements Mat4R
 		
 		return perspective(t.getX(), t.getY(), fovY, near, far);
 	}
-	public static Mat4 perspective(float width, float height, float fov, float near, float far)
+	public static Mat4f perspective(float width, float height, float fov, float near, float far)
 	{
-		return new Mat4().initPerspective(width, height, fov, near, far);
+		return new Mat4f().initPerspective(width, height, fov, near, far);
 	}
 	
-	public static Mat4 perspective(float fovX, float fovY, float near, float far)
+	public static Mat4f perspective(float fovX, float fovY, float near, float far)
 	{
-		return new Mat4().initPerspective(fovX, fovY, near, far);
+		return new Mat4f().initPerspective(fovX, fovY, near, far);
 	}
 	
-	public static Mat4 perspective(float left, float right, float bottom, float top, float near, float far)
+	public static Mat4f perspective(float left, float right, float bottom, float top, float near, float far)
 	{
-		return new Mat4().initPerspective(left, right, bottom, top, near, far);
+		return new Mat4f().initPerspective(left, right, bottom, top, near, far);
 	
 	}
-	public static Mat4 ortho(Tup2fR t, float near, float far)
+	public static Mat4f ortho(Tup2fR t, float near, float far)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -824,37 +824,37 @@ public class Mat4 implements Mat4R
 		return ortho(t.getX(), t.getY(), near, far);
 	}
 	
-	public static Mat4 ortho(float width, float height, float near, float far)
+	public static Mat4f ortho(float width, float height, float near, float far)
 	{
-		return new Mat4().initOrtho(width, height, near, far);
+		return new Mat4f().initOrtho(width, height, near, far);
 	}
 	
-	public static Mat4 ortho(float left, float right, float bottom, float top, float near, float far)
+	public static Mat4f ortho(float left, float right, float bottom, float top, float near, float far)
 	{
-		return new Mat4().initOrtho(left, right, bottom, top, near, far);
+		return new Mat4f().initOrtho(left, right, bottom, top, near, far);
 	}
 	
-	public static Mat4 rotation(Quatf q)
+	public static Mat4f rotation(Quatf q)
 	{
-		return new Mat4().initRotation(q);
+		return new Mat4f().initRotation(q);
 	}
 	
-	public static Mat4 rotation(Tup3fR forward, Tup3fR left, Tup3fR up)
+	public static Mat4f rotation(Tup3fR forward, Tup3fR left, Tup3fR up)
 	{
-		return new Mat4().initRotation(forward, left, up);
+		return new Mat4f().initRotation(forward, left, up);
 	}
 	
-	public static Mat4 modelMatrix(Tup3fR pos, Quatf rot, Tup3fR scale)
+	public static Mat4f modelMatrix(Tup3fR pos, Quatf rot, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(pos == null) throw new ArgumentNullException("pos");
 		}
 		
-		return new Mat4().initModelMatrix(pos, rot, scale);
+		return new Mat4f().initModelMatrix(pos, rot, scale);
 	}
 	
-	public static Mat4 viewMatrix(Tup3fR pos, Quatf rot)
+	public static Mat4f viewMatrix(Tup3fR pos, Quatf rot)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -862,53 +862,53 @@ public class Mat4 implements Mat4R
 			if(rot == null) throw new ArgumentNullException("rot");
 		}
 		
-		return new Mat4().initViewMatrix(pos, rot);
+		return new Mat4f().initViewMatrix(pos, rot);
 	}
 	
-	public static Mat4 lookAt(Tup3fR pos, Tup3fR target, Tup3fR up)
+	public static Mat4f lookAt(Tup3fR pos, Tup3fR target, Tup3fR up)
 	{
-		return new Mat4().initLookAt(pos, target, up);
+		return new Mat4f().initLookAt(pos, target, up);
 	} 
 	
-	public Mat4 scale(Tup3fR t)
+	public Mat4f scale(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(t == null) throw new ArgumentNullException("t");
 		}
 		
-		return Mat4.mul(Mat4.scaling(t), this, this);
+		return Mat4f.mul(Mat4f.scaling(t), this, this);
 	}
 	
-	public Mat4 scale(float x, float y, float z)
+	public Mat4f scale(float x, float y, float z)
 	{
-		return Mat4.mul(Mat4.scaling(x, y, z), this, this);
+		return Mat4f.mul(Mat4f.scaling(x, y, z), this, this);
 	}
-	public Mat4 translate(Tup3fR t)
+	public Mat4f translate(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(t == null) throw new ArgumentNullException("t");
 		}
 		
-		return Mat4.mul(Mat4.translation(t), this, this);
+		return Mat4f.mul(Mat4f.translation(t), this, this);
 	}
-	public Mat4 translate(float x, float y, float z)
+	public Mat4f translate(float x, float y, float z)
 	{
-		return Mat4.mul(Mat4.translation(x, y, z), this, this);
+		return Mat4f.mul(Mat4f.translation(x, y, z), this, this);
 	}
-	public Mat4 rotate(Quatf q)
+	public Mat4f rotate(Quatf q)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(q == null) throw new ArgumentNullException("q");
 		}
 		
-		return Mat4.mul(Mat4.rotation(q), this, this);
+		return Mat4f.mul(Mat4f.rotation(q), this, this);
 	}
-	public Mat4 rotate(Tup3fR forward, Tup3fR left, Tup3fR up)
+	public Mat4f rotate(Tup3fR forward, Tup3fR left, Tup3fR up)
 	{
-		return Mat4.mul(Mat4.rotation(forward, left, up), this, this);
+		return Mat4f.mul(Mat4f.rotation(forward, left, up), this, this);
 	}
 	
 	public FloatBuffer toBufferColumnMajor(FloatBuffer res)
@@ -987,7 +987,7 @@ public class Mat4 implements Mat4R
 				this.m[3][0] == 0 && this.m[3][1] == 0 && this.m[3][2] == 0 && this.m[3][3] == 1;
 	}
 
-	public Mat4 invert()
+	public Mat4f invert()
 	{
 		double determinant = determinant();
 		
@@ -1040,7 +1040,7 @@ public class Mat4 implements Mat4R
 		return null;
 	}
 	
-	public Mat4 invertN()
+	public Mat4f invertN()
 	{
 		double determinant = determinant();
 		
@@ -1069,7 +1069,7 @@ public class Mat4 implements Mat4R
 			double _m3z = -MatUtils.det3x3(m[0][0], m[0][1], m[0][3], m[1][0], m[1][1], m[1][3], m[2][0], m[2][1], m[2][3]);
 			double _m3w =  MatUtils.det3x3(m[0][0], m[0][1], m[0][2], m[1][0], m[1][1], m[1][2], m[2][0], m[2][1], m[2][2]);
 
-			Mat4 out = new Mat4();
+			Mat4f out = new Mat4f();
 			
 			// transpose and divide by the determinant
 			out.m[0][0] = (float)(_m0x * determinant_inv);
@@ -1103,8 +1103,8 @@ public class Mat4 implements Mat4R
 			  + "      " + this.m[3][0] + ", " + this.m[3][1] + ", " + this.m[3][2] + ", " + this.m[3][3] + ")";
 	}
 	
-	public Mat4 clone()
+	public Mat4f clone()
 	{
-		return new Mat4(this);
+		return new Mat4f(this);
 	}
 }
