@@ -389,9 +389,9 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 			{
 				if(Math.abs(this.m[r][c]) <= tr)
 					res.setCell(r, c, 0.0f);
-				else if(1.0f - this.m[r][c] <= tr)
+				else if(Math.abs(1.0f - this.m[r][c]) <= tr)
 					res.setCell(r, c, 1.0f);
-				else if(1.0f + this.m[r][c] <= tr)
+				else if(Math.abs(1.0f + this.m[r][c]) <= tr)
 					res.setCell(r, c, -1.0f);
 			}
 		
@@ -417,9 +417,9 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 	
 	public boolean isIdentityMatrix(float tr)
 	{	
-		return  1.0f - this.m[0][0] <= tr		&& Math.abs(this.m[0][1]) <= tr	&& Math.abs(this.m[0][2]) <= tr &&
-				Math.abs(this.m[1][0]) <= tr	&& 1.0f - this.m[1][1] <= tr	&& Math.abs(this.m[1][2]) <= tr &&
-				Math.abs(this.m[2][0]) <= tr	&& Math.abs(this.m[2][1]) <= tr	&& 1.0f - this.m[2][2] <= tr;
+		return  Math.abs(1.0f - this.m[0][0]) <= tr	&& Math.abs(this.m[0][1]) <= tr			&& Math.abs(this.m[0][2]) <= tr &&
+				Math.abs(this.m[1][0]) <= tr		&& Math.abs(1.0f - this.m[1][1]) <= tr	&& Math.abs(this.m[1][2]) <= tr &&
+				Math.abs(this.m[2][0]) <= tr		&& Math.abs(this.m[2][1]) <= tr			&& Math.abs(1.0f - this.m[2][2]) <= tr;
 	}
 	
 	public boolean isRotationMatrix()
