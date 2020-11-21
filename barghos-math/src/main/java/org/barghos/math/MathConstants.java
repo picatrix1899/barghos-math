@@ -70,7 +70,7 @@ interface MathConstants
 	/** 
 	 * This is the precalculated Half-PI (PI / 2). It's used in some trigonomic calculations.
 	 */
-	public static final double HALF_PIf= 1.570796326795f;
+	public static final float HALF_PIf= 1.570796326795f;
 	
 	/**
 	 * This value is a precalculated scalar for conversation from degrees to radians.
@@ -149,6 +149,16 @@ interface MathConstants
 	 * A very small number used for determining if a floating point number is technically zero.
 	 */
 	public static final float SMALL_NUMBER_E8f = 1.e-8f;
+	
+	/**
+	 * A very small number used for determining if a floating point number is technically zero.
+	 */
+	public static final double SMALL_NUMBER_E6 = 1.e-6;
+
+	/**
+	 * A very small number used for determining if a floating point number is technically zero.
+	 */
+	public static final float SMALL_NUMBER_E6f = 1.e-6f;
 	
 	/**
 	 * A very small number used for determining if two floating point numbers

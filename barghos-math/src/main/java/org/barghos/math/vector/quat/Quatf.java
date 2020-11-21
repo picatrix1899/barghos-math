@@ -305,7 +305,7 @@ public class Quatf implements Vec4fR
 		float y_ = this.w * q.getY() + q.getW() * this.y + this.z * q.getX() - this.x * q.getZ(); // s * v'.y + s' * v.y + (V x V').y
 		float z_ = this.w * q.getZ() + q.getW() * this.z + this.x * q.getY() - this.y * q.getX(); // s * v'.z + s' * v.z + (V x V').z
 
-		res.set(w_, x_, y_, z_).normal();
+		res.set(w_, x_, y_, z_);
 
 		return res;
 	}
@@ -336,7 +336,7 @@ public class Quatf implements Vec4fR
 		float y_ =  this.w * v.getY() + this.z * v.getX() - this.x * v.getZ(); // s * v'.y ...
 		float z_ =  this.w * v.getZ() + this.x * v.getY() - this.y * v.getX(); // s * v*.z ...
 
-		res.set(w_, x_, y_, z_).normal();
+		res.set(w_, x_, y_, z_);
 
 		return res;
 	}

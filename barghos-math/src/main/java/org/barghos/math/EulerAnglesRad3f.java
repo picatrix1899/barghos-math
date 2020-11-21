@@ -28,61 +28,61 @@ import org.barghos.math.matrix.Mat3fR;
 import org.barghos.math.vector.quat.Quatf;
 import org.barghos.math.vector.quat.pool.QuatfPool;
 
-public class EulerAngles3f
+public class EulerAnglesRad3f
 {
 	private float pitch;
 	private float yaw;
 	private float roll;
 	
-	public EulerAngles3f()
+	public EulerAnglesRad3f()
 	{
 		set(0.0f, 0.0f, 0.0f);
 	}
 	
-	public EulerAngles3f(EulerAngles3f e)
+	public EulerAnglesRad3f(EulerAnglesRad3f e)
 	{
 		set(e);
 	}
 	
-	public EulerAngles3f(float pitch, float yaw, float roll)
+	public EulerAnglesRad3f(float pitch, float yaw, float roll)
 	{
 		set(pitch, yaw, roll);
 	}
 	
-	public EulerAngles3f(Mat3fR m)
+	public EulerAnglesRad3f(Mat3fR m)
 	{
 		set(m);
 	}
 	
-	public EulerAngles3f set(float pitch, float yaw, float roll) { return setPitch(pitch).setYaw(yaw).setRoll(roll); }
+	public EulerAnglesRad3f set(float pitch, float yaw, float roll) { return setPitch(pitch).setYaw(yaw).setRoll(roll); }
 	
-	public EulerAngles3f set(EulerAngles3f e) { return set(e.getPitch(), e.getYaw(), e.getRoll()); }
+	public EulerAnglesRad3f set(EulerAnglesRad3f e) { return set(e.getPitch(), e.getYaw(), e.getRoll()); }
 	
-	public EulerAngles3f set(Mat3fR m)
+	public EulerAnglesRad3f set(Mat3fR m)
 	{
 		float sy = Maths.sqrt(m.getCell(0, 0) * m.getCell(0,  0) + m.getCell(0, 1) * m.getCell(0, 1));
 		
-		if(!Maths.isZero(sy, Maths.SMALL_NUMBER_E6))
+		if(!Maths.isZero(sy, Maths.SMALL_NUMBER_E4))
 		{
-			this.yaw = Maths.atan2(m.getCell(1, 2), m.getCell(2, 2)) * Maths.RAD_TO_DEGf;
-			this.pitch = Maths.atan2(-m.getCell(0, 2), sy) * Maths.RAD_TO_DEGf;
-			this.roll = Maths.atan2(m.getCell(0, 1), m.getCell(0, 0)) * Maths.RAD_TO_DEGf;
+			this.pitch = Maths.atan2(m.getCell(1, 2), m.getCell(2, 2));
+			this.yaw = Maths.atan2(m.getCell(0, 2), sy);
+			this.roll = Maths.atan2(m.getCell(0, 1), m.getCell(0, 0));
 		}
 		else
 		{
-			this.yaw = Maths.atan2(-m.getCell(2, 1), m.getCell(1, 1)) * Maths.RAD_TO_DEGf;
-			this.pitch = Maths.atan2(-m.getCell(0, 2), sy) * Maths.RAD_TO_DEGf;
-			this.roll = 0.0f * Maths.RAD_TO_DEGf;
+			this.pitch = Maths.atan2(m.getCell(2, 1), m.getCell(1, 1));
+			this.yaw = Maths.atan2(m.getCell(0, 2), sy);
+			this.roll = 0.0f;
 		}
 
 		return this;
 	}
 	
-	public EulerAngles3f setPitch(float pitch) { this.pitch = pitch; return this; }
+	public EulerAnglesRad3f setPitch(float pitch) { this.pitch = pitch; return this; }
 	
-	public EulerAngles3f setYaw(float yaw) { this.yaw = yaw; return this; }
+	public EulerAnglesRad3f setYaw(float yaw) { this.yaw = yaw; return this; }
 	
-	public EulerAngles3f setRoll(float roll) { this.roll = roll; return this; }
+	public EulerAnglesRad3f setRoll(float roll) { this.roll = roll; return this; }
 
 	public float getPitch() { return this.pitch; }
 	

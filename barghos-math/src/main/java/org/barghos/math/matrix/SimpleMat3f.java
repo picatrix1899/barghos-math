@@ -32,6 +32,7 @@ import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.core.tuple3.pool.Tup3fPool;
 import org.barghos.math.BarghosMath;
+import org.barghos.math.LinearSystem3;
 import org.barghos.math.vector.vec3.Vec3f;
 import org.barghos.math.vector.vec3.pool.Vec3fPool;
 
@@ -100,7 +101,19 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		return this.m[row][column];
 	}
 	
-	public Mat3f mul(Mat3fR r, Mat3f res)
+	public SimpleMat3f mul(Mat3fR r)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(r == null) throw new ArgumentNullException("r");
+		}
+		
+		mul(r, this);
+		
+		return this;
+	}
+	
+	public <T extends Mat3fW> T mul(Mat3fR r, T res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -130,9 +143,7 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		{
 			int index = row * COLUMNS;
 			
-			res.m[row][0] = m_[index + 0];
-			res.m[row][1] = m_[index + 1];
-			res.m[row][2] = m_[index + 2];
+			res.setRow(row, m_[index + 0], m_[index + 1], m_[index + 2]);
 		}
 
 		return res;
@@ -165,6 +176,30 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		return res;
 	}
 
+	public LinearSystem3 transform(LinearSystem3 system)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		return transform(system, system);
+	}
+	
+	public LinearSystem3 transform(LinearSystem3 system, LinearSystem3 res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(system == null) throw new ArgumentNullException("system");
+		}
+		
+		Vec3f forward = transform(system.getForward());
+		Vec3f right = transform(system.getRight());
+		Vec3f up = transform(system.getUp());
+		
+		return res.set(up, forward, right);
+	}
+	
 	public <T extends Tup2fR & Tup2fW> T transform(T r, boolean useLastColumn)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)

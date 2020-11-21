@@ -271,4 +271,14 @@ public class Maths implements MathConstants
 	{
 		return (float)Math.sqrt(a);
 	}
+	
+	public static double atan2(double y, double x)
+	{
+		return Math.atan2(y, x);
+	}
+	
+	public static float atan2(float y, float x)
+	{
+		return (float)Math.atan2(y, x);
+	}
 }

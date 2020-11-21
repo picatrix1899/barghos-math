@@ -185,10 +185,10 @@ public class Mat4 implements Mat4R
 	
 	public Mat4 initRotation(Tup3fR forward, Tup3fR left, Tup3fR up)
 	{
-		setRow(0, left, 0.0f);
-		setRow(1, up, 0.0f);
-		setRow(2, forward, 0.0f);
-		setRow(3, 0.0f, 0.0f, 0.0f, 1.0f);
+		setColumn(0, left, 0.0f);
+		setColumn(1, up, 0.0f);
+		setColumn(2, forward, 0.0f);
+		setColumn(3, 0.0f, 0.0f, 0.0f, 1.0f);
 		
 		return this;
 	}
