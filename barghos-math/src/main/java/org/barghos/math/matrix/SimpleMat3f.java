@@ -24,6 +24,8 @@ SOFTWARE.
 
 package org.barghos.math.matrix;
 
+import java.nio.FloatBuffer;
+
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple2.api.Tup2fR;
 import org.barghos.core.tuple2.api.Tup2fW;
@@ -50,7 +52,7 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 	public static final int ROWS = 3;
 	public static final int COLUMNS = 3;
 	
-	public final float[][] m = new float[3][3];
+	public final float[][] m = new float[ROWS][COLUMNS];
 	
 	public SimpleMat3f() { }
 	
@@ -169,9 +171,9 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 			if(res == null) throw new ArgumentNullException("res");
 		}
 	
-		float x_ = m[0][0] * r.getX() + m[0][1] * r.getY() + m[0][2] * r.getZ();
-		float y_ = m[1][0] * r.getX() + m[1][1] * r.getY() + m[1][2] * r.getZ();
-		float z_ = m[2][0] * r.getX() + m[2][1] * r.getY() + m[2][2] * r.getZ();
+		float x_ = this.m[0][0] * r.getX() + this.m[0][1] * r.getY() + this.m[0][2] * r.getZ();
+		float y_ = this.m[1][0] * r.getX() + this.m[1][1] * r.getY() + this.m[1][2] * r.getZ();
+		float z_ = this.m[2][0] * r.getX() + this.m[2][1] * r.getY() + this.m[2][2] * r.getZ();
 
 		res.set(x_, y_, z_);
 
@@ -220,13 +222,13 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 			if(res == null) throw new ArgumentNullException("res");
 		}
 	
-		float x_ = m[0][0] * r.getX() + m[0][1] * r.getY();
-		float y_ = m[1][0] * r.getX() + m[1][1] * r.getY();
+		float x_ = this.m[0][0] * r.getX() + this.m[0][1] * r.getY();
+		float y_ = this.m[1][0] * r.getX() + this.m[1][1] * r.getY();
 
 		if(useLastColumn)
 		{
-			x_ += m[0][2] * 1.0f;
-			y_ += m[1][2] * 1.0f;
+			x_ += this.m[0][2] * 1.0f;
+			y_ += this.m[1][2] * 1.0f;
 		}
 		
 		res.set(x_, y_);
@@ -253,10 +255,7 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		
 		return this;
 	}
-	
-	/*
-	 *
-	 */
+
 	public SimpleMat3f setRow(int index, Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -432,6 +431,62 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		Mat3f t = transpose(new Mat3f());
 
 		return !isIdentityMatrix(tr) && mul(t, t).isIdentityMatrix(tr);
+	}
+	
+	public FloatBuffer toBufferColumnMajor(FloatBuffer res)
+	{
+		for(int i = 0; i < COLUMNS; i++)
+		{
+			res.put(this.m[0][i]);
+			res.put(this.m[1][i]);
+			res.put(this.m[2][i]);
+		}
+		
+		res.flip();
+		
+		return res;
+	}
+	
+	public FloatBuffer toBufferRowMajor(FloatBuffer res)
+	{
+		for(int i = 0; i < ROWS; i++)
+		{
+			res.put(this.m[i][0]);
+			res.put(this.m[i][1]);
+			res.put(this.m[i][2]);
+		}
+		
+		res.flip();
+		
+		return res;
+	}
+	
+	public float[] toArrayColumnMajor()
+	{
+		float[] out = new float[ROWS * COLUMNS];
+
+		for(int i = 0; i < COLUMNS; i++)
+		{
+			out[i * ROWS + 0] = this.m[0][i];
+			out[i * ROWS + 1] = this.m[1][i];
+			out[i * ROWS + 2] = this.m[2][i];
+		}
+
+		return out;		
+	}
+	
+	public float[] toArrayRowMajor()
+	{
+		float[] out = new float[ROWS * COLUMNS];
+		
+		for(int i = 0; i < ROWS; i++)
+		{
+			out[i * COLUMNS + 0] = this.m[i][0];
+			out[i * COLUMNS + 1] = this.m[i][1];
+			out[i * COLUMNS + 2] = this.m[i][2];
+		}
+
+		return out;		
 	}
 	
 	public String toString()

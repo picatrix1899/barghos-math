@@ -115,8 +115,8 @@ public class Vec4f implements Vec4fR, Tup4fW
 	public Vec4f invert() { return set(-this.x, -this.y, -this.z, -this.w); }
 	public Vec4f invert(@Nullable Vec4f res) { if(res == null) res = new Vec4f(); return res.set(-this.x, -this.y, -this.z, -this.w); }
 	
-	public double dot(Tup4fR t) { if(t == null) throw new ArgumentNullException("t"); return dot(t.getX(), t.getY(), t.getZ(), t.getW()); }
-	public double dot(float x, float y, float z, float w) { return this.x * x + this.y * y + this.z * z + this.w * w; }
+	public float dot(Tup4fR t) { if(t == null) throw new ArgumentNullException("t"); return dot(t.getX(), t.getY(), t.getZ(), t.getW()); }
+	public float dot(float x, float y, float z, float w) { return this.x * x + this.y * y + this.z * z + this.w * w; }
 	
 	public Vec4f snapToGrid(Tup4fR grid) { if(grid == null) throw new ArgumentNullException("t"); return snapToGrid(grid.getX(), grid.getY(), grid.getZ(), grid.getW()); }
 	public Vec4f snapToGrid(float gx, float gy, float gz, float gw) { return set(Maths.gridSnap(this.x, gx), Maths.gridSnap(this.y, gy), Maths.gridSnap(this.z, gz), Maths.gridSnap(this.w, gw)); }

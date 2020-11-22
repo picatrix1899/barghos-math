@@ -24,14 +24,15 @@ SOFTWARE.
 
 package org.barghos.math.matrix.api;
 
-import org.barghos.core.tuple2.api.Tup2fR;
-import org.barghos.core.tuple2.api.Tup2fW;
+import java.nio.FloatBuffer;
+
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.core.tuple4.Tup4f;
 import org.barghos.core.tuple4.api.Tup4fR;
 import org.barghos.core.tuple4.api.Tup4fW;
-import org.barghos.math.matrix.Mat4f;
+import org.barghos.core.tuple4.pool.Tup4fPool;
+import org.barghos.math.matrix.MatUtils;
 
 /**
  * @author picatrix1899
@@ -39,22 +40,58 @@ import org.barghos.math.matrix.Mat4f;
  */
 public interface Mat4fR
 {
-
-	Tup4f getRow(int index);
-	Tup4f getColumn(int index);
+	Tup4fR getRow(int index);
+	
+	Tup4fR getColumn(int index);
 	
 	float getCell(int row, int column);
 	
 	<T extends Tup4fW> T getRow(int index, T res);
+	
 	<T extends Tup4fW> T getColumn(int index, T res);
 	
-	float determinant();
+	default float determinant()
+	{
+		Tup4f r0 = getRow(0, Tup4fPool.get());
+		Tup4f r1 = getRow(1, Tup4fPool.get());
+		Tup4f r2 = getRow(2, Tup4fPool.get());
+		Tup4f r3 = getRow(3, Tup4fPool.get());
+		
+		float det = MatUtils.det4x4f(r0, r1, r2, r3);
+		
+		Tup4fPool.store(r0, r1, r2, r3);
+		
+		return det;
+	}
 	
-	Mat4f mul(Mat4f r, Mat4f res);
+	<T extends Mat4fW> T mul(Mat4fR r, T res);
 	
 	<T extends Tup4fR & Tup4fW> T transform(T r);
+	
 	<T extends Tup4fW> T transform(Tup4fR r, T res);
-	<T extends Tup3fR & Tup3fW> T transform(T r);
-	<T extends Tup3fW> T transform(Tup3fR r, T res);
-	<T extends Tup2fW> T transform(Tup2fR r, T res);
+	
+	<T extends Tup3fR & Tup3fW> T transform(T r, boolean useLastColumn);
+	
+	<T extends Tup3fW> T transform(Tup3fR r, boolean useLastColumn, T res);
+	
+	boolean isZeroMatrix();
+	
+	boolean isZeroMatrix(float tr);
+	
+	boolean isIdentityMatrix();
+	
+	boolean isIdentityMatrix(float tr);
+	
+	boolean isRotationMatrix();
+	
+	boolean isRotationMatrix(float tr);
+	
+	FloatBuffer toBufferColumnMajor(FloatBuffer res);
+
+	FloatBuffer toBufferRowMajor(FloatBuffer res);
+
+	float[] toArrayColumnMajor();
+	
+	float[] toArrayRowMajor();
+
 }

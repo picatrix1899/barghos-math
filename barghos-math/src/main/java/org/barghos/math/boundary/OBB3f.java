@@ -135,9 +135,9 @@ public class OBB3f implements FiniteGeometricObject3f
 			Vec3f msY = Vec3fPool.get();
 			Vec3f msZ = Vec3fPool.get();
 			
-			this.rotation.transform(Vec3fAxis.AXIS_X, msX);
-			this.rotation.transform(Vec3fAxis.AXIS_Y, msY);
-			this.rotation.transform(Vec3fAxis.AXIS_Z, msZ);
+			this.rotation.transform(Vec3fAxis.AXIS_X, false, msX);
+			this.rotation.transform(Vec3fAxis.AXIS_Y, false, msY);
+			this.rotation.transform(Vec3fAxis.AXIS_Z, false, msZ);
 			
 			Mat4f m = Mat4f.identity();
 			m.setRow(0, msX.getX(), msX.getY(), msX.getZ(), 0);
@@ -163,9 +163,9 @@ public class OBB3f implements FiniteGeometricObject3f
 			Vec3f msY = Vec3fPool.get();
 			Vec3f msZ = Vec3fPool.get();
 			
-			this.rotation.transform(Vec3fAxis.AXIS_X, msX);
-			this.rotation.transform(Vec3fAxis.AXIS_Y, msY);
-			this.rotation.transform(Vec3fAxis.AXIS_Z, msZ);
+			this.rotation.transform(Vec3fAxis.AXIS_X, false, msX);
+			this.rotation.transform(Vec3fAxis.AXIS_Y, false, msY);
+			this.rotation.transform(Vec3fAxis.AXIS_Z, false, msZ);
 			
 			Mat4f m = Mat4f.identity();
 			m.setRow(0, msX.getX(), msX.getY(), msX.getZ(), 0);

@@ -179,12 +179,12 @@ public class Transform3f implements ITransform3f
 	
 	public Mat4f getTranslationMatrix4f()
 	{
-		return Mat4f.translation(this.position);
+		return Mat4f.translation3D(this.position);
 	}
 	
 	public Mat4f getTranslationMatrix4f(Mat4f res)
 	{
-		return res.initTranslation(this.position);
+		return res.initTranslation3D(this.position);
 	}
 	
 	public Mat3f getScaleMatrix3f()

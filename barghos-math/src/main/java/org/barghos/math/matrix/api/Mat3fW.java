@@ -34,13 +34,19 @@ import org.barghos.core.tuple3.api.Tup3fR;
 public interface Mat3fW
 {
 	Mat3fW setRow(int index, Tup3fR t);
+	
 	Mat3fW setRow(int index, Tup2fR t, float z);
+	
 	Mat3fW setRow(int index, float x, Tup2fR t);
+	
 	Mat3fW setRow(int index, float x, float y, float z);
 
 	Mat3fW setColumn(int index, Tup3fR t);
+	
 	Mat3fW setColumn(int index, Tup2fR t, float z);
+	
 	Mat3fW setColumn(int index, float x, Tup2fR t);
+	
 	Mat3fW setColumn(int index, float x, float y, float z);
 	
 	Mat3fW setCell(int row, int column, float value);

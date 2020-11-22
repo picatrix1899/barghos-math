@@ -24,6 +24,8 @@ SOFTWARE.
 
 package org.barghos.math.matrix.api;
 
+import java.nio.FloatBuffer;
+
 import org.barghos.core.tuple2.api.Tup2fR;
 import org.barghos.core.tuple2.api.Tup2fW;
 import org.barghos.core.tuple3.Tup3f;
@@ -31,6 +33,7 @@ import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.core.tuple3.pool.Tup3fPool;
 import org.barghos.math.matrix.MatUtils;
+import org.barghos.math.utils.LinearSystem3;
 
 /**
  * @author picatrix1899
@@ -39,11 +42,13 @@ import org.barghos.math.matrix.MatUtils;
 public interface Mat3fR
 {
 	Tup3fR getRow(int index);
+	
 	Tup3fR getColumn(int index);
 	
 	float getCell(int row, int column);
 	
 	<T extends Tup3fW> T getRow(int index, T res);
+	
 	<T extends Tup3fW> T getColumn(int index, T res);
 	
 	default float determinant()
@@ -62,19 +67,34 @@ public interface Mat3fR
 	<T extends Mat3fW> T mul(Mat3fR r, T res);
 	
 	<T extends Tup3fR & Tup3fW> T transform(T r);
-	<T extends Tup2fR & Tup2fW> T transform(T r, boolean useLastColumn);
+	
 	<T extends Tup3fW> T transform(Tup3fR r, T res);
+	
+	<T extends Tup2fR & Tup2fW> T transform(T r, boolean useLastColumn);
+	
 	<T extends Tup2fW> T transform(Tup2fR r, boolean useLastColumn, T res);
 	
-	public boolean isZeroMatrix();
+	LinearSystem3 transform(LinearSystem3 system);
+
+	LinearSystem3 transform(LinearSystem3 system, LinearSystem3 res);
 	
-	public boolean isZeroMatrix(float tr);
+	boolean isZeroMatrix();
 	
-	public boolean isIdentityMatrix();
+	boolean isZeroMatrix(float tr);
 	
-	public boolean isIdentityMatrix(float tr);
+	boolean isIdentityMatrix();
 	
-	public boolean isRotationMatrix();
+	boolean isIdentityMatrix(float tr);
 	
-	public boolean isRotationMatrix(float tr);
+	boolean isRotationMatrix();
+	
+	boolean isRotationMatrix(float tr);
+	
+	FloatBuffer toBufferColumnMajor(FloatBuffer res);
+
+	FloatBuffer toBufferRowMajor(FloatBuffer res);
+
+	float[] toArrayColumnMajor();
+
+	float[] toArrayRowMajor();
 }

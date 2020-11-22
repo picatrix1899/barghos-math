@@ -24,6 +24,9 @@ SOFTWARE.
 
 package org.barghos.math.matrix.api;
 
+import org.barghos.core.tuple2.api.Tup2fR;
+import org.barghos.core.tuple3.api.Tup3fR;
+import org.barghos.core.tuple4.api.Tup4fR;
 
 /**
  * @author picatrix1899
@@ -31,5 +34,33 @@ package org.barghos.math.matrix.api;
  */
 public interface Mat4fW
 {
+	Mat4fW setRow(int index, Tup4fR t);
+	
+	Mat4fW setRow(int index, Tup3fR t, float w);
+	
+	Mat4fW setRow(int index, float x, Tup3fR t);
+	
+	Mat4fW setRow(int index, Tup2fR t, float z, float w);
+	
+	Mat4fW setRow(int index, float x, Tup2fR t, float w);
+	
+	Mat4fW setRow(int index, float x, float y, Tup2fR t);
+	
+	Mat4fW setRow(int index, float x, float y, float z, float w);
 
+	Mat4fW setColumn(int index, Tup4fR t);
+	
+	Mat4fW setColumn(int index, Tup3fR t, float w);
+	
+	Mat4fW setColumn(int index, float x, Tup3fR t);
+	
+	Mat4fW setColumn(int index, Tup2fR t, float z, float w);
+	
+	Mat4fW setColumn(int index, float x, Tup2fR t, float w);
+	
+	Mat4fW setColumn(int index, float x, float y, Tup2fR t);
+	
+	Mat4fW setColumn(int index, float x, float y, float z, float w);
+	
+	Mat4fW setCell(int row, int column, float value);
 }

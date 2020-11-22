@@ -65,7 +65,87 @@ public class Mat3f extends SimpleMat3f
 			if(m == null) throw new ArgumentNullException("m");
 		}
 		
-		super.set(m); return this;
+		super.set(m);
+		
+		return this;
+	}
+	
+	public Mat3f setRow(int index, Tup3fR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(index < 0 || index >= ROWS) throw new IndexOutOfBoundsException();
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		super.setRow(index, t);
+		
+		return this;
+	}
+	
+	public Mat3f setRow(int index, Tup2fR t, float z)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(index < 0 || index >= ROWS) throw new IndexOutOfBoundsException();
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		super.setRow(index, t, z);
+		
+		return this;
+	}
+	
+	public Mat3f setRow(int index, float x, Tup2fR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(index < 0 || index >= ROWS) throw new IndexOutOfBoundsException();
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		super.setRow(index, x, t);
+		
+		return this;
+	}
+	
+	public Mat3f setColumn(int index, Tup3fR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(index < 0 || index >= COLUMNS) throw new IndexOutOfBoundsException();
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		super.setColumn(index, t);
+		
+		return this;
+	}
+	
+	public Mat3f setColumn(int index, Tup2fR t, float z)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(index < 0 || index >= COLUMNS) throw new IndexOutOfBoundsException();
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		super.setColumn(index, t, z);
+		
+		return this;
+	}
+	
+	public Mat3f setColumn(int index, float x, Tup2fR t)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(index < 0 || index >= COLUMNS) throw new IndexOutOfBoundsException();
+			if(t == null) throw new ArgumentNullException("t");
+		}
+		
+		super.setColumn(index, x, t);
+		
+		return this;
 	}
 	
 	public Mat3f initIdentity()
@@ -741,72 +821,7 @@ public class Mat3f extends SimpleMat3f
 	{
 		return super.transpose(this);
 	}
-	
-	public static Point2f transform(Mat3f l, Point2f r, Point2f res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(l == null) throw new ArgumentNullException("l");
-			if(r == null) throw new ArgumentNullException("r");
-			if(res == null) throw new ArgumentNullException("res");
-		}
 		
-		float x_ = l.m[0][0] * r.getX() + l.m[0][1] * r.getY() + l.m[0][2] * 1;
-		float y_ = l.m[1][0] * r.getX() + l.m[1][1] * r.getY() + l.m[1][2] * 1;
-
-		res.set(x_, y_);
-
-		return res;
-	}
-	
-	public static Vec2f transform(Mat3f l, Vec2f r, Vec2f res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(l == null) throw new ArgumentNullException("l");
-			if(r == null) throw new ArgumentNullException("r");
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
-		float x_ = l.m[0][0] * r.getX() + l.m[0][1] * r.getY();
-		float y_ = l.m[1][0] * r.getX() + l.m[1][1] * r.getY();
-
-		res.set(x_, y_);
-
-		return res;
-	}
-	
-	public static <T extends Tup3fW> T transform(Mat3f l, Tup3fR r, T res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(l == null) throw new ArgumentNullException("l");
-			if(r == null) throw new ArgumentNullException("r");
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
-		float x_ = l.m[0][0] * r.getX() + l.m[0][1] * r.getY() + l.m[0][2] * r.getZ();
-		float y_ = l.m[1][0] * r.getX() + l.m[1][1] * r.getY() + l.m[1][2] * r.getZ();
-		float z_ = l.m[2][0] * r.getX() + l.m[2][1] * r.getY() + l.m[2][2] * r.getZ();
-
-		res.set(x_, y_, z_);
-
-		return res;
-	}
-	
-	public static <T extends Tup3fR & Tup3fW> T transform(Mat3f l, T r)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(l == null) throw new ArgumentNullException("l");
-			if(r == null) throw new ArgumentNullException("r");
-		}
-		
-		return Mat3f.transform(l, r, r);
-	}
-	
-
-	
 	public Point2f transform(Point2f r)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -822,6 +837,7 @@ public class Mat3f extends SimpleMat3f
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(r == null) throw new ArgumentNullException("r");
+			if(res == null) throw new ArgumentNullException("res");
 		}
 		
 		return Mat3f.transform(this, r, res);
@@ -842,12 +858,11 @@ public class Mat3f extends SimpleMat3f
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(r == null) throw new ArgumentNullException("r");
+			if(res == null) throw new ArgumentNullException("res");
 		}
 		
 		return Mat3f.transform(this, r, res);
 	}
-	
-	
 	
 	public Mat3f scale3D(Tup3fR t)
 	{
@@ -1166,6 +1181,69 @@ public class Mat3f extends SimpleMat3f
 		l.mul(r, res);
 		
 		return res;
+	}
+	
+	public static Point2f transform(Mat3f l, Point2f r, Point2f res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(l == null) throw new ArgumentNullException("l");
+			if(r == null) throw new ArgumentNullException("r");
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		float x_ = l.m[0][0] * r.getX() + l.m[0][1] * r.getY() + l.m[0][2] * 1;
+		float y_ = l.m[1][0] * r.getX() + l.m[1][1] * r.getY() + l.m[1][2] * 1;
+
+		res.set(x_, y_);
+
+		return res;
+	}
+	
+	public static Vec2f transform(Mat3f l, Vec2f r, Vec2f res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(l == null) throw new ArgumentNullException("l");
+			if(r == null) throw new ArgumentNullException("r");
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		float x_ = l.m[0][0] * r.getX() + l.m[0][1] * r.getY();
+		float y_ = l.m[1][0] * r.getX() + l.m[1][1] * r.getY();
+
+		res.set(x_, y_);
+
+		return res;
+	}
+	
+	public static <T extends Tup3fW> T transform(Mat3f l, Tup3fR r, T res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(l == null) throw new ArgumentNullException("l");
+			if(r == null) throw new ArgumentNullException("r");
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		float x_ = l.m[0][0] * r.getX() + l.m[0][1] * r.getY() + l.m[0][2] * r.getZ();
+		float y_ = l.m[1][0] * r.getX() + l.m[1][1] * r.getY() + l.m[1][2] * r.getZ();
+		float z_ = l.m[2][0] * r.getX() + l.m[2][1] * r.getY() + l.m[2][2] * r.getZ();
+
+		res.set(x_, y_, z_);
+
+		return res;
+	}
+	
+	public static <T extends Tup3fR & Tup3fW> T transform(Mat3f l, T r)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(l == null) throw new ArgumentNullException("l");
+			if(r == null) throw new ArgumentNullException("r");
+		}
+		
+		return Mat3f.transform(l, r, r);
 	}
 	
 	public static Mat3f identity()
