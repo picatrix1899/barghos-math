@@ -26,6 +26,7 @@ package org.barghos.math.utils;
 
 import org.barghos.math.BarghosMath;
 import org.barghos.math.matrix.Mat3f;
+import org.barghos.math.matrix.Mat4f;
 import org.barghos.math.matrix.api.Mat3fR;
 import org.barghos.math.quat.Quatf;
 import org.barghos.math.quat.pool.QuatfPool;
@@ -216,6 +217,16 @@ public class EulerAngles3f
 	}
 	
 	public Mat3f toRotationMatrix3f(Mat3f res)
+	{
+		return res.initRotation3D(this);
+	}
+	
+	public Mat4f toRotationMatrix4f()
+	{
+		return toRotationMatrix4f(new Mat4f());
+	}
+	
+	public Mat4f toRotationMatrix4f(Mat4f res)
 	{
 		return res.initRotation3D(this);
 	}

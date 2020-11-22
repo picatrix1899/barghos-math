@@ -981,9 +981,9 @@ public class Mat4f extends SimpleMat4f
 
 		initIdentity();
 		
-		rotate3D(t.getOrientation());
-		translate3D(t.getPosition());
-		scale3D(t.getScale());
+		rotate3D(t.getRelativeOrientation());
+		translate3D(t.getRelativePosition());
+		scale3D(t.getRelativeScale());
 
 		return this;
 	}

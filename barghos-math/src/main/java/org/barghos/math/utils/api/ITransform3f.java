@@ -25,6 +25,7 @@ SOFTWARE.
 package org.barghos.math.utils.api;
 
 import org.barghos.core.tuple3.api.Tup3fW;
+import org.barghos.math.matrix.Mat4f;
 import org.barghos.math.point.Point3f;
 import org.barghos.math.utils.EulerAngles3f;
 import org.barghos.math.vec3.Vec3f;
@@ -35,9 +36,11 @@ import org.barghos.math.vec3.Vec3f;
  */
 public interface ITransform3f
 {
-	Point3f getPosition();
-	<T extends Tup3fW> T getPosition(T w);
-	EulerAngles3f getOrientation();
-	Vec3f getScale();
-	<T extends Tup3fW> T getScale(T w);
+	Point3f getRelativePosition();
+	<T extends Tup3fW> T getRelativePosition(T w);
+	EulerAngles3f getRelativeOrientation();
+	Vec3f getRelativeScale();
+	<T extends Tup3fW> T getRelativeScale(T w);
+	
+	Mat4f getAbsoluteTransformationMatrix4f();
 }
