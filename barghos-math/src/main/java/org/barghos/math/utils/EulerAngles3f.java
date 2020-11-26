@@ -24,15 +24,18 @@ SOFTWARE.
 
 package org.barghos.math.utils;
 
+import org.barghos.core.tuple3.api.Tup3fR;
+import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.matrix.Mat3f;
 import org.barghos.math.matrix.Mat4f;
 import org.barghos.math.matrix.api.Mat3fR;
+import org.barghos.math.matrix.api.Mat4fR;
 import org.barghos.math.quat.Quatf;
 import org.barghos.math.quat.pool.QuatfPool;
 import org.barghos.math.utils.api.EulerRotationOrder3;
 
-public class EulerAngles3f
+public class EulerAngles3f implements Tup3fR, Tup3fW
 {
 	private float pitch;
 	private float yaw;
@@ -43,7 +46,7 @@ public class EulerAngles3f
 		set(0.0f, 0.0f, 0.0f);
 	}
 	
-	public EulerAngles3f(EulerAngles3f e)
+	public EulerAngles3f(Tup3fR e)
 	{
 		set(e);
 	}
@@ -58,14 +61,19 @@ public class EulerAngles3f
 		set(m);
 	}
 	
+	public EulerAngles3f(Mat4fR m)
+	{
+		set(m);
+	}
+	
 	public EulerAngles3f set(float pitch, float yaw, float roll)
 	{
 		return setPitch(pitch).setYaw(yaw).setRoll(roll);
 	}
 	
-	public EulerAngles3f set(EulerAngles3f e)
+	public EulerAngles3f set(Tup3fR e)
 	{
-		return set(e.getPitch(), e.getYaw(), e.getRoll());
+		return set(e.getX(), e.getY(), e.getZ());
 	}
 	
 	public EulerAngles3f set(Mat3fR m)
@@ -74,18 +82,43 @@ public class EulerAngles3f
 		
 		if(!Maths.isZero(sy, Maths.SMALL_NUMBER_E6))
 		{
-			this.yaw = Maths.atan2(m.getCell(1, 2), m.getCell(2, 2)) * Maths.RAD_TO_DEGf;
-			this.pitch = Maths.atan2(-m.getCell(0, 2), sy) * Maths.RAD_TO_DEGf;
+			this.pitch = Maths.atan2(m.getCell(1, 2), m.getCell(2, 2)) * Maths.RAD_TO_DEGf;
+			this.yaw = Maths.atan2(-m.getCell(0, 2), sy) * Maths.RAD_TO_DEGf;
 			this.roll = Maths.atan2(m.getCell(0, 1), m.getCell(0, 0)) * Maths.RAD_TO_DEGf;
 		}
 		else
 		{
-			this.yaw = Maths.atan2(-m.getCell(2, 1), m.getCell(1, 1)) * Maths.RAD_TO_DEGf;
-			this.pitch = Maths.atan2(-m.getCell(0, 2), sy) * Maths.RAD_TO_DEGf;
+			this.pitch = Maths.atan2(-m.getCell(2, 1), m.getCell(1, 1)) * Maths.RAD_TO_DEGf;
+			this.yaw = Maths.atan2(-m.getCell(0, 2), sy) * Maths.RAD_TO_DEGf;
 			this.roll = 0.0f * Maths.RAD_TO_DEGf;
 		}
 
 		return this;
+	}
+	
+	public EulerAngles3f set(Mat4fR m)
+	{
+		float sy = Maths.sqrt(m.getCell(0, 0) * m.getCell(0,  0) + m.getCell(0, 1) * m.getCell(0, 1));
+		
+		if(!Maths.isZero(sy, Maths.SMALL_NUMBER_E6))
+		{
+			this.pitch = Maths.atan2(m.getCell(1, 2), m.getCell(2, 2)) * Maths.RAD_TO_DEGf;
+			this.yaw = Maths.atan2(-m.getCell(0, 2), sy) * Maths.RAD_TO_DEGf;
+			this.roll = Maths.atan2(m.getCell(0, 1), m.getCell(0, 0)) * Maths.RAD_TO_DEGf;
+		}
+		else
+		{
+			this.pitch = Maths.atan2(-m.getCell(2, 1), m.getCell(1, 1)) * Maths.RAD_TO_DEGf;
+			this.yaw = Maths.atan2(-m.getCell(0, 2), sy) * Maths.RAD_TO_DEGf;
+			this.roll = 0.0f * Maths.RAD_TO_DEGf;
+		}
+
+		return this;
+	}
+	
+	public EulerAngles3f set(float value)
+	{
+		return setPitch(value).setYaw(value).setRoll(value);
 	}
 	
 	public EulerAngles3f setPitch(float pitch)
@@ -109,6 +142,27 @@ public class EulerAngles3f
 		return this;
 	}
 
+	public EulerAngles3f setX(float pitch)
+	{
+		this.pitch = pitch;
+		
+		return this;
+	}
+	
+	public EulerAngles3f setY(float yaw)
+	{
+		this.yaw = yaw;
+		
+		return this;
+	}
+	
+	public EulerAngles3f setZ(float roll)
+	{
+		this.roll = roll;
+		
+		return this;
+	}
+	
 	public float getPitch()
 	{
 		return this.pitch;
@@ -124,6 +178,21 @@ public class EulerAngles3f
 		return this.roll;
 	}
 
+	public float getX()
+	{
+		return this.pitch;
+	}
+	
+	public float getY()
+	{
+		return this.yaw;
+	}
+
+	public float getZ()
+	{
+		return this.roll;
+	}
+	
 	public Quatf getPitchRotation(LinearSystem3 system, Quatf res)
 	{
 		if(res == null) res = new Quatf();
@@ -211,6 +280,21 @@ public class EulerAngles3f
 		this.roll += roll;
 	}
 	
+	public EulerAngles3f invert()
+	{
+		return invert(this);
+	}
+	
+	public EulerAngles3f invert(EulerAngles3f res)
+	{
+		return res.set(-this.pitch, -this.yaw, -this.roll);
+	}
+	
+	public EulerAngles3f invertN()
+	{
+		return new EulerAngles3f(-this.pitch, -this.yaw, -this.roll);
+	}
+	
 	public Mat3f toRotationMatrix3f()
 	{
 		return toRotationMatrix3f(new Mat3f());
@@ -229,6 +313,11 @@ public class EulerAngles3f
 	public Mat4f toRotationMatrix4f(Mat4f res)
 	{
 		return res.initRotation3D(this);
+	}
+	
+	public EulerAngles3f clone()
+	{
+		return new EulerAngles3f(this);
 	}
 	
 	public String toString()

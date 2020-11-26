@@ -179,8 +179,23 @@ public class EulerAnglesRad3f
 		this.roll += roll;
 	}
 	
+	public EulerAnglesRad3f invert()
+	{
+		return invert(this);
+	}
+	
+	public EulerAnglesRad3f invert(EulerAnglesRad3f res)
+	{
+		return res.set(-this.pitch, -this.yaw, -this.roll);
+	}
+	
+	public EulerAnglesRad3f invertN()
+	{
+		return new EulerAnglesRad3f(-this.pitch, -this.yaw, -this.roll);
+	}
+	
 	public String toString()
 	{
-		return "eulerAngles3f(pitch=" + this.pitch + "f, yaw=" + this.yaw + "f, roll=" + this.roll + "f)";
+		return "eulerAnglesRad3f(pitch=" + this.pitch + "f, yaw=" + this.yaw + "f, roll=" + this.roll + "f)";
 	}
 }

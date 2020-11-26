@@ -105,56 +105,67 @@ public class SimpleMat4f implements Mat4fR, Mat4fW
 		return this.m[row][column];
 	}
 	
-	public SimpleMat4f mul(Mat4fR r)
+	public SimpleMat4f mul(Mat4fR left)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
-			if(r == null) throw new ArgumentNullException("r");
+			if(left == null) throw new ArgumentNullException("left");
 		}
 		
-		mul(r, this);
+		mul(left, this);
 		
 		return this;
 	}
 	
-	public <T extends Mat4fW> T mul(Mat4fR r, T res)
+	/**
+	 * Multiplies the current Matrix with another Matrix.
+	 * Import is that the call for a multiplication AB is B.mul(A).
+	 * This is to allow easier chaining of multiplications without nesting method calls.
+	 */
+	public <T extends Mat4fW> T mul(Mat4fR left, T res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
-			if(r == null) throw new ArgumentNullException("r");
+			if(left == null) throw new ArgumentNullException("left");
 			if(res == null) throw new ArgumentNullException("res");
 		}
 		
-		float[] m_ = new float[ROWS * COLUMNS];
+		float[][] m_ = new float[ROWS][COLUMNS];
 		
 		Vec4f rw = Vec4fPool.get();
 		Vec4f cl = Vec4fPool.get();
 
 		for(int row = 0; row < ROWS; row++)
 		{
-			getRow(row, rw);
-			
-			int index = row * COLUMNS;
-			
-			m_[index + 0] = rw.dot(r.getColumn(0, cl));
-			m_[index + 1] = rw.dot(r.getColumn(1, cl));
-			m_[index + 2] = rw.dot(r.getColumn(2, cl));
-			m_[index + 3] = rw.dot(r.getColumn(3, cl));
+			left.getRow(row, rw);
+
+			m_[row][0] = rw.dot(getColumn(0, cl));
+			m_[row][1] = rw.dot(getColumn(1, cl));
+			m_[row][2] = rw.dot(getColumn(2, cl));
+			m_[row][3] = rw.dot(getColumn(3, cl));
 		}
 		
 		Vec4fPool.store(rw, cl);
 		
 		for(int row = 0; row < ROWS; row++)
 		{
-			int index = row * COLUMNS;
-			
-			res.setRow(row, m_[index + 0], m_[index + 1], m_[index + 2], m_[index + 3]);
+			res.setRow(row, m_[row][0], m_[row][1], m_[row][2], m_[row][3]);
 		}
 
 		return res;
 	}
 
-		public <T extends Tup4fR & Tup4fW> T transform(T r)
+	public SimpleMat4f mulN(Mat4fR left)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(left == null) throw new ArgumentNullException("left");
+		}
+		
+		return mul(left, new SimpleMat4f());
+	}
+	
+	public <T extends Tup4fR & Tup4fW> T transform(T r)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{

@@ -24,16 +24,12 @@ SOFTWARE.
 
 package org.barghos.math.utils.api;
 
-import org.barghos.math.quat.Quatf;
-import org.barghos.math.vec3.Vec3f;
 
 /**
  * @author picatrix1899
  *
  */
-public interface IMovingTransform3f extends ITransform3f
+public interface Transformable3f
 {
-	Vec3f getVelocity();
-	Quatf getRotation();
-	Vec3f getScaling();
+	Transform3f getTransform();
 }
