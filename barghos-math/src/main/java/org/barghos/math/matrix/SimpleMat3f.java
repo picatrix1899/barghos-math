@@ -201,7 +201,7 @@ public class SimpleMat3f implements Mat3fR, Mat3fW
 		Vec3f right = transform(system.getRight());
 		Vec3f up = transform(system.getUp());
 		
-		return res.set(up, forward, right);
+		return res.set(forward, right, up);
 	}
 	
 	public <T extends Tup2fR & Tup2fW> T transform(T r, boolean useLastColumn)

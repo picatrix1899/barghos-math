@@ -1066,10 +1066,10 @@ public class Mat4f extends SimpleMat4f
 			if(system == null) throw new ArgumentNullException("system");
 		}
 		
-		setColumn(0, system.getLeft(), 0.0f);
-		setColumn(1, system.getUp(), 0.0f);
-		setColumn(2, system.getForward(), 0.0f);
-		setColumn(3, 0.0f, 0.0f, 0.0f, 1.0f);
+		setRow(0, system.getRight(), 0.0f);
+		setRow(1, system.getUp(), 0.0f);
+		setRow(2, system.getForward(), 0.0f);
+		setRow(3, 0.0f, 0.0f, 0.0f, 1.0f);
 		
 		return this;
 	}
@@ -1263,6 +1263,79 @@ public class Mat4f extends SimpleMat4f
 		
 		initTranslation3D(-posX, -posY, -posZ);
 		applyRotation3D(rot.conjugate(new Quatf()));
+		
+		return this;
+	}
+	
+	public Mat4f initViewMatrix(Tup3fR pos, LinearSystem3 orientation)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(pos == null) throw new ArgumentNullException("pos");
+			if(orientation == null) throw new ArgumentNullException("orientation");
+		}
+		
+		initTranslation3D(-pos.getX(), -pos.getY(), -pos.getZ());
+		
+		Quatf q = new Quatf(Mat4f.rotation3D(orientation));
+		
+		applyRotation3D(q.conjugate());
+		
+		return this;
+	}
+	
+	public Mat4f initViewMatrix(float posX, float posY, float posZ, LinearSystem3 orientation)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(orientation == null) throw new ArgumentNullException("orientation");
+		}
+		
+		initTranslation3D(-posX, -posZ, -posZ);
+		
+		EulerAngles3f angles = new EulerAngles3f(Mat4f.rotation3D(orientation));
+		angles.invert();
+		
+		applyRotation3D(angles);
+		
+		return this;
+	}
+	
+	public Mat4f initViewMatrix(Tup3fR pos, Tup3fR forward, Tup3fR right, Tup3fR up)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(pos == null) throw new ArgumentNullException("pos");
+			if(forward == null) throw new ArgumentNullException("forward");
+			if(right == null) throw new ArgumentNullException("right");
+			if(up == null) throw new ArgumentNullException("up");
+		}
+		
+		initTranslation3D(-pos.getX(), -pos.getY(), -pos.getZ());
+		
+		EulerAngles3f angles = new EulerAngles3f(Mat4f.rotation3D(forward, right, up));
+		angles.invert();
+		
+		applyRotation3D(angles);
+		
+		return this;
+	}
+	
+	public Mat4f initViewMatrix(float posX, float posY, float posZ, Tup3fR forward, Tup3fR right, Tup3fR up)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(forward == null) throw new ArgumentNullException("forward");
+			if(right == null) throw new ArgumentNullException("right");
+			if(up == null) throw new ArgumentNullException("up");
+		}
+		
+		initTranslation3D(-posX, -posZ, -posZ);
+		
+		EulerAngles3f angles = new EulerAngles3f(Mat4f.rotation3D(forward, right, up));
+		angles.invert();
+		
+		applyRotation3D(angles);
 		
 		return this;
 	}
@@ -2123,6 +2196,52 @@ public class Mat4f extends SimpleMat4f
 		}
 
 		return mul(Mat4f.viewMatrix(posX, posY, posZ, rot));
+	}
+	
+	public Mat4f applyViewMatrix(Tup3fR pos, LinearSystem3 orientation)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(pos == null) throw new ArgumentNullException("pos");
+			if(orientation == null) throw new ArgumentNullException("orientation");
+		}
+		
+		return mul(Mat4f.viewMatrix(pos, orientation));
+	}
+	
+	public Mat4f applyViewMatrix(float posX, float posY, float posZ, LinearSystem3 orientation)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(orientation == null) throw new ArgumentNullException("orientation");
+		}
+		
+		return mul(Mat4f.viewMatrix(posX, posY, posZ, orientation));
+	}
+	
+	public Mat4f applyViewMatrix(Tup3fR pos, Tup3fR forward, Tup3fR right, Tup3fR up)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(pos == null) throw new ArgumentNullException("pos");
+			if(forward == null) throw new ArgumentNullException("forward");
+			if(right == null) throw new ArgumentNullException("right");
+			if(up == null) throw new ArgumentNullException("up");
+		}
+		
+		return mul(Mat4f.viewMatrix(pos, forward, right, up));
+	}
+	
+	public Mat4f applyViewMatrix(float posX, float posY, float posZ, Tup3fR forward, Tup3fR right, Tup3fR up)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(forward == null) throw new ArgumentNullException("forward");
+			if(right == null) throw new ArgumentNullException("right");
+			if(up == null) throw new ArgumentNullException("up");
+		}
+		
+		return mul(Mat4f.viewMatrix(posX, posY, posZ, forward, right, up));
 	}
 	
 	public Mat4f applyViewMatrix(Tup3fR pos, EulerAngles3f angles)
@@ -3139,6 +3258,52 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return new Mat4f().initViewMatrix(posX, posY, posZ, rot);
+	}
+	
+	public static Mat4f viewMatrix(Tup3fR pos, LinearSystem3 orientation)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(pos == null) throw new ArgumentNullException("pos");
+			if(orientation == null) throw new ArgumentNullException("orientation");
+		}
+		
+		return new Mat4f().initViewMatrix(pos, orientation);
+	}
+	
+	public static Mat4f viewMatrix(float posX, float posY, float posZ, LinearSystem3 orientation)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(orientation == null) throw new ArgumentNullException("orientation");
+		}
+		
+		return new Mat4f().initViewMatrix(posX, posY, posZ, orientation);
+	}
+	
+	public static Mat4f viewMatrix(Tup3fR pos, Tup3fR forward, Tup3fR right, Tup3fR up)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(pos == null) throw new ArgumentNullException("pos");
+			if(forward == null) throw new ArgumentNullException("forward");
+			if(right == null) throw new ArgumentNullException("right");
+			if(up == null) throw new ArgumentNullException("up");
+		}
+		
+		return new Mat4f().initViewMatrix(pos, forward, right, up);
+	}
+	
+	public static Mat4f viewMatrix(float posX, float posY, float posZ, Tup3fR forward, Tup3fR right, Tup3fR up)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(forward == null) throw new ArgumentNullException("forward");
+			if(right == null) throw new ArgumentNullException("right");
+			if(up == null) throw new ArgumentNullException("up");
+		}
+		
+		return new Mat4f().initViewMatrix(posX, posY, posZ, forward, right, up);
 	}
 	
 	public static Mat4f viewMatrix(Tup3fR pos, EulerAngles3f angles)

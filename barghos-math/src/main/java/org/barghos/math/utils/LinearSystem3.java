@@ -25,6 +25,7 @@ SOFTWARE.
 package org.barghos.math.utils;
 
 import org.barghos.core.tuple3.api.Tup3fR;
+import org.barghos.math.point.Point3f;
 import org.barghos.math.vec3.Vec3f;
 
 /**
@@ -36,15 +37,17 @@ public class LinearSystem3 implements CoordinateSpaceSystem3
 	private final Vec3f up = new Vec3f();
 	private final Vec3f forward = new Vec3f();
 	private final Vec3f right = new Vec3f();
+	private final Point3f origin = new Point3f();
+	
 	
 	public LinearSystem3()
 	{
 		set();
 	}
 	
-	public LinearSystem3(Tup3fR up, Tup3fR forward, Tup3fR right)
+	public LinearSystem3(Tup3fR forward, Tup3fR right, Tup3fR up)
 	{
-		set(up, forward, right);
+		set(forward, right, up);
 	}
 	
 	public LinearSystem3 set()
@@ -55,11 +58,12 @@ public class LinearSystem3 implements CoordinateSpaceSystem3
 		return this;
 	}
 	
-	public LinearSystem3 set(Tup3fR up, Tup3fR forward, Tup3fR right)
+	public LinearSystem3 set(Tup3fR forward, Tup3fR right, Tup3fR up)
 	{
-		this.up.set(up);
 		this.forward.set(forward);
 		this.right.set(right);
+		this.up.set(up);
+		
 		return this;
 	}
 
@@ -129,4 +133,17 @@ public class LinearSystem3 implements CoordinateSpaceSystem3
 		return this.right.invert(null);
 	}
 	
+	public LinearSystem3 invert()
+	{
+		this.forward.invert();
+		this.right.invert();
+		this.up.invert();
+		
+		return this;
+	}
+	
+	public String toString()
+	{
+		return "linearSystem3(forward=" + this.forward + ", right=" + this.right + ", up=" + this.up + ")";
+	}
 }

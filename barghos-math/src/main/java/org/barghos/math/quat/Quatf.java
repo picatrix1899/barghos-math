@@ -193,7 +193,6 @@ public class Quatf implements Vec4fR
 			if(rot == null) throw new ArgumentNullException("rot");
 		}
 		
-		
 		double trace = rot.m[0][0] + rot.m[1][1] + rot.m[2][2];
 
 		if(trace > 0)

@@ -214,7 +214,7 @@ public class SimpleMat4f implements Mat4fR, Mat4fW
 		Vec3f right = transform(system.getRight(), false);
 		Vec3f up = transform(system.getUp(), false);
 		
-		return res.set(up, forward, right);
+		return res.set(forward, right, up);
 	}
 	
 	public <T extends Tup3fR & Tup3fW> T transform(T r, boolean useLastColumn)
