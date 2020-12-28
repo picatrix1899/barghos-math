@@ -45,7 +45,7 @@ public final class Vec3dPool
 	 * 
 	 * @return A stored instance.
 	 * 
-	 * @since 1.0
+	 * @since 1.0.0.0
 	 */
 	public static Vec3d getPlain()
 	{

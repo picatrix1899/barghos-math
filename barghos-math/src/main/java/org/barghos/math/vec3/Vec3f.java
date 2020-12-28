@@ -28,12 +28,9 @@ import org.barghos.core.Barghos;
 import org.barghos.core.exception.ArgumentNullException;
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
-import org.barghos.core.tuple4.api.Tup4fR;
-import org.barghos.core.util.Nullable;
 import org.barghos.math.BarghosMath;
 import org.barghos.math.utils.Maths;
-import org.barghos.math.vec3.api.Vec3fR;
-import org.barghos.math.vec3.api.Vec3fW;
+import org.barghos.math.vec3.api.Vec3fRW;
 
 /**
  * @author picatrix1899
@@ -41,7 +38,7 @@ import org.barghos.math.vec3.api.Vec3fW;
  * Represents a 3-dimensional mathematical vector in euclidean space.
  * This is a full featured version with common operations.
  */
-public class Vec3f implements Vec3fR, Vec3fW
+public class Vec3f implements Vec3fRW
 {
 	protected float x;
 	protected float y;
@@ -95,7 +92,7 @@ public class Vec3f implements Vec3fR, Vec3fW
 		return setX(x).setY(y).setZ(z); 
 	}
 	
-	public <T extends Vec3fW> T add(Tup3fR t)
+	public Vec3f add(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -105,15 +102,14 @@ public class Vec3f implements Vec3fR, Vec3fW
 		return add(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public <T extends Vec3fW> T add(float scalar)
+	public Vec3f add(float scalar)
 	{
 		return add(scalar, scalar, scalar);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public <T extends Vec3fW> T add(float x, float y, float z)
+	public Vec3f add(float x, float y, float z)
 	{
-		return (T)set(this.x + x, this.y + y, this.z + z);
+		return set(this.x + x, this.y + y, this.z + z);
 	}
 	
 	public <T extends Tup3fW> T add(Tup3fR t, T res)
@@ -147,7 +143,7 @@ public class Vec3f implements Vec3fR, Vec3fW
 		res.set(this.x + x, this.y + y, this.z + z); return res;
 	}
 	
-	public <T extends Vec3fW> T addN(Tup3fR t)
+	public Vec3f addN(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -156,17 +152,17 @@ public class Vec3f implements Vec3fR, Vec3fW
 		
 		return clone().add(t.getX(), t.getY(), t.getZ());
 	}
-	public <T extends Vec3fW> T addN(float scalar)
+	public Vec3f addN(float scalar)
 	{
 		return clone().add(scalar, scalar, scalar);
 	}
 	
-	public <T extends Vec3fW> T addN(float x, float y, float z)
+	public Vec3f addN(float x, float y, float z)
 	{
 		return clone().add(x, y, z);
 	}
 	
-	public <T extends Vec3fW> T sub(Tup3fR t)
+	public Vec3f sub(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -175,15 +171,14 @@ public class Vec3f implements Vec3fR, Vec3fW
 		
 		return sub(t.getX(), t.getY(), t.getZ());
 	}
-	public <T extends Vec3fW> T sub(float scalar)
+	public Vec3f sub(float scalar)
 	{
 		return sub(scalar, scalar, scalar);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public <T extends Vec3fW> T sub(float x, float y, float z)
+	public Vec3f sub(float x, float y, float z)
 	{
-		return (T)set(this.x - x, this.y - y, this.z - z);
+		return set(this.x - x, this.y - y, this.z - z);
 	}
 	
 	public <T extends Tup3fW> T sub(Tup3fR t, T res)
@@ -217,7 +212,7 @@ public class Vec3f implements Vec3fR, Vec3fW
 		res.set(this.x - x, this.y - y, this.z - z); return res;
 	}
 	
-	public <T extends Vec3fW> T subN(Tup3fR t)
+	public Vec3f subN(Tup3fR t)
 	{
 		if(Barghos.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -227,17 +222,17 @@ public class Vec3f implements Vec3fR, Vec3fW
 		return clone().sub(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public <T extends Vec3fW> T subN(float scalar)
+	public Vec3f subN(float scalar)
 	{
 		return clone().sub(scalar, scalar, scalar);
 	}
 	
-	public <T extends Vec3fW> T subN(float x, float y, float z)
+	public Vec3f subN(float x, float y, float z)
 	{
 		return clone().sub(x, y, z);
 	}
 	
-	public <T extends Vec3fW> T mul(Tup3fR t)
+	public Vec3f mul(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -247,15 +242,14 @@ public class Vec3f implements Vec3fR, Vec3fW
 		return mul(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public <T extends Vec3fW> T mul(float scalar)
+	public Vec3f mul(float scalar)
 	{
 		return mul(scalar, scalar, scalar);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public <T extends Vec3fW> T mul(float x, float y, float z)
+	public Vec3f mul(float x, float y, float z)
 	{
-		return (T)set(this.x * x, this.y * y, this.z * z);
+		return set(this.x * x, this.y * y, this.z * z);
 	}
 	
 	public <T extends Tup3fW> T mul(Tup3fR t, T res)
@@ -289,7 +283,7 @@ public class Vec3f implements Vec3fR, Vec3fW
 		res.set(this.x * x, this.y * y, this.z * z); return res;
 	}
 	
-	public <T extends Vec3fW> T mulN(Tup3fR t)
+	public Vec3f mulN(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -299,17 +293,17 @@ public class Vec3f implements Vec3fR, Vec3fW
 		return clone().mul(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public <T extends Vec3fW> T mulN(float scalar)
+	public Vec3f mulN(float scalar)
 	{
 		return clone().mul(scalar, scalar, scalar);
 	}
 	
-	public <T extends Vec3fW> T mulN(float x, float y, float z)
+	public Vec3f mulN(float x, float y, float z)
 	{
 		return clone().mul(x, y, z);
 	}
 	
-	public <T extends Vec3fW> T div(Tup3fR t)
+	public Vec3f div(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -319,15 +313,14 @@ public class Vec3f implements Vec3fR, Vec3fW
 		return div(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public <T extends Vec3fW> T div(float scalar)
+	public Vec3f div(float scalar)
 	{
 		return div(scalar, scalar, scalar);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public <T extends Vec3fW> T div(float x, float y, float z)
+	public Vec3f div(float x, float y, float z)
 	{
-		return (T)set(this.x / x, this.y / y, this.z / z);
+		return set(this.x / x, this.y / y, this.z / z);
 		}
 	
 	public <T extends Tup3fW> T div(Tup3fR t, T res)
@@ -361,7 +354,7 @@ public class Vec3f implements Vec3fR, Vec3fW
 		res.set(this.x / x, this.y / y, this.z / z); return res;
 	}
 	
-	public <T extends Vec3fW> T divN(Tup3fR t)
+	public Vec3f divN(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -371,64 +364,39 @@ public class Vec3f implements Vec3fR, Vec3fW
 		return clone().div(t.getX(), t.getY(), t.getZ());
 	}
 	
-	public <T extends Vec3fW> T divN(float scalar)
+	public Vec3f divN(float scalar)
 	{
 		return clone().div(scalar, scalar, scalar);
 	}
 	
-	public <T extends Vec3fW> T divN(float x, float y, float z)
+	public Vec3f divN(float x, float y, float z)
 	{
 		return clone().div(x, y, z);
 	}
 	
-	public float length()
-	{
-		return (float)Maths.sqrt(squaredLength());
-	}
-	
-	public float lengthSafe()
-	{
-		return isZero() ? 0.0f : length();
-	}
-	
-	public float lengthSafe(float tolerance)
-	{
-		return isZero(tolerance) ? 0.0f : length();
-	}
-	
-	public float reciprocalLength()
-	{
-		return 1.0f / length();
-	}
-
-	public float reciprocalLengthSafe()
-	{
-		return isZero() ? 0.0f : reciprocalLength();
-	}
-	
-	public float reciprocalLengthSafe(float tolerance)
-	{
-		return isZero(tolerance) ? 0.0f : reciprocalLength();
-	}
-
-	public float squaredLength()
-	{
-		return this.x * this.x + this.y * this.y + this.z * this.z;
-	}
-
 	public Vec3f normal() 
 	{
 		return div(length());
 	}
 	
-	public Vec3f normal(@Nullable Vec3f res)
+	public <T extends Tup3fW> T normal(T res)
 	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
 		return div(length(), res);
+	}
+	
+	public Vec3f normalN() 
+	{
+		return clone().div(length());
 	}
 	
 	public Vec3f normalSafe()
 	{
-		return isZero() ? set(0.0f, 0.0f, 0.0f) : normal();
+		return isZero() ? set(0.0f) : normal();
 	}
 	
 	public Vec3f normalSafe(float tolerance)
@@ -438,20 +406,53 @@ public class Vec3f implements Vec3fR, Vec3fW
 			if(tolerance < 0) throw new IllegalArgumentException();
 		}
 		
-		return isZero(tolerance) ? set(0.0f, 0.0f, 0.0f) : normal();
+		return isZero(tolerance) ? set(0.0f) : normal();
 	}
 	
-	public Vec3f normalSafe(@Nullable Vec3f res)
+	public <T extends Tup3fW> T normalSafe(T res)
 	{
-		if(res == null) res = new Vec3f();
-		return isZero() ? res.set(0.0f, 0.0f, 0.0f) : normal(res);
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		if(isZero())
+			res.set(0.0f);
+		else
+			normal(res);
+		
+		return res;
 	}
 	
-	public Vec3f normalSafe(float tolerance, @Nullable Vec3f res)
+	public <T extends Tup3fW> T normalSafe(float tolerance, T res)
 	{
-		if(tolerance < 0) throw new IllegalArgumentException();
-		if(res == null) res = new Vec3f(); 
-		return isZero(tolerance) ? res.set(0.0f, 0.0f, 0.0f) : normal(res);
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(tolerance < 0) throw new IllegalArgumentException();
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		if(isZero(tolerance))
+			res.set(0.0f);
+		else
+			normal(res);
+		
+		return res;
+	}
+	
+	public Vec3f normalSafeN()
+	{
+		return clone().normalSafe();
+	}
+	
+	public Vec3f normalSafeN(float tolerance)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(tolerance < 0) throw new IllegalArgumentException();
+		}
+		
+		return clone().normalSafe(tolerance);
 	}
 	
 	public Vec3f invert()
@@ -459,40 +460,21 @@ public class Vec3f implements Vec3fR, Vec3fW
 		return set(-this.x, -this.y, -this.z);
 	}
 	
-	public Vec3f invert(@Nullable Vec3f res)
-	{
-		if(res == null) res = new Vec3f();
-		return res.set(-this.x, -this.y, -this.z);
-	}
-	
-	public float dot(Tup3fR t)
+	public <T extends Tup3fW> T invert(T res)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
-			if(t == null) throw new ArgumentNullException("t");
+			if(res == null) throw new ArgumentNullException("res");
 		}
 		
-		return dot(t.getX(), t.getY(), t.getZ());
-	}
-	
-	public float dot(float x, float y, float z)
-	{
-		return this.x * x + this.y * y + this.z * z;
-	}
-	
-	public float dot(Tup4fR t)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(t == null) throw new ArgumentNullException("t");
-		}
+		res.set(-this.x, -this.y, -this.z);
 		
-		return dot(t.getX(), t.getY(), t.getZ(), t.getW());
+		return res;
 	}
 	
-	public float dot(float x, float y, float z, float w)
+	public Vec3f invertN()
 	{
-		return this.x * x + this.y * y + this.z * z;
+		return clone().invert();
 	}
 	
 	public Vec3f cross(Tup3fR t)
@@ -510,23 +492,44 @@ public class Vec3f implements Vec3fR, Vec3fW
 		return set(this.y * z - this.z * y, this.z * x - this.x * z, this.x * y - this.y * x);
 	}
 	
-	public Vec3f cross(Tup3fR t, @Nullable Vec3f res)
+	public <T extends Tup3fW> T cross(Tup3fR t, T res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(t == null) throw new ArgumentNullException("t");
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		return cross(t.getX(), t.getY(), t.getZ(), res);
+	}
+	
+	public <T extends Tup3fW> T cross(float x, float y, float z, T res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		res.set(this.y * z - this.z * y, this.z * x - this.x * z, this.x * y - this.y * x);
+		return res;
+	}
+	
+	public Vec3f crossN(Tup3fR t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(t == null) throw new ArgumentNullException("t");
 		}
 		
-		return cross(t.getX(), t.getY(), t.getZ(), res);
+		return clone().cross(t);
 	}
 	
-	public Vec3f cross(float x, float y, float z, @Nullable Vec3f res)
+	public Vec3f crossN(float x, float y, float z)
 	{
-		if(res == null) res = new Vec3f();
-		return res.set(this.y * z - this.z * y, this.z * x - this.x * z, this.x * y - this.y * x);
+		return clone().cross(x, y, z);
 	}
 	
-	public <T extends Vec3f> T snapToGrid(Tup3fR grid)
+	public Vec3f snapToGrid(Tup3fR grid)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -536,54 +539,68 @@ public class Vec3f implements Vec3fR, Vec3fW
 		return snapToGrid(grid.getX(), grid.getY(), grid.getZ());
 	}
 	
-	@SuppressWarnings("unchecked")
-	public <T extends Vec3f> T snapToGrid(float gx, float gy, float gz)
+	public Vec3f snapToGrid(float scalar)
 	{
-		return (T)set(Maths.gridSnap(this.x, gx), Maths.gridSnap(this.y, gy), Maths.gridSnap(this.z, gz));
+		return set(Maths.gridSnap(this.x, scalar), Maths.gridSnap(this.y, scalar), Maths.gridSnap(this.z, scalar));
+	}
+	
+	public Vec3f snapToGrid(float gx, float gy, float gz)
+	{
+		return set(Maths.gridSnap(this.x, gx), Maths.gridSnap(this.y, gy), Maths.gridSnap(this.z, gz));
 	}
 	
 	public <T extends Tup3fW> T snapToGrid(Tup3fR grid, T res)
 	{
-		if(grid == null) throw new ArgumentNullException("grid");
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(grid == null) throw new ArgumentNullException("grid");
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
 		return snapToGrid(grid.getX(), grid.getY(), grid.getZ(), res);
+	}
+	
+	public <T extends Tup3fW> T snapToGrid(float scalar, T res)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
+		return snapToGrid(scalar, scalar, scalar, res);
 	}
 	
 	public <T extends Tup3fW> T snapToGrid(float gx, float gy, float gz, T res)
 	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(res == null) throw new ArgumentNullException("res");
+		}
+		
 		res.set(Maths.gridSnap(this.x, gx), Maths.gridSnap(this.y, gy), Maths.gridSnap(this.z, gz));
 		return res;
 	}
 	
-	public <T extends Vec3f> T snapToGridN(Tup3fR grid)
+	public Vec3f snapToGridN(Tup3fR grid)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(grid == null) throw new ArgumentNullException("grid");
 		}
 		
-		return snapToGrid(grid.getX(), grid.getY(), grid.getZ());
+		return clone().snapToGrid(grid);
 	}
 	
-	public <T extends Vec3f> T snapToGridN(float gx, float gy, float gz)
+	public Vec3f snapToGridN(float scalar)
+	{
+		return clone().snapToGrid(scalar);
+	}
+	
+	public Vec3f snapToGridN(float gx, float gy, float gz)
 	{
 		return clone().snapToGrid(gx, gy, gz);
 	}
 
-	public boolean isZero()
-	{
-		return this.x == 0.0f && this.y == 0.0f && this.z == 0.0f;
-	}
-	
-	public boolean isZero(float tolerance)
-	{
-		return (Math.abs(this.x) <= tolerance) && (Math.abs(this.y) <= tolerance) && (Math.abs(this.z) <= tolerance);
-	}
-	
-	public boolean isFinite()
-	{
-		return Float.isFinite(this.x) && Float.isFinite(this.y) && Float.isFinite(this.z);
-	}
-	
 	public String toString()
 	{
 		return "vec3(" + this.x + ", " + this.y + ", " + this.z + ")";

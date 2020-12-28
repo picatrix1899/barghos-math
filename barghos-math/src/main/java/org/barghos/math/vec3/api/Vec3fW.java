@@ -25,84 +25,123 @@ SOFTWARE.
 package org.barghos.math.vec3.api;
 
 import org.barghos.core.tuple3.api.Tup3fR;
-import org.barghos.core.tuple3.api.Tup3fW;
-import org.barghos.core.util.Nullable;
-import org.barghos.math.vec3.Vec3f;
 
+import org.barghos.core.tuple3.api.Tup3fW;
 /**
+ * This interface grants writeonly access to a 3-dimensional mathematical float vector.
+ * 
  * @author picatrix1899
- *
+ * 
+ * @since 1.0.0.0
  */
 public interface Vec3fW extends Tup3fW
 {
 
-	<T extends Vec3fW> T add(Tup3fR t);
-	<T extends Vec3fW> T add(float scalar);
-	<T extends Vec3fW> T add(float x, float y, float z);
+	@Override
+	Vec3fW setX(float x);
+
+	@Override
+	Vec3fW setY(float y);
+
+	@Override
+	Vec3fW setZ(float z);
+
+	@Override
+	Vec3fW set(Tup3fR t);
+	
+	@Override
+	Vec3fW set(float value);
+	
+	@Override
+	Vec3fW set(float x, float y, float z);
+	
+	Vec3fW add(Tup3fR t);
+	Vec3fW add(float scalar);
+	Vec3fW add(float x, float y, float z);
 	
 	<T extends Tup3fW> T add(Tup3fR t, T res);
 	<T extends Tup3fW> T add(float scalar, T res);
 	<T extends Tup3fW> T add(float x, float y, float z, T res);
 	
-	<T extends Vec3fW> T addN(Tup3fR t);
-	<T extends Vec3fW> T addN(float scalar);
-	<T extends Vec3fW> T addN(float x, float y, float z);
+	Vec3fW addN(Tup3fR t);
+	Vec3fW addN(float scalar);
+	Vec3fW addN(float x, float y, float z);
 	
-	<T extends Vec3fW> T sub(Tup3fR t);
-	<T extends Vec3fW> T sub(float scalar);
-	<T extends Vec3fW> T sub(float x, float y, float z);
+	Vec3fW sub(Tup3fR t);
+	Vec3fW sub(float scalar);
+	Vec3fW sub(float x, float y, float z);
 	
 	<T extends Tup3fW> T sub(Tup3fR t, T res);
 	<T extends Tup3fW> T sub(float scalar, T res);
 	<T extends Tup3fW> T sub(float x, float y, float z, T res);
 	
-	<T extends Vec3fW> T subN(Tup3fR t);
-	<T extends Vec3fW> T subN(float scalar);
-	<T extends Vec3fW> T subN(float x, float y, float z);
+	Vec3fW subN(Tup3fR t);
+	Vec3fW subN(float scalar);
+	Vec3fW subN(float x, float y, float z);
 	
-	<T extends Vec3fW> T mul(Tup3fR t);
-	<T extends Vec3fW> T mul(float scalar);
-	<T extends Vec3fW> T mul(float x, float y, float z);
+	Vec3fW mul(Tup3fR t);
+	Vec3fW mul(float scalar);
+	Vec3fW mul(float x, float y, float z);
 	
 	<T extends Tup3fW> T mul(Tup3fR t, T res);
 	<T extends Tup3fW> T mul(float scalar, T res);
 	<T extends Tup3fW> T mul(float x, float y, float z, T res);
 	
-	<T extends Vec3fW> T mulN(Tup3fR t);
-	<T extends Vec3fW> T mulN(float scalar);
-	<T extends Vec3fW> T mulN(float x, float y, float z);
+	Vec3fW mulN(Tup3fR t);
+	Vec3fW mulN(float scalar);
+	Vec3fW mulN(float x, float y, float z);
 	
-	<T extends Vec3fW> T div(Tup3fR t);
-	<T extends Vec3fW> T div(float scalar);
-	<T extends Vec3fW> T div(float x, float y, float z);
+	Vec3fW div(Tup3fR t);
+	Vec3fW div(float scalar);
+	Vec3fW div(float x, float y, float z);
 	
 	<T extends Tup3fW> T div(Tup3fR t, T res);
 	<T extends Tup3fW> T div(float scalar, T res);
 	<T extends Tup3fW> T div(float x, float y, float z, T res);
 	
-	<T extends Vec3fW> T divN(Tup3fR t);
-	<T extends Vec3fW> T divN(float scalar);
-	<T extends Vec3fW> T divN(float x, float y, float z);
+	Vec3fW divN(Tup3fR t);
+	Vec3fW divN(float scalar);
+	Vec3fW divN(float x, float y, float z);
 	
-	float length();
+	Vec3fW normal();
 	
-	float lengthSafe();
-	float lengthSafe(float tolerance);
+	<T extends Tup3fW> T normal(T res);
 	
-	float reciprocalLength();
+	Vec3fW normalN();
 	
-	float reciprocalLengthSafe();
-	float reciprocalLengthSafe(float tolerance);
+	Vec3fW normalSafe();
+	Vec3fW normalSafe(float tolerance);
 	
-	float squaredLength();
+	<T extends Tup3fW> T normalSafe(T res);
+	<T extends Tup3fW> T normalSafe(float tolerance, T res);
 	
-	Vec3f normal();
+	Vec3fW normalSafeN();
+	Vec3fW normalSafeN(float tolerance);
 	
-	Vec3f normal(@Nullable Vec3f res);
+	Vec3fW invert();
 	
-	Vec3f normalSafe();
-	Vec3f normalSafe(float tolerance);
+	<T extends Tup3fW> T invert(T res);
+
+	Vec3fW invertN();
 	
-	Vec3f normalSafe(@Nullable Vec3f res);
-	Vec3f normalSafe(float tolerance, @Nullable Vec3f res);
+	Vec3fW cross(Tup3fR t);
+	Vec3fW cross(float x, float y, float z);
+
+	<T extends Tup3fW> T cross(Tup3fR t, T res);
+	<T extends Tup3fW> T cross(float x, float y, float z, T res);
+
+	Vec3fW crossN(Tup3fR t);
+	Vec3fW crossN(float x, float y, float z);
+	
+	Vec3fW snapToGrid(Tup3fR grid);
+	Vec3fW snapToGrid(float scalar);
+	Vec3fW snapToGrid(float gx, float gy, float gz);
+
+	<T extends Tup3fW> T snapToGrid(Tup3fR grid, T res);
+	<T extends Tup3fW> T snapToGrid(float scalar, T res);
+	<T extends Tup3fW> T snapToGrid(float gx, float gy, float gz, T res);
+	
+	Vec3fW snapToGridN(Tup3fR grid);
+	Vec3fW snapToGridN(float scalar);
+	Vec3fW snapToGridN(float gx, float gy, float gz);
 }
