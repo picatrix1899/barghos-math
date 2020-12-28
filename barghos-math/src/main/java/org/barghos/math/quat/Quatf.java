@@ -106,7 +106,7 @@ public class Quatf implements Vec4fR
 	{
 		if(res == null) res = new Quatf();
 		
-		float halfAngle = angle * 0.5f * (float)Maths.DEG_TO_RAD;
+		float halfAngle = angle * 0.5f * Maths.DEG_TO_RADf;
 		float sinHalfAngle = Maths.sin(halfAngle);
 		float cosHalfAngle = Maths.cos(halfAngle);
 		
@@ -140,6 +140,30 @@ public class Quatf implements Vec4fR
 		Vec3fPool.store(a, b, axis);
 		
 		return out;
+	}
+	
+	public static Quatf lookAt(Tup3fR source, Tup3fR dest)
+	{
+		Vec3f forwardVector = new Vec3f(dest).subN(source);
+
+		Vec3f forward = BarghosMath.DEFAULT_SYSTEM.getForward();
+		Vec3f up = BarghosMath.DEFAULT_SYSTEM.getUp();
+		
+	    float dot = forward.dot(forwardVector);
+
+	    if (Math.abs(dot - (-1.0f)) < 0.000001f)
+	    {
+	        return new Quatf(Maths.PIf, up.getX(), up.getY(), up.getZ());
+	    }
+	    if (Math.abs(dot - (1.0f)) < 0.000001f)
+	    {
+	        return new Quatf();
+	    }
+
+	    float rotAngle = (float)Math.acos(dot);
+	    Vec3f rotAxis = forward.cross(forwardVector);
+	    rotAxis.normal();
+	    return getFromAxis(rotAxis, rotAngle);
 	}
 	
 	public float getW() { return this.w; }
@@ -388,7 +412,7 @@ public class Quatf implements Vec4fR
 
 	public String toString()
 	{
-		return "quat(" + this.w + ", " + this.x + ", " + this.y + ", " + this.z + ")";
+		return "quat(w=" + this.w + ", x=" + this.x + ", y=" + this.y + ", z=" + this.z + ")";
 	}
 	
 	public Quatf clone()

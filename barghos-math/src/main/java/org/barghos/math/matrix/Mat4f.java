@@ -37,6 +37,8 @@ import org.barghos.core.util.Nullable;
 
 import org.barghos.math.matrix.api.Mat3fR;
 import org.barghos.math.matrix.api.Mat4fR;
+import org.barghos.math.utils.api.EulerAngles3f;
+import org.barghos.math.utils.api.EulerAngles3fR;
 import org.barghos.math.utils.api.EulerRotationOrder3;
 import org.barghos.math.utils.api.HirarchicalTransform3f;
 import org.barghos.math.utils.api.Transform3f;
@@ -45,7 +47,6 @@ import org.barghos.math.BarghosMath;
 import org.barghos.math.point.Point3f;
 import org.barghos.math.quat.Quatf;
 import org.barghos.math.utils.EulerAngles2f;
-import org.barghos.math.utils.EulerAngles3f;
 import org.barghos.math.utils.EulerAnglesRad2f;
 import org.barghos.math.utils.EulerAnglesRad3f;
 import org.barghos.math.utils.LinearSystem3;
@@ -473,6 +474,39 @@ public class Mat4f extends SimpleMat4f
 		return this;
 	}
 	
+	public Mat4f initRotation3D(Tup3fR axis, float angle)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(axis == null) throw new ArgumentNullException("axis");
+		}
+		
+		return initRotation3DRad(axis, angle * Maths.DEG_TO_RADf);
+	}
+	
+	public Mat4f initRotation3DRad(Tup3fR axis, float angle)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(axis == null) throw new ArgumentNullException("axis");
+		}
+
+		float cA = Maths.cos(angle);
+		float iCA = 1.0f - cA;
+		float sA = Maths.sin(angle);
+		
+		float aX = axis.getX();
+		float aY = axis.getY();
+		float aZ = axis.getZ();
+		
+		setRow(0, cA + aX * aX * iCA		, aX * aY * iCA - aZ * sA	, aX * aZ * iCA + aY * sA	, 0);
+		setRow(1, aX * aY * iCA + aZ * sA	, cA + aY * aY * iCA		, aY * aZ * iCA - aX * sA	, 0);
+		setRow(2, aX * aZ * iCA - aY * sA	, aY * aZ * iCA + aX * sA	, cA + aZ * aZ * iCA		, 0);
+		setRow(3, 0, 0, 0, 1);
+		
+		return this;
+	}
+	
 	public Mat4f initPitchRotation3D(float angle)
 	{
 		return initPitchRotation3DRad(angle * Maths.DEG_TO_RADf);
@@ -480,12 +514,7 @@ public class Mat4f extends SimpleMat4f
 
 	public Mat4f initPitchRotation3DRad(float angle)
 	{
-		setRow(0, 1.0f, 0.0f, 0.0f, 0.0f);
-		setRow(1, 0.0f, Maths.cos(angle), Maths.sin(angle), 0.0f);
-		setRow(2, 0.0f, -Maths.sin(angle), Maths.cos(angle), 0.0f);
-		setRow(3, 0.0f, 0.0f, 0.0f, 1.0f);
-		
-		return this;
+		return initRotation3DRad(BarghosMath.DEFAULT_SYSTEM.getRight(), angle);
 	}
 	
 	public Mat4f initPitchRotation3D(float angle, LinearSystem3 system)
@@ -504,40 +533,8 @@ public class Mat4f extends SimpleMat4f
 		{
 			if(system == null) throw new ArgumentNullException("system");
 		}
-		
-		initPitchRotation3DRad(angle);
-		
-		Mat4f.rotation3D(system).mul(this, this);
-		
-		return this;
-	}
-	
-	public Mat4f initPitchRotation3D(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
 
-		return initPitchRotation3DRad(angle * Maths.DEG_TO_RADf, forward, right, up);
-	}
-
-	public Mat4f initPitchRotation3DRad(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		initPitchRotation3DRad(angle);
-		
-		Mat4f.rotation3D(forward, right, up).mul(this, this);
-		
-		return this;
+		return initRotation3DRad(system.getRight(), angle);
 	}
 	
 	public Mat4f initYawRotation3D(float angle)
@@ -547,12 +544,7 @@ public class Mat4f extends SimpleMat4f
 	
 	public Mat4f initYawRotation3DRad(float angle)
 	{
-		setRow(0, Maths.cos(angle), 0.0f, -Maths.sin(angle), 0.0f);
-		setRow(1, 0.0f, 1, 0.0f, 0.0f);
-		setRow(2, Maths.sin(angle), 0.0f, Maths.cos(angle), 0.0f);
-		setRow(3, 0.0f, 0.0f, 0.0f, 1.0f);
-		
-		return this;
+		return initRotation3DRad(BarghosMath.DEFAULT_SYSTEM.getUp(), angle);
 	}
 
 	public Mat4f initYawRotation3D(float angle, LinearSystem3 system)
@@ -572,39 +564,7 @@ public class Mat4f extends SimpleMat4f
 			if(system == null) throw new ArgumentNullException("system");
 		}
 		
-		initYawRotation3DRad(angle);
-
-		Mat4f.rotation3D(system).mul(this, this);
-		
-		return this;
-	}
-	
-	public Mat4f initYawRotation3D(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-
-		return initYawRotation3DRad(angle * Maths.DEG_TO_RADf, forward, right, up);
-	}
-	
-	public Mat4f initYawRotation3DRad(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		initYawRotation3DRad(angle);
-
-		Mat4f.rotation3D(forward, right, up).mul(this, this);
-		
-		return this;
+		return initRotation3DRad(system.getUp(), angle);
 	}
 	
 	public Mat4f initRollRotation3D(float angle)
@@ -614,12 +574,7 @@ public class Mat4f extends SimpleMat4f
 	
 	public Mat4f initRollRotation3DRad(float angle)
 	{
-		setRow(0, Maths.cos(angle), Maths.sin(angle), 0.0f, 0.0f);
-		setRow(1, -Maths.sin(angle), Maths.cos(angle), 0.0f, 0.0f);
-		setRow(2, 0.0f, 0.0f, 1.0f, 0.0f);
-		setRow(3, 0.0f, 0.0f, 0.0f, 1.0f);
-		
-		return this;
+		return initRotation3DRad(BarghosMath.DEFAULT_SYSTEM.getForward(), angle);
 	}
 	
 	public Mat4f initRollRotation3D(float angle, LinearSystem3 system)
@@ -639,49 +594,17 @@ public class Mat4f extends SimpleMat4f
 			if(system == null) throw new ArgumentNullException("system");
 		}
 		
-		initRollRotation3DRad(angle);
-
-		Mat4f.rotation3D(system).mul(this, this);
-		
-		return this;
+		return initRotation3DRad(system.getForward(), angle);
 	}
 	
-	public Mat4f initRollRotation3D(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-
-		return initRollRotation3DRad(angle * Maths.DEG_TO_RADf, forward, right, up);
-	}
-	
-	public Mat4f initRollRotation3DRad(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		initRollRotation3DRad(angle);
-
-		Mat4f.rotation3D(forward, right, up).mul(this, this);
-		
-		return this;
-	}
-	
-	public Mat4f initRotation3D(EulerAngles3f angles)
+	public Mat4f initRotation3D(EulerAngles3fR angles)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
 			if(angles == null) throw new ArgumentNullException("angles");
 		}
 		
-		return initRotation3D(angles.getPitch(), angles.getYaw(), angles.getRoll());
+		return initRotation3DRad(angles.getPitchRad(), angles.getYawRad(), angles.getRollRad());
 	}
 	
 	public Mat4f initRotation3D(float pitch, float yaw, float roll)
@@ -689,22 +612,12 @@ public class Mat4f extends SimpleMat4f
 		return initRotation3D(pitch, yaw, roll, BarghosMath.DEFAULT_EULER_ROTATION_ORDER);
 	}
 	
-	public Mat4f initRotation3DRad(EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return initRotation3DRad(angles.getPitch(), angles.getYaw(), angles.getRoll());
-	}
-	
 	public Mat4f initRotation3DRad(float pitch, float yaw, float roll)
 	{
 		return initRotation3DRad(pitch, yaw, roll, BarghosMath.DEFAULT_EULER_ROTATION_ORDER);
 	}
 	
-	public Mat4f initRotation3D(EulerAngles3f angles, LinearSystem3 system)
+	public Mat4f initRotation3D(EulerAngles3fR angles, LinearSystem3 system)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -725,7 +638,7 @@ public class Mat4f extends SimpleMat4f
 		return initRotation3D(pitch, yaw, roll, system, BarghosMath.DEFAULT_EULER_ROTATION_ORDER);
 	}
 	
-	public Mat4f initRotation3D(EulerAngles3f angles, Tup3fR forward, Tup3fR right, Tup3fR up)
+	public Mat4f initRotation3D(EulerAngles3fR angles, Tup3fR forward, Tup3fR right, Tup3fR up)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -751,17 +664,6 @@ public class Mat4f extends SimpleMat4f
 		return initRotation3D(pitch, yaw, roll, forward, right, up, BarghosMath.DEFAULT_EULER_ROTATION_ORDER);
 	}
 	
-	public Mat4f initRotation3DRad(EulerAnglesRad3f angles, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return initRotation3DRad(angles, system, BarghosMath.DEFAULT_EULER_ROTATION_ORDER);
-	}
-	
 	public Mat4f initRotation3DRad(float pitch, float yaw, float roll, LinearSystem3 system)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -770,19 +672,6 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return initRotation3DRad(pitch, yaw, roll, system, BarghosMath.DEFAULT_EULER_ROTATION_ORDER);
-	}
-	
-	public Mat4f initRotation3DRad(EulerAnglesRad3f angles, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return initRotation3DRad(angles, forward, right, up, BarghosMath.DEFAULT_EULER_ROTATION_ORDER);
 	}
 	
 	public Mat4f initRotation3DRad(float pitch, float yaw, float roll, Tup3fR forward, Tup3fR right, Tup3fR up)
@@ -797,7 +686,7 @@ public class Mat4f extends SimpleMat4f
 		return initRotation3DRad(pitch, yaw, roll, forward, right, up, BarghosMath.DEFAULT_EULER_ROTATION_ORDER);
 	}
 	
-	public Mat4f initRotation3D(EulerAngles3f angles, EulerRotationOrder3 order)
+	public Mat4f initRotation3D(EulerAngles3fR angles, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -805,7 +694,7 @@ public class Mat4f extends SimpleMat4f
 			if(order == null) throw new ArgumentNullException("order");
 		}
 		
-		return initRotation3D(angles.getPitch(), angles.getYaw(), angles.getRoll(), order);
+		return initRotation3DRad(angles.getPitchRad(), angles.getYawRad(), angles.getRollRad(), order);
 	}
 	
 	public Mat4f initRotation3D(float pitch, float yaw, float roll, EulerRotationOrder3 order)
@@ -814,71 +703,8 @@ public class Mat4f extends SimpleMat4f
 		{
 			if(order == null) throw new ArgumentNullException("order");
 		}
-		
-		switch(order)
-		{
-			case PITCH_YAW_ROLL:
-			{
-				initPitchRotation3D(pitch);
-				applyYawRotation3D(yaw);
-				applyRollRotation3D(roll);
-				
-				break;
-			}
-			case PITCH_ROLL_YAW:
-			{
-				initPitchRotation3D(pitch);
-				applyRollRotation3D(roll);
-				applyYawRotation3D(yaw);
-				
-				break;
-			}
-			case YAW_PITCH_ROLL:
-			{
-				initYawRotation3D(yaw);
-				applyPitchRotation3D(pitch);
-				applyRollRotation3D(roll);
 
-				break;
-			}
-			case YAW_ROLL_PITCH:
-			{
-				initYawRotation3D(yaw);
-				applyRollRotation3D(roll);
-				applyPitchRotation3D(pitch);
-
-				break;
-			}
-			case ROLL_PITCH_YAW:
-			{
-				initRollRotation3D(roll);
-				applyPitchRotation3D(pitch);
-				applyYawRotation3D(yaw);
-				
-				break;
-			}
-			case ROLL_YAW_PITCH:
-			{
-				initRollRotation3D(roll);
-				applyYawRotation3D(yaw);
-				applyPitchRotation3D(pitch);
-
-				break;
-			}
-		}
-		
-		return this;
-	}
-	
-	public Mat4f initRotation3DRad(EulerAnglesRad3f angles, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return initRotation3DRad(angles.getPitch(), angles.getYaw(), angles.getRoll(), order);
+		return initRotation3D(pitch, yaw, roll, BarghosMath.DEFAULT_SYSTEM, order);
 	}
 	
 	public Mat4f initRotation3DRad(float pitch, float yaw, float roll, EulerRotationOrder3 order)
@@ -888,62 +714,10 @@ public class Mat4f extends SimpleMat4f
 			if(order == null) throw new ArgumentNullException("order");
 		}
 		
-		switch(order)
-		{
-			case PITCH_YAW_ROLL:
-			{
-				initPitchRotation3DRad(pitch);
-				applyYawRotation3DRad(yaw);
-				applyRollRotation3DRad(roll);
-				
-				break;
-			}
-			case PITCH_ROLL_YAW:
-			{
-				initPitchRotation3DRad(pitch);
-				applyRollRotation3DRad(roll);
-				applyYawRotation3DRad(yaw);
-
-				break;
-			}
-			case YAW_PITCH_ROLL:
-			{
-				initYawRotation3DRad(yaw);
-				applyPitchRotation3DRad(pitch);
-				applyRollRotation3DRad(roll);
-
-				break;
-			}
-			case YAW_ROLL_PITCH:
-			{
-				initYawRotation3DRad(yaw);
-				applyRollRotation3DRad(roll);
-				applyPitchRotation3DRad(pitch);
-
-				break;
-			}
-			case ROLL_PITCH_YAW:
-			{
-				initRollRotation3DRad(roll);
-				applyPitchRotation3DRad(pitch);
-				applyYawRotation3DRad(yaw);
-				
-				break;
-			}
-			case ROLL_YAW_PITCH:
-			{
-				initRollRotation3DRad(roll);
-				applyYawRotation3DRad(yaw);
-				applyPitchRotation3DRad(pitch);
-
-				break;
-			}
-		}
-		
-		return this;
+		return initRotation3DRad(pitch, yaw, roll, BarghosMath.DEFAULT_SYSTEM, order);
 	}
 	
-	public Mat4f initRotation3D(EulerAngles3f angles, LinearSystem3 system, EulerRotationOrder3 order)
+	public Mat4f initRotation3D(EulerAngles3fR angles, LinearSystem3 system, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -952,25 +726,10 @@ public class Mat4f extends SimpleMat4f
 			if(order == null) throw new ArgumentNullException("order");
 		}
 		
-		return initRotation3D(angles.getPitch(), angles.getYaw(), angles.getRoll(), system, order);
+		return initRotation3DRad(angles.getPitchRad(), angles.getYawRad(), angles.getRollRad(), system, order);
 	}
 	
-	public Mat4f initRotation3D(float pitch, float yaw, float roll, LinearSystem3 system, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(system == null) throw new ArgumentNullException("system");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		initRotation3D(pitch, yaw, roll, order);
-		
-		Mat4f.rotation3D(system).mul(this, this);
-		
-		return this;
-	}
-	
-	public Mat4f initRotation3D(EulerAngles3f angles, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
+	public Mat4f initRotation3D(EulerAngles3fR angles, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -981,7 +740,18 @@ public class Mat4f extends SimpleMat4f
 			if(order == null) throw new ArgumentNullException("order");
 		}
 		
-		return initRotation3D(angles.getPitch(), angles.getYaw(), angles.getRoll(), forward, right, up, order);
+		return initRotation3DRad(angles.getPitchRad(), angles.getYawRad(), angles.getRollRad(), forward, right, up, order);
+	}
+	
+	public Mat4f initRotation3D(float pitch, float yaw, float roll, LinearSystem3 system, EulerRotationOrder3 order)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(system == null) throw new ArgumentNullException("system");
+			if(order == null) throw new ArgumentNullException("order");
+		}
+		
+		return initRotation3DRad(pitch * Maths.DEG_TO_RADf, yaw * Maths.DEG_TO_RADf, roll * Maths.DEG_TO_RADf, system, order);
 	}
 	
 	public Mat4f initRotation3D(float pitch, float yaw, float roll, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
@@ -994,23 +764,7 @@ public class Mat4f extends SimpleMat4f
 			if(order == null) throw new ArgumentNullException("order");
 		}
 		
-		initRotation3D(pitch, yaw, roll, order);
-		
-		Mat4f.rotation3D(forward, right, up).mul(this, this);
-		
-		return this;
-	}
-	
-	public Mat4f initRotation3DRad(EulerAnglesRad3f angles, LinearSystem3 system, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return initRotation3DRad(angles.getPitch(), angles.getYaw(), angles.getRoll(), system, order);
+		return initRotation3DRad(pitch * Maths.DEG_TO_RADf, yaw * Maths.DEG_TO_RADf, roll * Maths.DEG_TO_RADf, forward, right, up, order);
 	}
 	
 	public Mat4f initRotation3DRad(float pitch, float yaw, float roll, LinearSystem3 system, EulerRotationOrder3 order)
@@ -1021,25 +775,7 @@ public class Mat4f extends SimpleMat4f
 			if(order == null) throw new ArgumentNullException("order");
 		}
 		
-		initRotation3DRad(pitch, yaw, roll, order);
-		
-		mul(Mat4f.rotation3D(system));
-	
-		return this;
-	}
-	
-	public Mat4f initRotation3DRad(EulerAnglesRad3f angles, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return initRotation3DRad(angles.getPitch(), angles.getYaw(), angles.getRoll(), forward, right, up, order);
+		return initRotation3DRad(pitch, yaw, roll, system.getForward(), system.getRight(), system.getUp(), order);
 	}
 	
 	public Mat4f initRotation3DRad(float pitch, float yaw, float roll, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
@@ -1052,10 +788,60 @@ public class Mat4f extends SimpleMat4f
 			if(order == null) throw new ArgumentNullException("order");
 		}
 		
-		initRotation3DRad(pitch, yaw, roll, order);
+		initIdentity();
 		
-		mul(Mat4f.rotation3D(forward, right, up));
-	
+		switch(order)
+		{
+			case PITCH_YAW_ROLL:
+			{
+				if(pitch != 0.0f) applyRotation3DRad(right, pitch);
+				if(yaw != 0.0f) applyRotation3DRad(up, yaw);
+				if(roll != 0.0f) applyRotation3DRad(forward, roll);
+				
+				break;
+			}
+			case PITCH_ROLL_YAW:
+			{
+				if(pitch != 0.0f) applyRotation3DRad(right, pitch);
+				if(roll != 0.0f) applyRotation3DRad(forward, roll);
+				if(yaw != 0.0f) applyRotation3DRad(up, yaw);
+
+				break;
+			}
+			case YAW_PITCH_ROLL:
+			{
+				if(yaw != 0.0f) applyRotation3DRad(up, yaw);
+				if(pitch != 0.0f) applyRotation3DRad(right, pitch);
+				if(roll != 0.0f) applyRotation3DRad(forward, roll);
+
+				break;
+			}
+			case YAW_ROLL_PITCH:
+			{
+				if(yaw != 0.0f) applyRotation3DRad(up, yaw);
+				if(roll != 0.0f) applyRotation3DRad(forward, roll);
+				if(pitch != 0.0f) applyRotation3DRad(right, pitch);
+
+				break;
+			}
+			case ROLL_PITCH_YAW:
+			{
+				if(roll != 0.0f) applyRotation3DRad(forward, roll);
+				if(pitch != 0.0f) applyRotation3DRad(right, pitch);
+				if(yaw != 0.0f) applyRotation3DRad(up, yaw);
+				
+				break;
+			}
+			case ROLL_YAW_PITCH:
+			{
+				if(roll != 0.0f) applyRotation3DRad(forward, roll);
+				if(yaw != 0.0f) applyRotation3DRad(up, yaw);
+				if(pitch != 0.0f) applyRotation3DRad(right, pitch);
+
+				break;
+			}
+		}
+		
 		return this;
 	}
 	
@@ -1136,7 +922,7 @@ public class Mat4f extends SimpleMat4f
 		return this;
 	}
 	
-	public Mat4f initTransformMatrix3D(Tup3fR pos, EulerAngles3f angles, Tup3fR scale)
+	public Mat4f initTransformMatrix3D(Tup3fR pos, EulerAngles3fR angles, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1293,7 +1079,7 @@ public class Mat4f extends SimpleMat4f
 		
 		initTranslation3D(-posX, -posZ, -posZ);
 		
-		EulerAngles3f angles = new EulerAngles3f(Mat4f.rotation3D(orientation));
+		EulerAnglesRad3f angles = new EulerAnglesRad3f(Mat4f.rotation3D(orientation));
 		angles.invert();
 		
 		applyRotation3D(angles);
@@ -1313,7 +1099,7 @@ public class Mat4f extends SimpleMat4f
 		
 		initTranslation3D(-pos.getX(), -pos.getY(), -pos.getZ());
 		
-		EulerAngles3f angles = new EulerAngles3f(Mat4f.rotation3D(forward, right, up));
+		EulerAnglesRad3f angles = new EulerAnglesRad3f(Mat4f.rotation3D(forward, right, up));
 		angles.invert();
 		
 		applyRotation3D(angles);
@@ -1332,7 +1118,7 @@ public class Mat4f extends SimpleMat4f
 		
 		initTranslation3D(-posX, -posZ, -posZ);
 		
-		EulerAngles3f angles = new EulerAngles3f(Mat4f.rotation3D(forward, right, up));
+		EulerAnglesRad3f angles = new EulerAnglesRad3f(Mat4f.rotation3D(forward, right, up));
 		angles.invert();
 		
 		applyRotation3D(angles);
@@ -1363,33 +1149,6 @@ public class Mat4f extends SimpleMat4f
 		
 		initTranslation3D(-posX, -posY, -posZ);
 		applyRotation3D(angles.invertN());
-		
-		return this;
-	}
-	
-	public Mat4f initViewMatrixRad(Tup3fR pos, EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(pos == null) throw new ArgumentNullException("pos");
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		initTranslation3D(-pos.getX(), -pos.getY(), -pos.getZ());
-		applyRotation3DRad(angles.invertN());
-		
-		return this;
-	}
-	
-	public Mat4f initViewMatrixRad(float posX, float posY, float posZ, EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		initTranslation3D(-posX, -posY, -posZ);
-		applyRotation3DRad(angles.invertN());
 		
 		return this;
 	}
@@ -1643,6 +1402,26 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.rotation3D(q));
 	}
 	
+	public Mat4f applyRotation3D(Tup3fR axis, float angle)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(axis == null) throw new ArgumentNullException("axis");
+		}
+		
+		return mul(Mat4f.rotation3D(axis, angle));
+	}
+	
+	public Mat4f applyRotation3DRad(Tup3fR axis, float angle)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(axis == null) throw new ArgumentNullException("axis");
+		}
+		
+		return mul(Mat4f.rotation3DRad(axis, angle));
+	}
+	
 	public Mat4f applyPitchRotation3D(float angle)
 	{
 		return mul(Mat4f.pitchRotation3D(angle));
@@ -1671,30 +1450,6 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return mul(Mat4f.pitchRotation3DRad(angle, system));
-	}
-	
-	public Mat4f applyPitchRotation3D(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return mul(Mat4f.pitchRotation3D(angle, forward, right, up));
-	}
-	
-	public Mat4f applyPitchRotation3DRad(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return mul(Mat4f.pitchRotation3DRad(angle, forward, right, up));
 	}
 	
 	public Mat4f applyYawRotation3D(float angle)
@@ -1727,30 +1482,6 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.yawRotation3DRad(angle, system));
 	}
 	
-	public Mat4f applyYawRotation3D(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return mul(Mat4f.yawRotation3D(angle, forward, right, up));
-	}
-	
-	public Mat4f applyYawRotation3DRad(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return mul(Mat4f.yawRotation3DRad(angle, forward, right, up));
-	}
-	
 	public Mat4f applyRollRotation3D(float angle)
 	{
 		return mul(Mat4f.rollRotation3D(angle));
@@ -1781,31 +1512,7 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.rollRotation3DRad(angle, system));
 	}
 	
-	public Mat4f applyRollRotation3D(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return mul(Mat4f.rollRotation3D(angle, forward, right, up));
-	}
-	
-	public Mat4f applyRollRotation3DRad(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return mul(Mat4f.rollRotation3DRad(angle, forward, right, up));
-	}
-	
-	public Mat4f applyRotation3D(EulerAngles3f angles)
+	public Mat4f applyRotation3D(EulerAngles3fR angles)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1820,23 +1527,13 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.rotation3D(pitch, yaw, roll));
 	}
 	
-	public Mat4f applyRotation3DRad(EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return mul(Mat4f.rotation3DRad(angles));
-	}
-	
 	public Mat4f applyRotation3DRad(float pitch, float yaw, float roll)
 	{
 		
 		return mul(Mat4f.rotation3DRad(pitch, yaw, roll));
 	}
 	
-	public Mat4f applyRotation3D(EulerAngles3f angles, LinearSystem3 system)
+	public Mat4f applyRotation3D(EulerAngles3fR angles, LinearSystem3 system)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1857,7 +1554,7 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.rotation3D(pitch, yaw, roll, system));
 	}
 	
-	public Mat4f applyRotation3D(EulerAngles3f angles, Tup3fR forward, Tup3fR right, Tup3fR up)
+	public Mat4f applyRotation3D(EulerAngles3fR angles, Tup3fR forward, Tup3fR right, Tup3fR up)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1882,17 +1579,6 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.rotation3D(pitch, yaw, roll, forward, right, up));
 	}
 	
-	public Mat4f applyRotation3DRad(EulerAnglesRad3f angles, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat4f.rotation3DRad(angles, system));
-	}
-	
 	public Mat4f applyRotation3DRad(float pitch, float yaw, float roll, LinearSystem3 system)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -1901,19 +1587,6 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return mul(Mat4f.rotation3DRad(pitch, yaw, roll, system));
-	}
-	
-	public Mat4f applyRotation3DRad(EulerAnglesRad3f angles, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return mul(Mat4f.rotation3DRad(angles, forward, right, up));
 	}
 	
 	public Mat4f applyRotation3DRad(float pitch, float yaw, float roll, Tup3fR forward, Tup3fR right, Tup3fR up)
@@ -1928,7 +1601,7 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.rotation3DRad(pitch, yaw, roll, forward, right, up));
 	}
 	
-	public Mat4f applyRotation3D(EulerAngles3f angles, EulerRotationOrder3 order)
+	public Mat4f applyRotation3D(EulerAngles3fR angles, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1948,17 +1621,7 @@ public class Mat4f extends SimpleMat4f
 		
 		return mul(Mat4f.rotation3D(pitch, yaw, roll, order));
 	}
-	
-	public Mat4f applyRotation3DRad(EulerAnglesRad3f angles, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return mul(Mat4f.rotation3DRad(angles, order));
-	}
+
 	
 	public Mat4f applyRotation3DRad(float pitch, float yaw, float roll, EulerRotationOrder3 order)
 	{
@@ -1970,7 +1633,7 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.rotation3DRad(pitch, yaw, roll, order));
 	}
 	
-	public Mat4f applyRotation3D(EulerAngles3f angles, LinearSystem3 system, EulerRotationOrder3 order)
+	public Mat4f applyRotation3D(EulerAngles3fR angles, LinearSystem3 system, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1993,7 +1656,7 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.rotation3D(pitch, yaw, roll, system, order));
 	}
 	
-	public Mat4f applyRotation3D(EulerAngles3f angles, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
+	public Mat4f applyRotation3D(EulerAngles3fR angles, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -2020,18 +1683,6 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.rotation3D(pitch, yaw, roll, forward, right, up, order));
 	}
 	
-	public Mat4f applyRotation3DRad(EulerAnglesRad3f angles, LinearSystem3 system, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return mul(Mat4f.rotation3DRad(angles, system, order));
-	}
-	
 	public Mat4f applyRotation3DRad(float pitch, float yaw, float roll, LinearSystem3 system, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -2041,20 +1692,6 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return mul(Mat4f.rotation3DRad(pitch, yaw, roll, system, order));
-	}
-	
-	public Mat4f applyRotation3DRad(EulerAnglesRad3f angles, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return mul(Mat4f.rotation3DRad(angles, forward, right, up, order));
 	}
 	
 	public Mat4f applyRotation3DRad(float pitch, float yaw, float roll, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
@@ -2116,7 +1753,7 @@ public class Mat4f extends SimpleMat4f
 		return mul(Mat4f.transformMatrix3D(pos, rot, scale));
 	}
 	
-	public Mat4f applyTransformMatrix3D(Tup3fR pos, EulerAngles3f angles, Tup3fR scale)
+	public Mat4f applyTransformMatrix3D(Tup3fR pos, EulerAngles3fR angles, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -2263,27 +1900,6 @@ public class Mat4f extends SimpleMat4f
 		}
 
 		return Mat4f.viewMatrix(posX, posY, posZ, angles);
-	}
-	
-	public Mat4f applyViewMatrixRad(Tup3fR pos, EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(pos == null) throw new ArgumentNullException("pos");
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return mul(Mat4f.viewMatrixRad(pos, angles));
-	}
-	
-	public Mat4f applyViewMatrix(float posX, float posY, float posZ, EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-
-		return Mat4f.viewMatrixRad(posX, posY, posZ, angles);
 	}
 	
 	public Mat4f applyViewMatrix(Tup3fR pos, float pitch, float yaw, float roll)
@@ -2696,7 +2312,25 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initRotation3D(q);
 	}
 	
+	public static Mat4f rotation3D(Tup3fR axis, float angle)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(axis == null) throw new ArgumentNullException("axis");
+		}
+		
+		return new Mat4f().initRotation3D(axis, angle);
+	}
 	
+	public static Mat4f rotation3DRad(Tup3fR axis, float angle)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(axis == null) throw new ArgumentNullException("axis");
+		}
+		
+		return new Mat4f().initRotation3DRad(axis, angle);
+	}
 	
 	public static Mat4f pitchRotation3D(float angle)
 	{
@@ -2726,30 +2360,6 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return new Mat4f().initPitchRotation3DRad(angle, system);
-	}
-	
-	public static Mat4f pitchRotation3D(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return new Mat4f().initPitchRotation3D(angle, forward, right, up);
-	}
-	
-	public static Mat4f pitchRotation3DRad(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return new Mat4f().initPitchRotation3DRad(angle, forward, right, up);
 	}
 	
 	public static Mat4f yawRotation3D(float angle)
@@ -2782,30 +2392,6 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initYawRotation3DRad(angle, system);
 	}
 	
-	public static Mat4f yawRotation3D(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return new Mat4f().initYawRotation3D(angle, forward, right, up);
-	}
-	
-	public static Mat4f yawRotation3DRad(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return new Mat4f().initYawRotation3DRad(angle, forward, right, up);
-	}
-	
 	public static Mat4f rollRotation3D(float angle)
 	{
 		return new Mat4f().initRollRotation3D(angle);
@@ -2836,31 +2422,7 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initRollRotation3DRad(angle, system);
 	}
 	
-	public static Mat4f rollRotation3D(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return new Mat4f().initRollRotation3D(angle, forward, right, up);
-	}
-	
-	public static Mat4f rollRotation3DRad(float angle, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return new Mat4f().initRollRotation3DRad(angle, forward, right, up);
-	}
-	
-	public static Mat4f rotation3D(EulerAngles3f angles)
+	public static Mat4f rotation3D(EulerAngles3fR angles)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -2875,22 +2437,12 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initRotation3D(pitch, yaw, roll);
 	}
 	
-	public static Mat4f rotation3DRad(EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return new Mat4f().initRotation3DRad(angles);
-	}
-	
 	public static Mat4f rotation3DRad(float pitch, float yaw, float roll)
 	{
 		return new Mat4f().initRotation3DRad(pitch, yaw, roll);
 	}
 	
-	public static Mat4f rotation3D(EulerAngles3f angles, LinearSystem3 system)
+	public static Mat4f rotation3D(EulerAngles3fR angles, LinearSystem3 system)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -2899,6 +2451,17 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return new Mat4f().initRotation3D(angles, system);
+	}
+	
+	public static Mat4f rotation3D(EulerAngles3fR angles, EulerRotationOrder3 order)
+	{
+		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
+		{
+			if(angles == null) throw new ArgumentNullException("angles");
+			if(order == null) throw new ArgumentNullException("order");
+		}
+		
+		return new Mat4f().initRotation3D(angles, order);
 	}
 	
 	public static Mat4f rotation3D(float pitch, float yaw, float roll, LinearSystem3 system)
@@ -2911,7 +2474,7 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initRotation3D(pitch, yaw, roll, system);
 	}
 	
-	public static Mat4f rotation3D(EulerAngles3f angles, Tup3fR forward, Tup3fR right, Tup3fR up)
+	public static Mat4f rotation3D(EulerAngles3fR angles, Tup3fR forward, Tup3fR right, Tup3fR up)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -2936,17 +2499,6 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initRotation3D(pitch, yaw, roll, forward, right, up);
 	}
 	
-	public static Mat4f rotation3DRad(EulerAnglesRad3f angles, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return new Mat4f().initRotation3DRad(angles, system);
-	}
-	
 	public static Mat4f rotation3DRad(float pitch ,float yaw, float roll, LinearSystem3 system)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -2955,19 +2507,6 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return new Mat4f().initRotation3DRad(pitch, yaw, roll, system);
-	}
-	
-	public static Mat4f rotation3DRad(EulerAnglesRad3f angles, Tup3fR forward, Tup3fR right, Tup3fR up)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-		}
-		
-		return new Mat4f().initRotation3DRad(angles, forward, right, up);
 	}
 	
 	public static Mat4f rotation3DRad(float pitch, float yaw, float roll, Tup3fR forward, Tup3fR right, Tup3fR up)
@@ -2982,17 +2521,6 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initRotation3DRad(pitch, yaw, roll, forward, right, up);
 	}
 	
-	public static Mat4f rotation3D(EulerAngles3f angles, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return new Mat4f().initRotation3D(angles, order);
-	}
-	
 	public static Mat4f rotation3D(float pitch, float yaw, float roll, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -3001,17 +2529,6 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return new Mat4f().initRotation3D(pitch, yaw, roll, order);
-	}
-	
-	public static Mat4f rotation3DRad(EulerAnglesRad3f angles, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return new Mat4f().initRotation3DRad(angles, order);
 	}
 	
 	public static Mat4f rotation3DRad(float pitch, float yaw, float roll, EulerRotationOrder3 order)
@@ -3024,7 +2541,7 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initRotation3DRad(pitch, yaw, roll, order);
 	}
 	
-	public static Mat4f rotation3D(EulerAngles3f angles, LinearSystem3 system, EulerRotationOrder3 order)
+	public static Mat4f rotation3D(EulerAngles3fR angles, LinearSystem3 system, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -3047,7 +2564,7 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initRotation3D(pitch, yaw, roll, system, order);
 	}
 	
-	public static Mat4f rotation3D(EulerAngles3f angles, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
+	public static Mat4f rotation3D(EulerAngles3fR angles, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -3074,18 +2591,6 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initRotation3D(pitch, yaw, roll, forward, right, up, order);
 	}
 	
-	public static Mat4f rotation3DRad(EulerAnglesRad3f angles, LinearSystem3 system, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return new Mat4f().initRotation3DRad(angles, system, order);
-	}
-	
 	public static Mat4f rotation3DRad(float pitch, float yaw, float roll, LinearSystem3 system, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
@@ -3095,20 +2600,6 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return new Mat4f().initRotation3DRad(pitch, yaw, roll, system, order);
-	}
-	
-	public static Mat4f rotation3DRad(EulerAnglesRad3f angles, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(forward == null) throw new ArgumentNullException("forward");
-			if(right == null) throw new ArgumentNullException("right");
-			if(up == null) throw new ArgumentNullException("up");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return new Mat4f().initRotation3DRad(angles, forward, right, up, order);
 	}
 	
 	public static Mat4f rotation3DRad(float pitch, float yaw, float roll, Tup3fR forward, Tup3fR right, Tup3fR up, EulerRotationOrder3 order)
@@ -3178,7 +2669,7 @@ public class Mat4f extends SimpleMat4f
 		return new Mat4f().initTransformMatrix3D(pos, rot, scale);
 	}
 	
-	public static Mat4f transformMatrix3D(Tup3fR pos, EulerAngles3f angles, Tup3fR scale)
+	public static Mat4f transformMatrix3D(Tup3fR pos, EulerAngles3fR angles, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -3325,27 +2816,6 @@ public class Mat4f extends SimpleMat4f
 		}
 		
 		return new Mat4f().initViewMatrix(posX, posY, posZ, angles);
-	}
-	
-	public static Mat4f viewMatrixRad(Tup3fR pos, EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(pos == null) throw new ArgumentNullException("pos");
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return new Mat4f().initViewMatrixRad(pos, angles);
-	}
-	
-	public static Mat4f viewMatrixRad(float posX, float posY, float posZ, EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return new Mat4f().initViewMatrixRad(posX, posY, posZ, angles);
 	}
 	
 	public static Mat4f viewMatrix(Tup3fR pos, float pitch, float yaw, float roll)

@@ -26,9 +26,9 @@ package org.barghos.math.utils.api;
 
 import org.barghos.core.tuple3.api.Tup3fR;
 import org.barghos.core.tuple3.api.Tup3fW;
+
 import org.barghos.math.matrix.Mat4f;
 import org.barghos.math.point.Point3f;
-import org.barghos.math.utils.EulerAngles3f;
 import org.barghos.math.vec3.Vec3f;
 
 /**
@@ -40,8 +40,8 @@ public interface HirarchicalTransform3f extends Transform3f
 	Point3f getRelativePosition();
 	<T extends Tup3fW> T getRelativePosition(T res);
 	
-	EulerAngles3f getRelativeOrientation();
-	<T extends Tup3fW> T getRelativeOrientation(T res);
+	EulerAngles3fR getRelativeOrientation();
+	<T extends EulerAngles3fW> T getRelativeOrientation(T res);
 	
 	Vec3f getRelativeScale();
 	<T extends Tup3fW> T getRelativeScale(T res);
@@ -49,16 +49,16 @@ public interface HirarchicalTransform3f extends Transform3f
 	HirarchicalTransform3f set(Transform3f t);
 	HirarchicalTransform3f set(HirarchicalTransform3f t);
 	
-	HirarchicalTransform3f set(Tup3fR position, EulerAngles3f orientation, Tup3fR scale);
-	HirarchicalTransform3f set(float posX, float posY, float posZ, EulerAngles3f orientation, Tup3fR scale);
+	HirarchicalTransform3f set(Tup3fR position, EulerAngles3fR orientation, Tup3fR scale);
+	HirarchicalTransform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, Tup3fR scale);
 	HirarchicalTransform3f set(Tup3fR position, float pitch, float yaw, float roll, Tup3fR scale);
 	HirarchicalTransform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll, Tup3fR scale);
-	HirarchicalTransform3f set(Tup3fR position, EulerAngles3f orientation, float scale);
-	HirarchicalTransform3f set(float posX, float posY, float posZ, EulerAngles3f orientation, float scale);
+	HirarchicalTransform3f set(Tup3fR position, EulerAngles3fR orientation, float scale);
+	HirarchicalTransform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, float scale);
 	HirarchicalTransform3f set(Tup3fR position, float pitch, float yaw, float roll, float scale);
 	HirarchicalTransform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll, float scale);
-	HirarchicalTransform3f set(Tup3fR position, EulerAngles3f orientation, float scaleX, float scaleY, float scaleZ);
-	HirarchicalTransform3f set(float posX, float posY, float posZ, EulerAngles3f orientation, float scaleX, float scaleY, float scaleZ);
+	HirarchicalTransform3f set(Tup3fR position, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ);
+	HirarchicalTransform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ);
 	HirarchicalTransform3f set(Tup3fR position, float pitch, float yaw, float roll,  float scaleX, float scaleY, float scaleZ);
 	HirarchicalTransform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll,  float scaleX, float scaleY, float scaleZ);
 	

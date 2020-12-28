@@ -22,23 +22,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package org.barghos.math;
+package org.barghos.math.utils.api;
 
-import org.barghos.math.utils.LinearSystem3;
-import org.barghos.math.utils.Maths;
-import org.barghos.math.utils.api.EulerRotationOrder3;
-import org.barghos.math.vec3.Vec3fAxis;
+import org.barghos.core.tuple3.api.Tup3fR;
 
 /**
  * @author picatrix1899
  *
  */
-public class BarghosMath
+public interface EulerAngles3fR extends Tup3fR
 {
-	public static final boolean BUILD_FLAG__PARAMETER_CHECKS = false;
-
-	public static LinearSystem3 DEFAULT_SYSTEM = new LinearSystem3(Vec3fAxis.AXIS_Z, Vec3fAxis.AXIS_X, Vec3fAxis.AXIS_Y);
-	public static final EulerRotationOrder3 DEFAULT_EULER_ROTATION_ORDER = EulerRotationOrder3.ROLL_PITCH_YAW;
-	public static float DEFAULT_ZERO_THRESHOLD_F = Maths.SMALL_NUMBER_E6f;
-	public static double DEFAULT_ZERO_THRESHOLD = Maths.SMALL_NUMBER_E6;
+	float getPitchDeg();
+	float getYawDeg();
+	float getRollDeg();
+	
+	float getPitchRad();
+	float getYawRad();
+	float getRollRad();
+	
+	default float getX()
+	{
+		return getPitchRad();
+	}
+	
+	default float getY()
+	{
+		return getYawRad();
+	}
+	
+	default float getZ()
+	{
+		return getRollRad();
+	}
 }

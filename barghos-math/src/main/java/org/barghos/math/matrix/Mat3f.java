@@ -35,11 +35,10 @@ import org.barghos.math.matrix.api.Mat3fR;
 import org.barghos.math.point.Point2f;
 import org.barghos.math.quat.Quatf;
 import org.barghos.math.utils.EulerAngles2f;
-import org.barghos.math.utils.EulerAngles3f;
 import org.barghos.math.utils.EulerAnglesRad2f;
-import org.barghos.math.utils.EulerAnglesRad3f;
 import org.barghos.math.utils.LinearSystem3;
 import org.barghos.math.utils.Maths;
+import org.barghos.math.utils.api.EulerAngles3fR;
 import org.barghos.math.utils.api.EulerRotationOrder3;
 import org.barghos.math.utils.api.ITransform2f;
 import org.barghos.math.vec2.Vec2f;
@@ -473,7 +472,7 @@ public class Mat3f extends SimpleMat3f
 		return this;
 	}
 	
-	public Mat3f initRotation3D(EulerAngles3f angles)
+	public Mat3f initRotation3D(EulerAngles3fR angles)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -485,19 +484,7 @@ public class Mat3f extends SimpleMat3f
 		return this;
 	}
 	
-	public Mat3f initRotation3DRad(EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		initRotation3DRad(angles, BarghosMath.DEFAULT_EULER_ROTATION_ORDER);
-		
-		return this;
-	}
-	
-	public Mat3f initRotation3D(EulerAngles3f angles, LinearSystem3 system)
+	public Mat3f initRotation3D(EulerAngles3fR angles, LinearSystem3 system)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -509,21 +496,9 @@ public class Mat3f extends SimpleMat3f
 		
 		return this;
 	}
+
 	
-	public Mat3f initRotation3DRad(EulerAnglesRad3f angles, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		initRotation3DRad(angles, system, BarghosMath.DEFAULT_EULER_ROTATION_ORDER);
-		
-		return this;
-	}
-	
-	public Mat3f initRotation3D(EulerAngles3f angles, EulerRotationOrder3 order)
+	public Mat3f initRotation3D(EulerAngles3fR angles, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -535,49 +510,49 @@ public class Mat3f extends SimpleMat3f
 		{
 			case PITCH_YAW_ROLL:
 			{
-				initRollRotation3D(angles.getRoll());
-				yawRotate3D(angles.getYaw());
-				pitchRotate3D(angles.getPitch());
+				initRollRotation3DRad(angles.getRollRad());
+				yawRotate3DRad(angles.getYawRad());
+				pitchRotate3DRad(angles.getPitchRad());
 				
 				break;
 			}
 			case PITCH_ROLL_YAW:
 			{
-				initYawRotation3D(angles.getRoll());
-				rollRotate3D(angles.getYaw());
-				pitchRotate3D(angles.getPitch());
+				initYawRotation3DRad(angles.getRollRad());
+				rollRotate3DRad(angles.getYawRad());
+				pitchRotate3DRad(angles.getPitchRad());
 				
 				break;
 			}
 			case YAW_PITCH_ROLL:
 			{
-				initRollRotation3D(angles.getRoll());
-				pitchRotate3D(angles.getYaw());
-				yawRotate3D(angles.getPitch());
+				initRollRotation3DRad(angles.getRollRad());
+				pitchRotate3DRad(angles.getYawRad());
+				yawRotate3DRad(angles.getPitchRad());
 				
 				break;
 			}
 			case YAW_ROLL_PITCH:
 			{
-				initPitchRotation3D(angles.getRoll());
-				rollRotate3D(angles.getYaw());
-				yawRotate3D(angles.getPitch());
+				initPitchRotation3DRad(angles.getRollRad());
+				rollRotate3DRad(angles.getYawRad());
+				yawRotate3DRad(angles.getPitchRad());
 				
 				break;
 			}
 			case ROLL_PITCH_YAW:
 			{
-				initYawRotation3D(angles.getRoll());
-				pitchRotate3D(angles.getYaw());
-				rollRotate3D(angles.getPitch());
+				initYawRotation3DRad(angles.getRollRad());
+				pitchRotate3DRad(angles.getYawRad());
+				rollRotate3DRad(angles.getPitchRad());
 				
 				break;
 			}
 			case ROLL_YAW_PITCH:
 			{
-				initPitchRotation3D(angles.getRoll());
-				yawRotate3D(angles.getYaw());
-				rollRotate3D(angles.getPitch());
+				initPitchRotation3DRad(angles.getRollRad());
+				yawRotate3DRad(angles.getYawRad());
+				rollRotate3DRad(angles.getPitchRad());
 				
 				break;
 			}
@@ -586,68 +561,7 @@ public class Mat3f extends SimpleMat3f
 		return this;
 	}
 	
-	public Mat3f initRotation3DRad(EulerAnglesRad3f angles, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		switch(order)
-		{
-			case PITCH_YAW_ROLL:
-			{
-				initRollRotation3DRad(angles.getRoll());
-				yawRotate3DRad(angles.getYaw());
-				pitchRotate3DRad(angles.getPitch());
-				break;
-			}
-			case PITCH_ROLL_YAW:
-			{
-				initYawRotation3DRad(angles.getRoll());
-				rollRotate3DRad(angles.getYaw());
-				pitchRotate3DRad(angles.getPitch());
-				break;
-			}
-			case YAW_PITCH_ROLL:
-			{
-				initRollRotation3DRad(angles.getRoll());
-				pitchRotate3DRad(angles.getYaw());
-				yawRotate3DRad(angles.getPitch());
-				
-				break;
-			}
-			case YAW_ROLL_PITCH:
-			{
-				initPitchRotation3DRad(angles.getRoll());
-				rollRotate3DRad(angles.getYaw());
-				yawRotate3DRad(angles.getPitch());
-				
-				break;
-			}
-			case ROLL_PITCH_YAW:
-			{
-				initYawRotation3DRad(angles.getRoll());
-				pitchRotate3DRad(angles.getYaw());
-				rollRotate3DRad(angles.getPitch());
-				
-				break;
-			}
-			case ROLL_YAW_PITCH:
-			{
-				initPitchRotation3DRad(angles.getRoll());
-				yawRotate3DRad(angles.getYaw());
-				rollRotate3DRad(angles.getPitch());
-				
-				break;
-			}
-		}
-		
-		return this;
-	}
-	
-	public Mat3f initRotation3D(EulerAngles3f angles, LinearSystem3 system, EulerRotationOrder3 order)
+	public Mat3f initRotation3D(EulerAngles3fR angles, LinearSystem3 system, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -660,111 +574,47 @@ public class Mat3f extends SimpleMat3f
 		{
 			case PITCH_YAW_ROLL:
 			{
-				initRollRotation3D(angles.getRoll());
-				yawRotate3D(angles.getYaw());
-				pitchRotate3D(angles.getPitch());
+				initRollRotation3DRad(angles.getRollRad());
+				yawRotate3DRad(angles.getYawRad());
+				pitchRotate3DRad(angles.getPitchRad());
 				break;
 			}
 			case PITCH_ROLL_YAW:
 			{
-				initYawRotation3D(angles.getRoll());
-				rollRotate3D(angles.getYaw());
-				pitchRotate3D(angles.getPitch());
+				initYawRotation3DRad(angles.getRollRad());
+				rollRotate3DRad(angles.getYawRad());
+				pitchRotate3DRad(angles.getPitchRad());
 				break;
 			}
 			case YAW_PITCH_ROLL:
 			{
-				initRollRotation3D(angles.getRoll());
-				pitchRotate3D(angles.getYaw());
-				yawRotate3D(angles.getPitch());
+				initRollRotation3DRad(angles.getRollRad());
+				pitchRotate3DRad(angles.getYawRad());
+				yawRotate3DRad(angles.getPitchRad());
 				
 				break;
 			}
 			case YAW_ROLL_PITCH:
 			{
-				initPitchRotation3D(angles.getRoll());
-				rollRotate3D(angles.getYaw());
-				yawRotate3D(angles.getPitch());
+				initPitchRotation3DRad(angles.getRollRad());
+				rollRotate3DRad(angles.getYawRad());
+				yawRotate3DRad(angles.getPitchRad());
 				
 				break;
 			}
 			case ROLL_PITCH_YAW:
 			{
-				initYawRotation3D(angles.getRoll());
-				pitchRotate3D(angles.getYaw());
-				rollRotate3D(angles.getPitch());
+				initYawRotation3DRad(angles.getRollRad());
+				pitchRotate3DRad(angles.getYawRad());
+				rollRotate3DRad(angles.getPitchRad());
 				
 				break;
 			}
 			case ROLL_YAW_PITCH:
 			{
-				initPitchRotation3D(angles.getRoll());
-				yawRotate3D(angles.getYaw());
-				rollRotate3D(angles.getPitch());
-				
-				break;
-			}
-		}
-		
-		mul(Mat3f.rotation3D(system), this);
-		
-		return this;
-	}
-	
-	public Mat3f initRotation3DRad(EulerAnglesRad3f angles, LinearSystem3 system, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		switch(order)
-		{
-			case PITCH_YAW_ROLL:
-			{
-				initRollRotation3DRad(angles.getRoll());
-				yawRotate3DRad(angles.getYaw());
-				pitchRotate3DRad(angles.getPitch());
-				break;
-			}
-			case PITCH_ROLL_YAW:
-			{
-				initYawRotation3DRad(angles.getRoll());
-				rollRotate3DRad(angles.getYaw());
-				pitchRotate3DRad(angles.getPitch());
-				break;
-			}
-			case YAW_PITCH_ROLL:
-			{
-				initRollRotation3DRad(angles.getRoll());
-				pitchRotate3DRad(angles.getYaw());
-				yawRotate3DRad(angles.getPitch());
-				
-				break;
-			}
-			case YAW_ROLL_PITCH:
-			{
-				initPitchRotation3DRad(angles.getRoll());
-				rollRotate3DRad(angles.getYaw());
-				yawRotate3DRad(angles.getPitch());
-				
-				break;
-			}
-			case ROLL_PITCH_YAW:
-			{
-				initYawRotation3DRad(angles.getRoll());
-				pitchRotate3DRad(angles.getYaw());
-				rollRotate3DRad(angles.getPitch());
-				
-				break;
-			}
-			case ROLL_YAW_PITCH:
-			{
-				initPitchRotation3DRad(angles.getRoll());
-				yawRotate3DRad(angles.getYaw());
-				rollRotate3DRad(angles.getPitch());
+				initPitchRotation3DRad(angles.getRollRad());
+				yawRotate3DRad(angles.getYawRad());
+				rollRotate3DRad(angles.getPitchRad());
 				
 				break;
 			}
@@ -1046,7 +896,7 @@ public class Mat3f extends SimpleMat3f
 		return mul(Mat3f.rollRotation3DRad(angle, system));
 	}
 	
-	public Mat3f rotate3D(EulerAngles3f angles)
+	public Mat3f rotate3D(EulerAngles3fR angles)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1056,17 +906,7 @@ public class Mat3f extends SimpleMat3f
 		return mul(Mat3f.rotation3D(angles));
 	}
 	
-	public Mat3f rotate3DRad(EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return mul(Mat3f.rotation3DRad(angles));
-	}
-	
-	public Mat3f rotate3D(EulerAngles3f angles, LinearSystem3 system)
+	public Mat3f rotate3D(EulerAngles3fR angles, LinearSystem3 system)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1077,18 +917,7 @@ public class Mat3f extends SimpleMat3f
 		return mul(Mat3f.rotation3D(angles, system));
 	}
 	
-	public Mat3f rotate3DRad(EulerAnglesRad3f angles, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return mul(Mat3f.rotation3DRad(angles, system));
-	}
-	
-	public Mat3f rotate3D(EulerAngles3f angles, EulerRotationOrder3 order)
+	public Mat3f rotate3D(EulerAngles3fR angles, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1098,19 +927,9 @@ public class Mat3f extends SimpleMat3f
 		
 		return mul(Mat3f.rotation3D(angles, order));
 	}
+
 	
-	public Mat3f rotate3DRad(EulerAnglesRad3f angles, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return mul(Mat3f.rotation3DRad(angles, order));
-	}
-	
-	public Mat3f rotate3D(EulerAngles3f angles, LinearSystem3 system, EulerRotationOrder3 order)
+	public Mat3f rotate3D(EulerAngles3fR angles, LinearSystem3 system, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1120,18 +939,6 @@ public class Mat3f extends SimpleMat3f
 		}
 		
 		return mul(Mat3f.rotation3D(angles, system, order));
-	}
-	
-	public Mat3f rotate3DRad(EulerAnglesRad3f angles, LinearSystem3 system, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return mul(Mat3f.rotation3DRad(angles, system, order));
 	}
 	
 	public Mat3f translate2D(Tup2fR t)
@@ -1438,7 +1245,7 @@ public class Mat3f extends SimpleMat3f
 		return new Mat3f().initRollRotation3DRad(angle, system);
 	}
 	
-	public static Mat3f rotation3D(EulerAngles3f angles)
+	public static Mat3f rotation3D(EulerAngles3fR angles)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1448,17 +1255,7 @@ public class Mat3f extends SimpleMat3f
 		return new Mat3f().initRotation3D(angles);
 	}
 	
-	public static Mat3f rotation3DRad(EulerAnglesRad3f angles)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-		}
-		
-		return new Mat3f().initRotation3DRad(angles);
-	}
-	
-	public static Mat3f rotation3D(EulerAngles3f angles, LinearSystem3 system)
+	public static Mat3f rotation3D(EulerAngles3fR angles, LinearSystem3 system)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1468,19 +1265,9 @@ public class Mat3f extends SimpleMat3f
 		
 		return new Mat3f().initRotation3D(angles, system);
 	}
+
 	
-	public static Mat3f rotation3DRad(EulerAnglesRad3f angles, LinearSystem3 system)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-		}
-		
-		return new Mat3f().initRotation3DRad(angles, system);
-	}
-	
-	public static Mat3f rotation3D(EulerAngles3f angles, EulerRotationOrder3 order)
+	public static Mat3f rotation3D(EulerAngles3fR angles, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1490,19 +1277,9 @@ public class Mat3f extends SimpleMat3f
 		
 		return new Mat3f().initRotation3D(angles, order);
 	}
+
 	
-	public static Mat3f rotation3DRad(EulerAnglesRad3f angles, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return new Mat3f().initRotation3DRad(angles, order);
-	}
-	
-	public static Mat3f rotation3D(EulerAngles3f angles, LinearSystem3 system, EulerRotationOrder3 order)
+	public static Mat3f rotation3D(EulerAngles3fR angles, LinearSystem3 system, EulerRotationOrder3 order)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -1512,18 +1289,6 @@ public class Mat3f extends SimpleMat3f
 		}
 		
 		return new Mat3f().initRotation3D(angles, system, order);
-	}
-	
-	public static Mat3f rotation3DRad(EulerAnglesRad3f angles, LinearSystem3 system, EulerRotationOrder3 order)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(angles == null) throw new ArgumentNullException("angles");
-			if(system == null) throw new ArgumentNullException("system");
-			if(order == null) throw new ArgumentNullException("order");
-		}
-		
-		return new Mat3f().initRotation3DRad(angles, system, order);
 	}
 	
 	public static Mat3f translation2D(Tup2fR t)

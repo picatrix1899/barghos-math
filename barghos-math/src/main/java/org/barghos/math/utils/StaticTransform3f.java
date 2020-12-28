@@ -34,27 +34,24 @@ import org.barghos.math.utils.api.EulerAngles3fR;
 import org.barghos.math.utils.api.EulerAngles3fW;
 import org.barghos.math.utils.api.HirarchicalTransform3f;
 import org.barghos.math.utils.api.Transform3f;
-import org.barghos.math.utils.api.Transformable3f;
 import org.barghos.math.vec3.Vec3f;
 
 /**
  * @author picatrix1899
  *
  */
-public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
+public class StaticTransform3f implements Transform3f
 {
 	protected final Point3f position = new Point3f();
 	protected final EulerAnglesDeg3f orientation = new EulerAnglesDeg3f();
 	protected final Vec3f scale = new Vec3f();
-	
-	private Transformable3f parent;
-	
-	public StaticHirarchicalTransform3f()
+
+	public StaticTransform3f()
 	{
 		this.scale.set(1.0f, 1.0f, 1.0f);
 	}
 	
-	public StaticHirarchicalTransform3f(Transform3f t)
+	public StaticTransform3f(Transform3f t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -64,7 +61,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(t);
 	}
 	
-	public StaticHirarchicalTransform3f(HirarchicalTransform3f t)
+	public StaticTransform3f(HirarchicalTransform3f t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -74,7 +71,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(t);
 	}
 	
-	public StaticHirarchicalTransform3f(Tup3fR position, EulerAngles3fR orientation, Tup3fR scale)
+	public StaticTransform3f(Tup3fR position, EulerAngles3fR orientation, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -86,7 +83,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(position, orientation, scale);
 	}
 
-	public StaticHirarchicalTransform3f(float posX, float posY, float posZ, EulerAngles3fR orientation, Tup3fR scale)
+	public StaticTransform3f(float posX, float posY, float posZ, EulerAngles3fR orientation, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -97,7 +94,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(posX, posY, posZ, orientation, scale);
 	}
 
-	public StaticHirarchicalTransform3f(Tup3fR position, float pitch, float yaw, float roll, Tup3fR scale)
+	public StaticTransform3f(Tup3fR position, float pitch, float yaw, float roll, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -108,7 +105,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(position, pitch, yaw, roll, scale);
 	}
 
-	public StaticHirarchicalTransform3f(float posX, float posY, float posZ, float pitch, float yaw, float roll, Tup3fR scale)
+	public StaticTransform3f(float posX, float posY, float posZ, float pitch, float yaw, float roll, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -118,7 +115,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(posX, posY, posZ, pitch, yaw, roll, scale);
 	}
 	
-	public StaticHirarchicalTransform3f(Tup3fR position, EulerAngles3fR orientation, float scale)
+	public StaticTransform3f(Tup3fR position, EulerAngles3fR orientation, float scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -129,7 +126,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(position, orientation, scale);
 	}
 
-	public StaticHirarchicalTransform3f(float posX, float posY, float posZ, EulerAngles3fR orientation, float scale)
+	public StaticTransform3f(float posX, float posY, float posZ, EulerAngles3fR orientation, float scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -139,7 +136,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(posX, posY, posZ, orientation, scale);
 	}
 
-	public StaticHirarchicalTransform3f(Tup3fR position, float pitch, float yaw, float roll, float scale)
+	public StaticTransform3f(Tup3fR position, float pitch, float yaw, float roll, float scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -149,12 +146,12 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(position, pitch, yaw, roll, scale);
 	}
 
-	public StaticHirarchicalTransform3f(float posX, float posY, float posZ, float pitch, float yaw, float roll, float scale)
+	public StaticTransform3f(float posX, float posY, float posZ, float pitch, float yaw, float roll, float scale)
 	{
 		set(posX, posY, posZ, pitch, yaw, roll, scale);
 	}
 	
-	public StaticHirarchicalTransform3f(Tup3fR position, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ)
+	public StaticTransform3f(Tup3fR position, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -165,7 +162,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(position, orientation, scaleX, scaleY, scaleZ);
 	}
 
-	public StaticHirarchicalTransform3f(float posX, float posY, float posZ, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ)
+	public StaticTransform3f(float posX, float posY, float posZ, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -175,7 +172,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(posX, posY, posZ, orientation, scaleX, scaleY, scaleZ);
 	}
 
-	public StaticHirarchicalTransform3f(Tup3fR position, float pitch, float yaw, float roll, float scaleX, float scaleY, float scaleZ)
+	public StaticTransform3f(Tup3fR position, float pitch, float yaw, float roll, float scaleX, float scaleY, float scaleZ)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -185,12 +182,12 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		set(position, pitch, yaw, roll, scaleX, scaleY, scaleZ);
 	}
 
-	public StaticHirarchicalTransform3f(float posX, float posY, float posZ, float pitch, float yaw, float roll, float scaleX, float scaleY, float scaleZ)
+	public StaticTransform3f(float posX, float posY, float posZ, float pitch, float yaw, float roll, float scaleX, float scaleY, float scaleZ)
 	{
 		set(posX, posY, posZ, pitch, yaw, roll, scaleX, scaleY, scaleZ);
 	}
 	
-	public StaticHirarchicalTransform3f set(Transform3f t)
+	public StaticTransform3f set(Transform3f t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -204,7 +201,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(HirarchicalTransform3f t)
+	public StaticTransform3f set(HirarchicalTransform3f t)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -218,7 +215,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(Tup3fR pos, EulerAngles3fR orientation, Tup3fR scale)
+	public StaticTransform3f set(Tup3fR pos, EulerAngles3fR orientation, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -234,7 +231,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, Tup3fR scale)
+	public StaticTransform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -249,7 +246,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(Tup3fR pos, float pitch, float yaw, float roll, Tup3fR scale)
+	public StaticTransform3f set(Tup3fR pos, float pitch, float yaw, float roll, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -264,7 +261,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll, Tup3fR scale)
+	public StaticTransform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll, Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -278,7 +275,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(Tup3fR pos, EulerAngles3fR orientation, float scale)
+	public StaticTransform3f set(Tup3fR pos, EulerAngles3fR orientation, float scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -293,7 +290,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, float scale)
+	public StaticTransform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, float scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -307,7 +304,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(Tup3fR pos, float pitch, float yaw, float roll, float scale)
+	public StaticTransform3f set(Tup3fR pos, float pitch, float yaw, float roll, float scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -321,7 +318,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll, float scale)
+	public StaticTransform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll, float scale)
 	{
 		this.position.set(posX, posY, posZ);
 		this.orientation.setDeg(pitch, yaw, roll);
@@ -330,7 +327,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(Tup3fR pos, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ)
+	public StaticTransform3f set(Tup3fR pos, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -346,7 +343,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ)
+	public StaticTransform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -361,7 +358,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(Tup3fR pos, float pitch, float yaw, float roll, float scaleX, float scaleY, float scaleZ)
+	public StaticTransform3f set(Tup3fR pos, float pitch, float yaw, float roll, float scaleX, float scaleY, float scaleZ)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -375,7 +372,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll, float scaleX, float scaleY, float scaleZ)
+	public StaticTransform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll, float scaleX, float scaleY, float scaleZ)
 	{
 		this.position.set(posX, posY, posZ);
 		this.orientation.setDeg(pitch, yaw, roll);
@@ -383,64 +380,11 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		
 		return this;
 	}
-	
-	public Point3f getRelativePosition()
-	{
-		return this.position.clone();
-	}
-	
-	public <T extends Tup3fW> T getRelativePosition(T res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
-		res.set(this.position);
-		
-		return res;
-	}
-	
-	public EulerAngles3fR getRelativeOrientation()
-	{
-		return this.orientation;
-	}
-	
-	public <T extends EulerAngles3fW> T getRelativeOrientation(T res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
-		res.set(this.orientation);
-		
-		return res;
-	}
-	
-	public Vec3f getRelativeScale()
-	{
-		return this.scale.clone();
-	}
-	
-	public <T extends Tup3fW> T getRelativeScale(T res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
-		res.set(this.scale);
-		
-		return res;
-	}
+
 	
 	public Point3f getPosition()
 	{
-		if(hasParent())
-			return getParent().getTransform().getTransformationMatrix4f().transform(getRelativePosition());
-		
-		return getRelativePosition(new Point3f());
+		return this.position.clone();
 	}
 	
 	public <T extends Tup3fW> T getPosition(T res)
@@ -449,19 +393,15 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		{
 			if(res == null) throw new ArgumentNullException("res");
 		}
+
+		res.set(this.position);
 		
-		if(hasParent())
-			return getParent().getTransform().getTransformationMatrix4f().transform(getRelativePosition(), res);
-		
-		return getRelativePosition(res);
+		return res;
 	}
 	
 	public EulerAngles3fR getOrientation()
 	{
-		if(hasParent())
-			return new EulerAnglesRad3f(Mat4f.rotation3D(getRelativeOrientation()).mul(getParent().getTransform().getTransformationMatrix4f()));
-		
-		return getRelativeOrientation();
+		return this.orientation.clone();
 	}
 	
 	public <T extends EulerAngles3fW> T getOrientation(T res)
@@ -470,23 +410,15 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		{
 			if(res == null) throw new ArgumentNullException("res");
 		}
-		
-		if(hasParent())
-		{
-			res.set(new EulerAnglesDeg3f(Mat4f.rotation3D(getRelativeOrientation()).mul(getParent().getTransform().getTransformationMatrix4f())));
-			
-			return res;
-		}
 
-		return getRelativeOrientation(res);
+		res.set(this.orientation);
+		
+		return res;
 	}
 	
 	public Vec3f getScale()
 	{
-		if(hasParent())
-			return getParent().getTransform().getScalingMatrix4f().transform(getRelativeScale());
-		
-		return getRelativeScale();
+		return this.scale.clone();
 	}
 	
 	public <T extends Tup3fW> T getScale(T res)
@@ -495,14 +427,13 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		{
 			if(res == null) throw new ArgumentNullException("res");
 		}
+
+		res.set(this.scale);
 		
-		if(hasParent())
-			return getParent().getTransform().getScalingMatrix4f().transform(getRelativeScale(), res);
-		
-		return getRelativeScale(res);
+		return res;
 	}
 	
-	public StaticHirarchicalTransform3f setPosition(Tup3fR pos)
+	public StaticTransform3f setPosition(Tup3fR pos)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -514,35 +445,35 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setPosition(float x, float y, float z)
+	public StaticTransform3f setPosition(float x, float y, float z)
 	{
 		this.position.set(x, y, z);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setPosX(float x)
+	public StaticTransform3f setPosX(float x)
 	{
 		this.position.setX(x);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setPosY(float y)
+	public StaticTransform3f setPosY(float y)
 	{
 		this.position.setY(y);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setPosZ(float z)
+	public StaticTransform3f setPosZ(float z)
 	{
 		this.position.setZ(z);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setOrientation(Tup3fR orientation)
+	public StaticTransform3f setOrientation(Tup3fR orientation)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -554,35 +485,35 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setOrientation(float pitch, float yaw, float roll)
+	public StaticTransform3f setOrientation(float pitch, float yaw, float roll)
 	{
 		this.orientation.setDeg(pitch, yaw, roll);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setPitch(float pitch)
+	public StaticTransform3f setPitch(float pitch)
 	{
 		this.orientation.setPitchDeg(pitch);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setYaw(float yaw)
+	public StaticTransform3f setYaw(float yaw)
 	{
 		this.orientation.setYawDeg(yaw);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setRoll(float roll)
+	public StaticTransform3f setRoll(float roll)
 	{
 		this.orientation.setRollDeg(roll);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setScale(Tup3fR scale)
+	public StaticTransform3f setScale(Tup3fR scale)
 	{
 		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
 		{
@@ -594,35 +525,35 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setScale(float factor)
+	public StaticTransform3f setScale(float factor)
 	{
 		this.scale.set(factor);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setScale(float x, float y, float z)
+	public StaticTransform3f setScale(float x, float y, float z)
 	{
 		this.scale.set(x, y, z);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setScaleX(float x)
+	public StaticTransform3f setScaleX(float x)
 	{
 		this.scale.setX(x);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setScaleY(float y)
+	public StaticTransform3f setScaleY(float y)
 	{
 		this.scale.setY(y);
 		
 		return this;
 	}
 	
-	public StaticHirarchicalTransform3f setScaleZ(float z)
+	public StaticTransform3f setScaleZ(float z)
 	{
 		this.scale.setZ(z);
 		
@@ -631,10 +562,7 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 	
 	public Mat4f getTranslationMatrix4f()
 	{
-		if(hasParent())
-			return Mat4f.translation3D(getParent().getTransform().getTransformationMatrix4f().transform(this.position.clone()));
-		
-		return getRelativeTranslationMatrix4f();
+		return Mat4f.translation3D(this.position);
 	}
 	
 	public Mat4f getTranslationMatrix4f(Mat4f res)
@@ -644,18 +572,12 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 			if(res == null) throw new ArgumentNullException("res");
 		}
 		
-		if(hasParent())
-			return res.initTranslation3D(getParent().getTransform().getTransformationMatrix4f().transform(this.position.clone()));
-		
-		return getRelativeTranslationMatrix4f(res);
+		return res.initTranslation3D(this.position);
 	}
 	
 	public Mat4f getOrientationMatrix4f()
 	{
-		if(hasParent())
-			return getRelativeOrientationMatrix4f().mul(getParent().getTransform().getOrientationMatrix4f());
-		
-		return getRelativeOrientationMatrix4f();
+		return Mat4f.rotation3D(this.orientation);
 	}
 	
 	public Mat4f getOrientationMatrix4f(Mat4f res)
@@ -665,18 +587,12 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 			if(res == null) throw new ArgumentNullException("res");
 		}
 		
-		if(hasParent())
-			return getRelativeOrientationMatrix4f(res).mul(getParent().getTransform().getOrientationMatrix4f());
-		
-		return getRelativeOrientationMatrix4f(res);
+		return res.initRotation3D(this.orientation);
 	}
 	
 	public Mat4f getScalingMatrix4f()
 	{
-		if(hasParent())
-			return getRelativeScalingMatrix4f().mul(getParent().getTransform().getScalingMatrix4f());
-		
-		return getRelativeScalingMatrix4f();
+		return Mat4f.scaling3D(this.scale);
 	}
 	
 	public Mat4f getScalingMatrix4f(Mat4f res)
@@ -686,18 +602,12 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 			if(res == null) throw new ArgumentNullException("res");
 		}
 		
-		if(hasParent())
-			return getRelativeScalingMatrix4f(res).mul(getParent().getTransform().getScalingMatrix4f());
-		
-		return getRelativeScalingMatrix4f(res);
+		return res.initScaling3D(this.scale);
 	}
 	
 	public Mat4f getTransformationMatrix4f()
 	{
-		if(hasParent())
-			return getRelativeTransformationMatrix4f().mul(getParent().getTransform().getTransformationMatrix4f());
-			
-		return getRelativeTransformationMatrix4f();
+		return Mat4f.transformMatrix3D(this);
 	}
 	
 	public Mat4f getTransformationMatrix4f(Mat4f res)
@@ -706,96 +616,11 @@ public class StaticHirarchicalTransform3f implements HirarchicalTransform3f
 		{
 			if(res == null) throw new ArgumentNullException("res");
 		}
-		
-		if(hasParent())
-			return getRelativeTransformationMatrix4f(res).mul(getParent().getTransform().getTransformationMatrix4f());
-			
-		return getRelativeTransformationMatrix4f(res);
-	}
-	
-	public Mat4f getRelativeTranslationMatrix4f()
-	{
-		return Mat4f.translation3D(this.position);
-	}
-	
-	public Mat4f getRelativeTranslationMatrix4f(Mat4f res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
-		return res.initTranslation3D(this.position);
-	}
-	
-	public Mat4f getRelativeOrientationMatrix4f()
-	{
-		return Mat4f.rotation3D(this.orientation);
-	}
-	
-	public Mat4f getRelativeOrientationMatrix4f(Mat4f res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
-		return res.initRotation3D(this.orientation);
-	}
-	
-	public Mat4f getRelativeScalingMatrix4f()
-	{
-		return Mat4f.scaling3D(this.scale);
-	}
-	
-	public Mat4f getRelativeScalingMatrix4f(Mat4f res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
-		return res.initScaling3D(this.scale);
-	}
-	
-	public Mat4f getRelativeTransformationMatrix4f()
-	{
-		return Mat4f.transformMatrix3D(this);
-	}
-	
-	public Mat4f getRelativeTransformationMatrix4f(Mat4f res)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(res == null) throw new ArgumentNullException("res");
-		}
-		
+
 		return res.initTransformMatrix3D(this);
 	}
-	
-	public Transformable3f getParent()
-	{
-		return this.parent;
-	}
-	
-	public StaticHirarchicalTransform3f setParent(Transformable3f parent)
-	{
-		if(BarghosMath.BUILD_FLAG__PARAMETER_CHECKS)
-		{
-			if(parent == null) throw new ArgumentNullException("parent");
-		}
-		
-		this.parent = parent;
-		
-		return this;
-	}
-	
-	public boolean hasParent()
-	{
-		return this.parent != null;
-	}
-	
-	public StaticHirarchicalTransform3f getTransform()
+
+	public StaticTransform3f getTransform()
 	{
 		return this;
 	}

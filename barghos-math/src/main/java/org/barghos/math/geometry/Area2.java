@@ -52,7 +52,7 @@ public class Area2
 	{
 		Vec2f extend = Vec2fPool.get();
 		max.sub(min, extend);
-		
+
 		this.halfExtend.set(extend.mul(0.5f, extend));
 		this.center.set(min.add(this.halfExtend, extend));
 		

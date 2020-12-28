@@ -63,6 +63,8 @@ public class Line3f implements FiniteGeometricObject3f
 	
 	public Point3f getP1(Point3f res)
 	{
+		res.normal();
+		
 		if(res == null) res = new Point3f();
 		return res.set(this.p1);
 	}

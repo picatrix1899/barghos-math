@@ -27,7 +27,7 @@ package org.barghos.math.utils;
 /**
  * This class contains mathematical methods and precalculated constants.
  */
-public class Maths implements MathConstants
+public class Maths extends MathConstants
 {
 
 	/**

@@ -39,7 +39,6 @@ public class LinearSystem3 implements CoordinateSpaceSystem3
 	private final Vec3f right = new Vec3f();
 	private final Point3f origin = new Point3f();
 	
-	
 	public LinearSystem3()
 	{
 		set();

@@ -25,20 +25,24 @@ SOFTWARE.
 package org.barghos.math.utils;
 
 import org.barghos.core.exception.ArgumentNullException;
+import org.barghos.core.tuple3.api.Tup3fR;
+import org.barghos.core.tuple3.api.Tup3fW;
 import org.barghos.core.util.Nullable;
+import org.barghos.math.point.Point3f;
 import org.barghos.math.quat.Quatf;
 import org.barghos.math.quat.pool.QuatfPool;
+import org.barghos.math.utils.api.EulerAngles3fR;
+import org.barghos.math.utils.api.EulerAngles3fW;
+import org.barghos.math.utils.api.Transform3f;
 import org.barghos.math.vec3.Vec3f;
 
 public class VectorInterpolation
-{
-	public static Vec3f lerp(Vec3f v1, Vec3f v2, float alpha, @Nullable Vec3f res)
+{	
+	public static <T extends Tup3fW> T lerp(Tup3fR v1, Tup3fR v2, float alpha, T res)
 	{
 		if(v1 == null) throw new ArgumentNullException("v1");
 		if(v2 == null) throw new ArgumentNullException("v2");
-		
-		if(res == null) res = new Vec3f();
-		
+
 		res.setX(v1.getX() + alpha * (v2.getX() - v1.getX()));
 		res.setY(v1.getY() + alpha * (v2.getY() - v1.getY()));
 		res.setZ(v1.getZ() + alpha * (v2.getZ() - v1.getZ()));
@@ -102,5 +106,27 @@ public class VectorInterpolation
 		QuatfPool.store(q1, q2);
 		
 		return res.normal();
+	}
+	
+	public static <T extends EulerAngles3fW> T lerp(EulerAngles3fR angles1, EulerAngles3fR angles2, float alpha, T res)
+	{
+		float pitch = angles1.getPitchRad() + alpha * (angles2.getPitchRad() - angles1.getPitchRad());
+		float yaw = angles1.getYawRad() + alpha * (angles2.getYawRad() - angles1.getYawRad());
+		float roll = angles1.getRollRad() + alpha * (angles2.getRollRad() - angles1.getRollRad());
+		
+		res.setRad(pitch, yaw, roll);
+		
+		return res;
+	}
+	
+	public static <T extends Transform3f> T lerp(Transform3f t1, Transform3f t2, float alpha, T res)
+	{
+		Point3f position = lerp(t1.getPosition(), t2.getPosition(), alpha, new Point3f());
+		EulerAnglesDeg3f orientation = lerp(t1.getOrientation(), t2.getOrientation(), alpha, new EulerAnglesDeg3f());
+		Vec3f scale = lerp(t1.getScale(), t2.getScale(), alpha, new Vec3f());
+		
+		res.set(position, orientation, scale);
+		
+		return res;
 	}
 }

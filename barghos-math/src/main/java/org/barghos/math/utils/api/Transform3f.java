@@ -29,7 +29,6 @@ import org.barghos.core.tuple3.api.Tup3fW;
 
 import org.barghos.math.matrix.Mat4f;
 import org.barghos.math.point.Point3f;
-import org.barghos.math.utils.EulerAngles3f;
 import org.barghos.math.vec3.Vec3f;
 
 /**
@@ -41,24 +40,24 @@ public interface Transform3f extends Transformable3f
 	Point3f getPosition();
 	<T extends Tup3fW> T getPosition(T res);
 	
-	EulerAngles3f getOrientation();
-	<T extends Tup3fW> T getOrientation(T res);
+	EulerAngles3fR getOrientation();
+	<T extends EulerAngles3fW> T getOrientation(T res);
 	
 	Vec3f getScale();
 	<T extends Tup3fW> T getScale(T res);
 	
 	Transform3f set(Transform3f t);
 	
-	Transform3f set(Tup3fR position, EulerAngles3f orientation, Tup3fR scale);
-	Transform3f set(float posX, float posY, float posZ, EulerAngles3f orientation, Tup3fR scale);
+	Transform3f set(Tup3fR position, EulerAngles3fR orientation, Tup3fR scale);
+	Transform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, Tup3fR scale);
 	Transform3f set(Tup3fR position, float pitch, float yaw, float roll, Tup3fR scale);
 	Transform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll, Tup3fR scale);
-	Transform3f set(Tup3fR position, EulerAngles3f orientation, float scale);
-	Transform3f set(float posX, float posY, float posZ, EulerAngles3f orientation, float scale);
+	Transform3f set(Tup3fR position, EulerAngles3fR orientation, float scale);
+	Transform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, float scale);
 	Transform3f set(Tup3fR position, float pitch, float yaw, float roll, float scale);
 	Transform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll, float scale);
-	Transform3f set(Tup3fR position, EulerAngles3f orientation, float scaleX, float scaleY, float scaleZ);
-	Transform3f set(float posX, float posY, float posZ, EulerAngles3f orientation, float scaleX, float scaleY, float scaleZ);
+	Transform3f set(Tup3fR position, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ);
+	Transform3f set(float posX, float posY, float posZ, EulerAngles3fR orientation, float scaleX, float scaleY, float scaleZ);
 	Transform3f set(Tup3fR position, float pitch, float yaw, float roll,  float scaleX, float scaleY, float scaleZ);
 	Transform3f set(float posX, float posY, float posZ, float pitch, float yaw, float roll,  float scaleX, float scaleY, float scaleZ);
 	

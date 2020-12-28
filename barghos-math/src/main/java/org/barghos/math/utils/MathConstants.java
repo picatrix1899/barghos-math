@@ -30,7 +30,7 @@ package org.barghos.math.utils;
  * 
  * @author picatrix1899
  */
-interface MathConstants
+public class MathConstants
 {
 		/**
 	 * The number PI with 11 digits after point.
