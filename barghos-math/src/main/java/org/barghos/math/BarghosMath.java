@@ -26,7 +26,9 @@ package org.barghos.math;
 
 import org.barghos.math.utils.LinearSystem3;
 import org.barghos.math.utils.Maths;
+import org.barghos.math.utils.RoundingBehaviors;
 import org.barghos.math.utils.api.EulerRotationOrder3;
+import org.barghos.math.utils.api.RoundingBehavior;
 import org.barghos.math.vec3.Vec3fAxis;
 
 /**
@@ -41,4 +43,5 @@ public class BarghosMath
 	public static final EulerRotationOrder3 DEFAULT_EULER_ROTATION_ORDER = EulerRotationOrder3.ROLL_PITCH_YAW;
 	public static float DEFAULT_ZERO_THRESHOLD_F = Maths.SMALL_NUMBER_E6f;
 	public static double DEFAULT_ZERO_THRESHOLD = Maths.SMALL_NUMBER_E6;
+	public static RoundingBehavior DEFAULT_ROUNDING_BEHAVIOR = RoundingBehaviors.ROUND;
 }
