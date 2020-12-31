@@ -40,7 +40,7 @@ public class BarghosMath
 	public static final boolean BUILD_FLAG__PARAMETER_CHECKS = false;
 
 	public static LinearSystem3 DEFAULT_SYSTEM = new LinearSystem3(Vec3fAxis.AXIS_Z, Vec3fAxis.AXIS_X, Vec3fAxis.AXIS_Y);
-	public static final EulerRotationOrder3 DEFAULT_EULER_ROTATION_ORDER = EulerRotationOrder3.ROLL_PITCH_YAW;
+	public static EulerRotationOrder3 DEFAULT_EULER_ROTATION_ORDER = EulerRotationOrder3.ROLL_PITCH_YAW;
 	public static float DEFAULT_ZERO_THRESHOLD_F = Maths.SMALL_NUMBER_E6f;
 	public static double DEFAULT_ZERO_THRESHOLD = Maths.SMALL_NUMBER_E6;
 	public static RoundingBehavior DEFAULT_ROUNDING_BEHAVIOR = RoundingBehaviors.ROUND;
